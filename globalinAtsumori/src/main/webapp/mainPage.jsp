@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>아쯔모리</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 	<div class="wrapper">
