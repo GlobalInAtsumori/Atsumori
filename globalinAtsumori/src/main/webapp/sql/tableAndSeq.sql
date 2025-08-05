@@ -43,7 +43,7 @@ CREATE TABLE tradeImage (
 );
 
 -- board 테이블
-CREATE TABLE board (
+CREATE TABLE board2 (
     boardNo NUMBER NOT NULL,
     title VARCHAR2(100) NOT NULL,
     content VARCHAR2(3000) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE boardComment (
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARDCOMMENT PRIMARY KEY (commentNo),
     CONSTRAINT FK_BOARDCOMM_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo),
-    CONSTRAINT FK_BOARDCOMM_BOARD FOREIGN KEY (boardNo) REFERENCES board(boardNo)
+    CONSTRAINT FK_BOARDCOMM_BOARD FOREIGN KEY (boardNo) REFERENCES board2(boardNo)
 );
 
 -- member 테이블용 시퀀스
@@ -122,7 +122,7 @@ CREATE SEQUENCE tradeimage_seq
     NOCACHE;
 
 -- board 테이블용 시퀀스
-CREATE SEQUENCE board_seq
+CREATE SEQUENCE board_seq2
     START WITH 1
     INCREMENT BY 1
     NOCACHE;
