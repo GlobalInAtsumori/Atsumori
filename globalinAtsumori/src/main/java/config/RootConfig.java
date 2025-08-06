@@ -42,6 +42,8 @@ public class RootConfig {
         
         factory.setTypeAliases(new Class[] {
                 domain.MemberVO.class,
+                domain.RestaurantVO.class,
+                domain.ReviewImageVO.class,
             });
         
         return factory.getObject();
