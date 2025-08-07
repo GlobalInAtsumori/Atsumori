@@ -14,11 +14,11 @@
 
 		<jsp:include page="includes/navbar.jsp" />
 		<jsp:include page="includes/banner.jsp" />
-
 		<div class="main-image">
 			<img src="https://i.pinimg.com/736x/be/ff/20/beff2017ae20d0162213c40dc3931208.jpg" alt="메인 이미지">
 		</div>
 
 	</div>
+	    <jsp:include page="/includes/MultiChatMain_20250805.jsp" />
 </body>
 </html>
