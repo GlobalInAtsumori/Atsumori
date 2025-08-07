@@ -6,11 +6,10 @@
 	text-decoration: none;
 	border: none;
 	font-family: 'Segoe UI', sans-serif;
+	outline: none;
 }
 
 table.shWrite {
-	width: 650px;
-	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
@@ -26,4 +25,15 @@ tr {
 td.textonly {
 	font-weight: 600;
 	font-size: 18pt;
+}
+
+td.input {
+	border: 1px solid black;
+	width: 540px;
+}
+
+td.input input {
+	height: 28px;
+    padding: 4px;
+    width: 100%;
 }

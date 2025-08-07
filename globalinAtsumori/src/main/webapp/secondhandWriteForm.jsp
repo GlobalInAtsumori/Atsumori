@@ -20,16 +20,22 @@
 		<form action="shWriteProc.jsp" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
 			<table class="shWrite">
 				<tr>
-					<td class="textonly">subject</td>
-					<td>input</td>
+					<td class="textonly">タイトル</td>
+					<td class="input">
+						<input type="text" maxlength="30" name="tradeTitle">
+					</td>
 				</tr>
 				<tr>
-					<td class="textonly">price</td>
-					<td>input</td>
+					<td class="textonly">希望価格</td>
+					<td class="input">
+						<input type="text" maxlength="30" name="cost" id="costCheck" placeholder="数字を入力してください。">					
+					</td>
 				</tr>
 				<tr>
-					<td class="textonly">content</td>
-					<td>input</td>
+					<td class="textonly">詳細な説明</td>
+					<td class="input">
+					
+					</td>
 				</tr>
 				<tr>
 					<td>submit</td>
