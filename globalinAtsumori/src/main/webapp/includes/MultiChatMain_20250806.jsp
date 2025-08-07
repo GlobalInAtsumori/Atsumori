@@ -36,8 +36,7 @@
 
 			var frame = document.getElementById("chatFrame");
 			frame.src = "${pageContext.request.contextPath}/includes/ChatWindow_20250806.jsp?chatId="
-			frame.src = "/includes/ChatWindow_20250806.jsp?chatId="
-					+ encodeURIComponent(id.value);
+			+ encodeURIComponent(id.value);
 
 			document.getElementById("introSection").style.display = "none"; // introSection 숨기기
 			document.getElementById("chatFrameContainer").style.display = "block";
