@@ -2,6 +2,10 @@
 /target/
 /.apt_generated/
 /.apt_generated_tests/
+<<<<<<< HEAD
+=======
+/bin/
+>>>>>>> 859b5b4d7477701e266df9c72337256852ded9b2
 
 # Java 컴파일 결과물
 *.class
