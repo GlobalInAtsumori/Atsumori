@@ -2,9 +2,9 @@
 <div class="navbar">
 	<div class="navbar-left">아쯔모리</div>
 	<div class="navbar-center">
-		<a href="#">자유 게시판</a>
-		<a href="#">맛집 정보</a>
-		<a href="#">중고 거래</a>
+		<a href="test.jsp">자유 게시판</a>
+		<a href="test.jsp">맛집 정보</a>
+		<a href="test.jsp">중고 거래</a>
 	</div>
 	<div class="navbar-right">
 		<a href="#">회원가입</a>
