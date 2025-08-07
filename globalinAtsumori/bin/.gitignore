@@ -13,4 +13,4 @@
 
 # OS별 불필요한 파일
 .DS_Store
-Thumbs.db.swp
+Thumbs.db

@@ -35,6 +35,7 @@
 			}
 
 			var frame = document.getElementById("chatFrame");
+			frame.src = "${pageContext.request.contextPath}/includes/ChatWindow_20250806.jsp?chatId="
 			frame.src = "/includes/ChatWindow_20250806.jsp?chatId="
 					+ encodeURIComponent(id.value);
 

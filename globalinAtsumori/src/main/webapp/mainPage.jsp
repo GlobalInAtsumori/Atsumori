@@ -5,6 +5,9 @@ request.setAttribute("bannerMessage", "アツモリにようこそ！");
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<title>아쯔모리</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <meta charset="UTF-8">
 <title>아쯔모리</title>
 <link rel="stylesheet" href="css/style.css">
