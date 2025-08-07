@@ -45,10 +45,13 @@ html {
 }
 
 body {
+  margin: 0;
+  padding: 0;
   width: 100%;
-  padding-right: 270px;  /* 채팅창 너비만큼 확보 */
+  padding-right: 270px;  /* chatContainer 공간 확보 */
   box-sizing: border-box;
-  margin: 0 auto;
+  background-color: #FFFFFF;
+  overflow-x: hidden;
 }
 
 a, body, button, div, input, label, h2 {
@@ -201,22 +204,22 @@ button.in::before {
 /* 	overflow-y : auto; */
 }
 #chatContainer2 { 
-  background-color: var(--control-back-color);
-  position: fixed; /* 고정 위치 */
-    bottom: 0px; /* 하단에서 20px */
+    position: fixed; /* 고정 위치 */
     right: 0px; /* 오른쪽에서 20px */
+    bottom: 0px; /* 하단에서 20px */
+  	width : 100% + max-width;
  	min-width: unset; /* 최소 너비 설정 */
- 	max-width: 100%;
-  	min-height: 250px; /* 최소 높이 설정 */
-  	max-height: 100vh; /* 화면 높이의 80%를 최대치로 */
-  	width : 100%;
+ 	max-width: 430px;
   	height : 560px;
-    border: 1px solid var(--border-color); /* 테두리 추가 */
-    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: var(--control-back-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    border: 1px solid var(--border-color); /* 테두리 추가 */
     z-index: 10000; /* 다른 요소 위에 표시 */
 	box-sizing : border-box;
-	overflow-y : hidden;
+/*   	min-height: 250px; 최소 높이 설정
+  	max-height: 100vh; 화면 높이의 80%를 최대치로
+    border-radius: 5px; 모서리 둥글게
+	overflow-y : hidden; */
 /* 	overflow-y : auto; */
 }
 
@@ -249,12 +252,12 @@ button.in::before {
 
 #chatFrameContainer {
 /*   margin-top: 0px; */
-  width: 400px; /* 부모 컨테이너인 #chatContainer의 전체 너비 사용 */
+  width: 100%; /* 부모 컨테이너인 #chatContainer의 전체 너비 사용 */
   height : 550px;
     display: flex; /* flex를 사용하여 내부 요소 정렬 */
+    box-sizing: border-box;
   /*   justify-content: center; 중앙 정렬 */
     
-	box-sizing : border-box;
 	overflow-y: auto;
 }
 
