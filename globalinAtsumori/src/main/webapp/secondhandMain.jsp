@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>🛒中古品売買🛒</title>
+<title>🛒中古品売買test🛒</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/basic.css">
 </head>
