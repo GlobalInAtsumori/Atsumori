@@ -82,7 +82,7 @@
 			<groupId>javax.websocket</groupId>
 			<artifactId>javax.websocket-api</artifactId>
 			<version>1.1</version>
-		</dependency>
+		</dependency><!-- commit용 -->
 	</dependencies>
 
 	<!-- <properties> <maven.compiler.source>1.8</maven.compiler.source> <maven.compiler.target>1.8</maven.compiler.target> 

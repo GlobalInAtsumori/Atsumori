@@ -20,7 +20,7 @@ request.setAttribute("bannerMessage", "アツモリにようこそ！");
 				src="https://i.pinimg.com/736x/be/ff/20/beff2017ae20d0162213c40dc3931208.jpg"
 				alt="메인 이미지">
 		</div>
-		<jsp:include page="/includes/MultiChatMain_20250805.jsp" />
+		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 	</div>
 </body>
 </html>
