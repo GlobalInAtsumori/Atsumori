@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>✏️中古品売買✏️</title>
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/basic.css">
+<link rel="stylesheet" href="css/secondhand.css">
 </head>
 <body>
 
