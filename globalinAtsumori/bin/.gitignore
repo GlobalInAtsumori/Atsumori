@@ -1,0 +1,16 @@
+/log/
+/target/
+/.apt_generated/
+/.apt_generated_tests/
+/bin/
+
+# Java 컴파일 결과물
+*.class
+
+# Eclipse 설정 파일
+.classpath
+.settings/
+
+# OS별 불필요한 파일
+.DS_Store
+Thumbs.db
