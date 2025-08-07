@@ -18,19 +18,22 @@
 		<jsp:include page="includes/banner.jsp" />
 	
 		<form action="shWriteProc.jsp" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
-			<table>
-			<!-- 테스트용 간단 폼 -->
+			<table class="shWrite">
 				<tr>
-					<td>상품명</td>
-					<td>
-						<input type="text" size="50" maxlength="50" name="tradeTitle">
-					</td>
+					<td class="textonly">subject</td>
+					<td>input</td>
 				</tr>
-				
 				<tr>
-					<td>
-						<input type="submit" value="shWrite">
-					</td>
+					<td class="textonly">price</td>
+					<td>input</td>
+				</tr>
+				<tr>
+					<td class="textonly">content</td>
+					<td>input</td>
+				</tr>
+				<tr>
+					<td>submit</td>
+					<td>input</td>
 				</tr>
 			</table>
 		</form>

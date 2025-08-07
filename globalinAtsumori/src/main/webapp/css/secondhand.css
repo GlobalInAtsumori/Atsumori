@@ -7,3 +7,23 @@
 	border: none;
 	font-family: 'Segoe UI', sans-serif;
 }
+
+table.shWrite {
+	width: 650px;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+    flex-wrap: wrap;
+    padding-top: 60px;
+}
+
+tr {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+}
+td.textonly {
+	font-weight: 600;
+	font-size: 18pt;
+}
