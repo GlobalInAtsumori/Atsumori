@@ -5,21 +5,21 @@
 
 function shWriteSave() {
 	
-	if(document.secondhandWriteForm.tradeTitle.value=="") {
+	if(document.shWriteForm.tradeTitle.value=="") {
 		alert("タイトルを入力してください。");
-		document.secondhandWriteForm.tradeTitle.focus();
+		document.shWriteForm.tradeTitle.focus();
 		return false;
 	}
 	
-	if(document.secondhandWriteForm.cost.value=="") {
+	if(document.shWriteForm.cost.value=="") {
 		alert("希望価格を入力してください。");
-		document.secondhandWriteForm.cost.focus();
+		document.shWriteForm.cost.focus();
 		return false;
 	}
 	
-	if(document.secondhandWriteForm.tradeContent.value=="") {
+	if(document.shWriteForm.tradeContent.value=="") {
 		alert("内容を入力してください。");
-		document.secondhandWriteForm.tradeContent.focus();
+		document.shWriteForm.tradeContent.focus();
 		return false;
 	}
 	
