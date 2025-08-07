@@ -1,0 +1,39 @@
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	border: none;
+	font-family: 'Segoe UI', sans-serif;
+	outline: none;
+}
+
+table.shWrite {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+    flex-wrap: wrap;
+    padding-top: 60px;
+}
+
+tr {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+}
+td.textonly {
+	font-weight: 600;
+	font-size: 18pt;
+}
+
+td.input {
+	border: 1px solid black;
+	width: 540px;
+}
+
+td.input input {
+	height: 28px;
+    padding: 4px;
+    width: 100%;
+}
