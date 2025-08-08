@@ -14,7 +14,7 @@ table.shWrite {
 	flex-direction: column;
 	align-content: center;
     flex-wrap: wrap;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 tr {
@@ -25,6 +25,7 @@ tr {
 td.textonly {
 	font-weight: 600;
 	font-size: 18pt;
+	margin-bottom: 10px;
 }
 
 td.input {
@@ -36,4 +37,11 @@ td.input input {
 	height: 28px;
     padding: 4px;
     width: 100%;
+}
+
+td.input textarea {
+	width:100%;
+	height: 330px;
+    padding: 7px;
+	resize: none;
 }
