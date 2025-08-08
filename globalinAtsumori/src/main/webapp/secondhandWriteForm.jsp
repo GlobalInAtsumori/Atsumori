@@ -38,8 +38,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td>submit</td>
-					<td>input</td>
+					<td>
+						<input type="submit" value="登録">
+						<input type="reset" value="書換え">
+						<input type="button" value="取消し" onclick="window.location='secondhandMain.jsp'">						
+					</td>
 				</tr>
 			</table>
 		</form>
