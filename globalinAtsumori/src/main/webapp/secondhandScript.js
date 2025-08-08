@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	const input = document.getElementById("costCheck");
 	
 	input.addEventListener("input", function(e){
-		
+		//숫자가 아니면 alert
 		if(!/^\d*$/.test(this.value)) {
 			alert("数字を入力してください。");
+			//숫자만 남기고 제거
 			this.value = this.value.replace(/\D/g, '');
 		}
 	});

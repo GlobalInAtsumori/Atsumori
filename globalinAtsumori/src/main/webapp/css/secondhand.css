@@ -45,3 +45,23 @@ td.input textarea {
     padding: 7px;
 	resize: none;
 }
+
+tr.forCenter {
+	align-items: center;
+}
+
+td.button {
+	display: flex;
+	gap: 15px;
+	width: fit-content;
+}
+
+td.button input {
+	width: 65px;
+	height: 35px;
+	background: #000000;
+	border-radius: 5px;
+	color: #ffffff;
+	font-size: 15px;
+    font-weight: 500;
+}
