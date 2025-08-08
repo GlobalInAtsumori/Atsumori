@@ -34,7 +34,7 @@
 				<tr>
 					<td class="textonly">詳細な説明</td>
 					<td class="input">
-					
+					test
 					</td>
 				</tr>
 				<tr>
