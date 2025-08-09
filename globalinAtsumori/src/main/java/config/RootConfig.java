@@ -44,6 +44,7 @@ public class RootConfig {
                 domain.MemberVO.class,
                 domain.RestaurantVO.class,
                 domain.ReviewImageVO.class,
+                domain.ReviewVO.class,
             });
         
         return factory.getObject();

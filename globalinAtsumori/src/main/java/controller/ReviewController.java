@@ -1,8 +1,44 @@
 package controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import dto.ReviewCreateDTO;
+import service.ReviewService;
 
 @Controller
-public class ReviewController {
+public class ReviewController { //리뷰 등록/조회/수정/삭제
+	private final ReviewService reviewService;
 
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
+    
+	@PostMapping("/review/create")
+	public String createReview(ReviewCreateDTO reviewDto) { //추후 @SessionAttribute(name="userNo", required=false) int userNo 매개변수 추가
+		int userNo = 1;
+		
+		reviewService.create(reviewDto, userNo);
+		
+		return "mainPage";
+	}
+	
+	@GetMapping("/review/read")
+	public String readReview() {
+		return "mainPage";
+	}
+	
+	@PostMapping("/review/update")
+	public String updateReview() {
+		return "mainPage";
+	}
+	
+	@DeleteMapping("/review/delete/{no}")
+	public String deleteReview(@PathVariable int no) {
+		return "mainPage";
+	}
 }
