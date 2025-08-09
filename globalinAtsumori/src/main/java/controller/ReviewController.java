@@ -20,7 +20,7 @@ public class ReviewController { //리뷰 등록/조회/수정/삭제
     
 	@PostMapping("/review/create")
 	public String createReview(ReviewCreateDTO reviewDto) { //추후 @SessionAttribute(name="userNo", required=false) int userNo 매개변수 추가
-		int userNo = 1;
+		int userNo = 2;
 		
 		reviewService.create(reviewDto, userNo);
 		

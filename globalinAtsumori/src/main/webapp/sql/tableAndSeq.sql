@@ -9,7 +9,7 @@ CREATE TABLE member (
     permission VARCHAR2(20) NOT NULL,
     CONSTRAINT PK_MEMBER PRIMARY KEY (memberNo)
 );
-
+select * from member;
 -- tradePost 테이블
 CREATE TABLE tradePost (
     tradePostNo NUMBER NOT NULL,
@@ -63,6 +63,7 @@ CREATE TABLE restaurant (
     CONSTRAINT PK_RESTAURANT PRIMARY KEY (restNo)
 );
 
+insert into restaurant values(1, 'testRest', '영등포구 영등포동', 100, 100);
 -- review 테이블
 CREATE TABLE review (
     reviewNo NUMBER NOT NULL,
@@ -75,7 +76,7 @@ CREATE TABLE review (
     CONSTRAINT FK_REVIEW_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo),
     CONSTRAINT FK_REVIEW_RESTAURANT FOREIGN KEY (restNo) REFERENCES restaurant(restNo)
 );
-
+select * from review;
 -- reviewImage 테이블
 CREATE TABLE reviewImage (
     reviewImgNo NUMBER NOT NULL,

@@ -47,6 +47,10 @@ public class RootConfig {
                 domain.ReviewVO.class,
             });
         
+        org.apache.ibatis.session.Configuration mybatisConfig = new org.apache.ibatis.session.Configuration();
+        mybatisConfig.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        factory.setConfiguration(mybatisConfig);
+        
         return factory.getObject();
     }
 
