@@ -2,7 +2,29 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<mapper namespace="mapper.RestaurantMapper">
 
+<mapper namespace="mapper.RestaurantMapper">
+	<select id="findInBounds" resultType="dto.RestListDTO">
+		SELECT
+	    rt.restNo      AS restNo,
+	    rt.restName    AS restName,
+	    rt.address     AS address,
+	    rt.latitude    AS latitude,
+	    rt.longitude   AS longitude,
+	    rv.reviewTitle AS reviewTitle,
+	    rv.reviewContent AS reviewContent
+		FROM restaurant rt
+		LEFT JOIN (
+    		SELECT r1.restNo, r1.reviewTitle, r1.reviewContent
+   	 		FROM review r1
+    		WHERE r1.createDate = (
+        		SELECT MAX(r2.createDate)
+        		FROM review r2
+        		WHERE r2.restNo = r1.restNo
+    		)
+		) rv
+		ON rt.restNo = rv.restNo
+		WHERE rt.latitude BETWEEN #{swLat} AND #{neLat}
+		  AND rt.longitude BETWEEN #{swLng} AND #{neLng}
+	</select>
 </mapper>

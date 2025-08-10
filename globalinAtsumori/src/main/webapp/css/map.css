@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* 지도 + 목록 컨테이너 */
+.map-container {
+	position: relative;
+    display: flex;
+    height: 500px;
+    background-color: #e0e0e0;;
+}
+
+/* 맛집 목록 영역 */
+#restaurantList {
+    flex: 1;
+    background-color: #ffffff;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+    padding: 15px;
+    position: relative; /* 버튼 기준 위치 */
+}
+
+/* 리뷰 쓰기 버튼 - 왼쪽 목록 영역 왼쪽 아래 고정 */
+#writeReviewBtn {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    padding: 12px 24px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10;
+}
+
+/* 각 맛집 아이템 스타일 */
+.restaurant-item {
+  padding: 15px 12px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+/* 리뷰 제목/내용 스타일 - 목록 아이템 클릭 시 보일 때 */
+.review-info {
+  background-color: #eee;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #444;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 지도 영역 */
+#map {
+    flex: 1;
+}

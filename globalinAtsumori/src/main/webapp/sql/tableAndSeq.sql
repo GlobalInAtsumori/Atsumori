@@ -64,6 +64,7 @@ CREATE TABLE restaurant (
 );
 
 insert into restaurant values(1, 'testRest', '영등포구 영등포동', 100, 100);
+insert into restaurant values(2, '영등포역', '영등포구 영등포동', 126.90466, 37.50933);
 -- review 테이블
 CREATE TABLE review (
     reviewNo NUMBER NOT NULL,
