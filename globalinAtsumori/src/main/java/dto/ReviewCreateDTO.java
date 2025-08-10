@@ -8,7 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReviewCreateDTO {
+	String restName;
+	String address;
+	String longitude;
+	String latitude;
 	String reviewTitle;
 	String reviewContent;
-	int restNo;
 }

@@ -1,6 +1,8 @@
 package controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,16 @@ import service.ReviewService;
 public class ReviewController { //리뷰 등록/조회/수정/삭제
 	private final ReviewService reviewService;
     
+	@Value("${google.maps.api.key}")
+    private String mapApiKey;
+	
+	@GetMapping("/reviewWrite")
+	public String reviewWritePage(Model model) {
+    	model.addAttribute("mapApiKey", mapApiKey);
+    	
+		return "reviewWrite";
+    }
+	
 	@PostMapping("/review/create")
 	public String createReview(ReviewCreateDTO reviewDto) { //추후 @SessionAttribute(name="userNo", required=false) int userNo 매개변수 추가
 		int userNo = 2;

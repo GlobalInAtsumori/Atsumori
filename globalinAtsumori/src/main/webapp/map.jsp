@@ -29,7 +29,7 @@
 				<!-- 목록이 여기 들어감 -->
 			</div>
 			
-			<button id="writeReviewBtn" onclick="location.href='reviewWrite.jsp'">리뷰 쓰기</button>
+			<button id="writeReviewBtn" onclick="location.href='reviewWrite'">리뷰 쓰기</button>
 
 			<!-- 오른쪽: 지도 -->
 			<div id="map"></div>

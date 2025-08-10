@@ -27,4 +27,11 @@
 		WHERE rt.latitude BETWEEN #{swLat} AND #{neLat}
 		  AND rt.longitude BETWEEN #{swLng} AND #{neLng}
 	</select>
+	
+	<insert id="insertRestuarant" parameterType="restaurantVO">
+    	<selectKey keyProperty="restNo" order="BEFORE" resultType="int">
+        	SELECT restaurant_seq.NEXTVAL FROM dual
+    	</selectKey>
+    	insert into restaurant values (#{restNo}, #{restName}, #{address}, #{longitude}, #{latitude})
+	</insert>
 </mapper>
