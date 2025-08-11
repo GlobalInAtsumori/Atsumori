@@ -112,6 +112,8 @@
 </head>
 
 <body>
+
+<div class="chat-container">
 	<!-- 초기 화면 -->
 <!-- 	<div>
     	<h2>채팅에 오신 것을 환영합니다!</h2>
@@ -119,7 +121,7 @@
 	<!-- 대화창 UI 구조 정의 -->
 	<div id="chatContainer2" >
 			<div id="chatHeader">
-				<button id="minimizeBtn" class="in" onclick="minimizeChatFromIframe()">⏷</button>
+				<button id="minimizeBtn" onclick="minimizeChatFromIframe()">⏷</button>
 			</div>
 	<div class="group">
 			<label>참가 대화명</label> 
@@ -133,6 +135,7 @@
 			<button id="sendBtn" onclick="sendMessage();">전송</button>
 			<button id="closeBtn" onclick="disconnect();">채팅 종료</button>
 		</div>
+	</div>
 	</div>
 	</div>
 </body>

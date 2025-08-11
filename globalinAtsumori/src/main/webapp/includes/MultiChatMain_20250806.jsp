@@ -108,6 +108,7 @@
 		}
 	</script>
 
+<div class="chat-container">
 	<!-- 말풍선아이콘 클릭시 채팅창 열고 닫기 -->
 	<button id="toggleBtn" onclick="toggleChat()">💬 채팅</button>
 
@@ -116,11 +117,11 @@
 	<div id="chatContainer" style="display: none;">
 		<div id="introSection">
 			<div id="introHeader">
-				<button id="minimizeIntroBtn" class="in" onclick="minimizeChat()">⏷</button>
+				<button id="minimizeIntroBtn"  onclick="minimizeChat()">⏷</button>
 				<!--  축소 버튼 -->
 			</div>
 			<div id="chatHeader">
-				<button id="minimizeBtn" class="in" onclick="minimizeChat()">⏷</button>
+				<button id="minimizeBtn"  onclick="minimizeChat()">⏷</button>
 			</div>
 
 			<h2>실시간 채팅</h2>
@@ -134,8 +135,7 @@
 		<div id="chatFrameContainer" style="display: none;">
 			<iframe id="chatFrame" src="" frameborder="0" width="100%"></iframe>
 		</div>
-
-
+	</div>
 	</div>
 </body>
 </html>
