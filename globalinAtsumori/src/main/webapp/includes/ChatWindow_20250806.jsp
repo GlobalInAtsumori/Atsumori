@@ -121,7 +121,7 @@
 	<!-- 대화창 UI 구조 정의 -->
 	<div id="chatContainer2" >
 			<div id="chatHeader">
-				<button id="minimizeBtn" class="in" onclick="minimizeChatFromIframe()">⏷</button>
+				<button id="minimizeBtn" onclick="minimizeChatFromIframe()">⏷</button>
 			</div>
 	<div class="group">
 			<label>참가 대화명</label> 

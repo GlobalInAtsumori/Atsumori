@@ -117,11 +117,11 @@
 	<div id="chatContainer" style="display: none;">
 		<div id="introSection">
 			<div id="introHeader">
-				<button id="minimizeIntroBtn" class="in" onclick="minimizeChat()">⏷</button>
+				<button id="minimizeIntroBtn"  onclick="minimizeChat()">⏷</button>
 				<!--  축소 버튼 -->
 			</div>
 			<div id="chatHeader">
-				<button id="minimizeBtn" class="in" onclick="minimizeChat()">⏷</button>
+				<button id="minimizeBtn"  onclick="minimizeChat()">⏷</button>
 			</div>
 
 			<h2>실시간 채팅</h2>
