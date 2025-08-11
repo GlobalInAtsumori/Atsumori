@@ -13,4 +13,11 @@
 
 # OS별 불필요한 파일
 .DS_Store
+Thumbs.db
 Thumbs.db.swp
+
+/src/main/webapp/js/constConfig.js
+/src/main/resources/application.properties
+
+
+
