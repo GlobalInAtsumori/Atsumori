@@ -112,6 +112,8 @@
 </head>
 
 <body>
+
+<div class="chat-container">
 	<!-- 초기 화면 -->
 <!-- 	<div>
     	<h2>채팅에 오신 것을 환영합니다!</h2>
@@ -133,6 +135,7 @@
 			<button id="sendBtn" onclick="sendMessage();">전송</button>
 			<button id="closeBtn" onclick="disconnect();">채팅 종료</button>
 		</div>
+	</div>
 	</div>
 	</div>
 </body>

@@ -108,6 +108,7 @@
 		}
 	</script>
 
+<div class="chat-container">
 	<!-- 말풍선아이콘 클릭시 채팅창 열고 닫기 -->
 	<button id="toggleBtn" onclick="toggleChat()">💬 채팅</button>
 
@@ -134,8 +135,7 @@
 		<div id="chatFrameContainer" style="display: none;">
 			<iframe id="chatFrame" src="" frameborder="0" width="100%"></iframe>
 		</div>
-
-
+	</div>
 	</div>
 </body>
 </html>
