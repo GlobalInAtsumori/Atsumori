@@ -65,3 +65,8 @@ td.button input {
 	font-size: 15px;
     font-weight: 500;
 }
+
+td.button input:hover {
+	color: #000000;
+	background: #dddddd;
+}
