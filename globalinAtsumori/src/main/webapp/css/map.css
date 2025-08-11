@@ -9,7 +9,7 @@
 
 /* 맛집 목록 영역 */
 #restaurantList {
-    flex: 1;
+    flex: 0.4;
     background-color: #ffffff;
     overflow-y: auto;
     border-right: 1px solid #ddd;
@@ -52,5 +52,5 @@
 
 /* 지도 영역 */
 #map {
-    flex: 1;
+    flex: 0.6;
 }

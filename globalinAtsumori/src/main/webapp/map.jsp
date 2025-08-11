@@ -11,12 +11,13 @@
 <title>아쯔모리</title>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=<%=mapApiKey%>&callback=initMap&v=weekly&libraries=marker"
+
 	async="true"
+
 	defer></script>
 <script src="js/map.js"></script>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="css/map.css">
-<link rel="stylesheet" href="css/basic.css">
 </head>
 <body>
 	<div class="wrapper">
