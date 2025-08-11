@@ -15,6 +15,7 @@
 
 		<jsp:include page="includes/navbar.jsp" />
 		<jsp:include page="includes/banner.jsp" />
+		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 	</div>
 </body>

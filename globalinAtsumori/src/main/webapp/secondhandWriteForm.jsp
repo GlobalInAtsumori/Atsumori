@@ -16,6 +16,7 @@
 	<div class="wrapper">
 		<jsp:include page="includes/navbar.jsp" />
 		<jsp:include page="includes/banner.jsp" />
+		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 	
 		<form action="shWriteProc.jsp" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
 			<table class="shWrite">
