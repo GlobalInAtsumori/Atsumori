@@ -14,4 +14,8 @@ public class SecondhandVO {
 	private String status;
 	private int cutomer;
 	private Timestamp createDate;
+	//멤버번호용
+	private int memberNo;
 }
+
+

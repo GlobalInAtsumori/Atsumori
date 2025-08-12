@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import org.apache.ibatis.annotations.Results;
 
 import domain.SecondhandVO;
+import domain.MemberVO;
 
 public class SecondhandDAO {
 	private static SecondhandDAO instance = null;
@@ -39,19 +40,21 @@ public class SecondhandDAO {
 			
 			con = DBConnect.getConnection();
 			
-			if(rs.next()) tradePostNo = rs.getInt(1)+1;
-			else tradePostNo = 1;
-			
-			
 			sql = "insert into tradePost(tradePostNo, tradeTitle, tradeContent, cost, "
-					+ "status, createDate) "
-					+ "values(tradepost_seq.nextval, ?, ?, ?, ?, ?)";
+					+ "status, memberNo, createDate) "
+					+ "values(tradepost_seq.nextval, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, shArticle.getTradeTitle());
 			pstmt.setString(2, shArticle.getTradeContent());
 			pstmt.setInt(3, shArticle.getCost());
-			pstmt.setString(4, shArticle.getStatus());
-			pstmt.setTimestamp(5, shArticle.getCreateDate());
+			//status null인 경우 기본값으로 AVAILABLE로 설정
+			String status = shArticle.getStatus();
+			if (status == null || status.trim().isEmpty()) {
+			    status = "AVAILABLE";
+			}
+			pstmt.setString(4, status);
+			pstmt.setInt(5, shArticle.getMemberNo());
+			pstmt.setTimestamp(6, shArticle.getCreateDate());
 			
 			pstmt.executeUpdate();
 			
@@ -59,11 +62,6 @@ public class SecondhandDAO {
 			e.printStackTrace();
 		} finally {
 			
-			try {
-				if(rs!=null) rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
 			try {
 				if(pstmt!=null) pstmt.close();
 			} catch (SQLException se) {
