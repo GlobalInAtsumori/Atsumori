@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>✏️中古品売買✏️</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/secondhand.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/secondhand.css">
 <script type="text/javascript" src="secondhandScript.js"></script>
 </head>
 <body>
