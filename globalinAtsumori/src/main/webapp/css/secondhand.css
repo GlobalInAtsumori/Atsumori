@@ -9,7 +9,13 @@
 	outline: none;
 }
 
+div.sh-container {
+	padding: 0 55px;
+}
+
 div.sh-container button {
+	display: block;
+	margin: 0 auto;
     width: 80px;
     height: 40px;
     border-radius: 5px;
