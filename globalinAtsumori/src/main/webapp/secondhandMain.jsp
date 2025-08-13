@@ -17,7 +17,7 @@
 		<jsp:include page="includes/banner.jsp" />
 		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 		
-		<div class="sh-Container">
+		<div class="sh-container">
 			
 			<div class="sh-list">
 			<!-- 등록된 글 리스트 출력 예정 -->

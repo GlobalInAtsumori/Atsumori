@@ -9,6 +9,22 @@
 	outline: none;
 }
 
+div.sh-container button {
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    background: #000000;
+    color: #ffffff;
+	font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+div.sh-container button:hover {
+	color: #000000;
+	background: #dddddd;
+}
+
 table.shWrite {
 	display: flex;
 	flex-direction: column;
