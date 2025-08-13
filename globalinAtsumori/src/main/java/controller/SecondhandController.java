@@ -1,9 +1,14 @@
 package controller;
 
+import java.sql.Timestamp;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import dao.SecondhandDAO;
+import domain.SecondhandVO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -20,6 +25,17 @@ public class SecondhandController {
 		return "secondhandWrite";
     }
 	
-	
+	@PostMapping("/secondhand/write")
+	public String writeSecondhandArticle(SecondhandVO shArticle) {
+		// 로그인 기능 없어서 임시로 '김철수'로 하드코딩
+        shArticle.setMemberNo(4);
+        shArticle.setCreateDate(new Timestamp(System.currentTimeMillis()));
+
+        // DAO를 통해 저장
+        SecondhandDAO dao = SecondhandDAO.getInstance();
+        dao.insertSHArticle(shArticle);
+        
+        return "redirect:/secondhandMain";
+	}
 	
 }
