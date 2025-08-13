@@ -40,7 +40,7 @@
 				</tr>
 				<tr class="forCenter">
 					<td class="button">
-						<input type="submit" value="登録">
+						<input type="submit" value="投稿">
 						<input type="reset" value="書換え">
 						<input type="button" value="取消し" onclick="window.location='secondhandMain.jsp'">						
 					</td>
