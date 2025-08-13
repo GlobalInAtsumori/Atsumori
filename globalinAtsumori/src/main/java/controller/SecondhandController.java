@@ -14,4 +14,12 @@ public class SecondhandController {
 		return "secondhandMain";
 	}
 	
+	@GetMapping("/secondhandWrite")
+	public String reviewWritePage() {
+    	
+		return "secondhandWrite";
+    }
+	
+	
+	
 }
