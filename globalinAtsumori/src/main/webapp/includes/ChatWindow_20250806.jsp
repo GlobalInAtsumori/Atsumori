@@ -48,7 +48,9 @@
 	// WebSocket 이벤트 핸들러 설정
 	// 웹소켓 서버에 연결됐을 때 실행
 	webSocket.onopen = function(event) {
-		chatWindow.innerHTML += "웹소켓 서버에 연결되었습니다.<br/>";
+	/* 	chatWindow.innerHTML += "웹소켓 서버에 연결되었습니다.<br/>"; */
+		// 입장 알림: 서버에 /join|chatId 메시지 전송
+		webSocket.send("/join|" + chatId);
 	};
 
 	// 웹소켓이 닫혔을 때(서버와의 연결이 끊겼을 때) 실행
@@ -69,8 +71,15 @@
 		var message = event.data.split("|"); // 대화명과 메시지 분리
 		var sender = message[0]; // 보낸 사람의 대화명
 		var content = message[1]; // 메시지 내용
+			
 		if (content != "") {
-			if (content.match("/")) { // 귓속말
+			if ( sender == "/join"){
+				// 입장 알림 처리
+				chatWindow.innerHTML += "<div style='text-align: center; color: green;'>" + content + "님이 입장했습니다.</div>";
+			} else if (sender === "/leave") {
+				// 퇴장 알림 처리
+				chatWindow.innerHTML += "<div style='text-align: center; color: red;'>" + content + "님이 퇴장했습니다.</div>";
+			} else if (content.match("/")) { // 귓속말
 				if (content.match(("/" + chatId))) { // 나에게 보낸 메시지만 출력
 					var temp = content.replace(("/" + chatId), "[귓속말] : ");
 					chatWindow.innerHTML += "<div>" + sender + "" + temp
@@ -94,6 +103,8 @@
 
 	// 서버와의 연결 종료
 	function disconnect() {
+		// 퇴장 알림: 서버에 /leave|chatId 메시지 전송
+		webSocket.send("/leave|" + chatId);
 		webSocket.close();
 	}
 

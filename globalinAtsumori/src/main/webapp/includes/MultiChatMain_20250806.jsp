@@ -43,8 +43,6 @@
 			document.getElementById("chatContainer").style.display = "block";
 			document.getElementById("chatHeader").style.display = "flex"; // 상단 바 표시
 			document.getElementById("toggleBtn").style.display = "none"; // 토글 버튼 숨기기
-/* 	        document.getElementById("chatContainer2").style.height = "540px";
-	        document.getElementById("chatContainer2").style.width = "230px"; */
 			id.value = "";
 			isChatActive = true; // 실시간 채팅 모드로 전환
 
