@@ -11,7 +11,6 @@ public class SecondhandContrller {
 	
 	@GetMapping("/secondhandMain")
 	public String shMainPage() {
-		
 		return "secondhandMain";
 	}
 	
