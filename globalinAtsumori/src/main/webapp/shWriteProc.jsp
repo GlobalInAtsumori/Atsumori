@@ -1,3 +1,4 @@
+<%-- 이 페이지는 필요없을 수도 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
