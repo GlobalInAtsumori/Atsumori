@@ -9,6 +9,28 @@
 	outline: none;
 }
 
+div.sh-container {
+	padding: 0 55px;
+}
+
+div.sh-container button {
+	display: block;
+	margin: 0 auto;
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    background: #000000;
+    color: #ffffff;
+	font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+div.sh-container button:hover {
+	color: #000000;
+	background: #dddddd;
+}
+
 table.shWrite {
 	display: flex;
 	flex-direction: column;
@@ -64,4 +86,9 @@ td.button input {
 	color: #ffffff;
 	font-size: 15px;
     font-weight: 500;
+}
+
+td.button input:hover {
+	color: #000000;
+	background: #dddddd;
 }

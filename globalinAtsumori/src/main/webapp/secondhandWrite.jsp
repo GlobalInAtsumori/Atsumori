@@ -7,17 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>✏️中古品売買✏️</title>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/secondhand.css">
-<script type="text/javascript" src="secondhandScript.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/secondhand.css">
+<script type="text/javascript" src="js/secondhandScript.js"></script>
 </head>
 <body>
 
 	<div class="wrapper">
 		<jsp:include page="includes/navbar.jsp" />
 		<jsp:include page="includes/banner.jsp" />
+		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 	
-		<form action="shWriteProc.jsp" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
+		<form action="/secondhand/write" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
 			<table class="shWrite">
 				<tr>
 					<td class="textonly">タイトル</td>
@@ -39,7 +40,7 @@
 				</tr>
 				<tr class="forCenter">
 					<td class="button">
-						<input type="submit" value="登録">
+						<input type="submit" value="投稿">
 						<input type="reset" value="書換え">
 						<input type="button" value="取消し" onclick="window.location='secondhandMain.jsp'">						
 					</td>
