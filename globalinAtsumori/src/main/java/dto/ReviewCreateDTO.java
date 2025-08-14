@@ -1,6 +1,6 @@
 package dto;
 
-import java.sql.Date;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +14,6 @@ public class ReviewCreateDTO {
 	String latitude;
 	String reviewTitle;
 	String reviewContent;
+	MultipartFile imageFile;
+	
 }
