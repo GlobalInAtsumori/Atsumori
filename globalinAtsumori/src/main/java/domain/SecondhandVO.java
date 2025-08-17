@@ -12,7 +12,7 @@ public class SecondhandVO {
 	private String tradeContent;
 	private int cost;
 	private String status;
-	private int cutomer;
+	private int customer;
 	private Timestamp createDate;
 	//멤버번호용
 	private int memberNo;
