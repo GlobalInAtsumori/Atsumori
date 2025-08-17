@@ -18,7 +18,7 @@
 		<jsp:include page="includes/banner.jsp" />
 		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 	
-		<form action="/secondhand/write" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
+		<form action="/secondhand/write" method="post" name="shWriteForm" enctype="multipart/form-data" onsubmit="return shWriteSave()">
 			<table class="shWrite">
 				<tr>
 					<td class="textonly">タイトル</td>
