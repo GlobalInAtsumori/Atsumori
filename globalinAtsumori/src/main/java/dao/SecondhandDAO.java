@@ -5,10 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.ibatis.annotations.Results;
-
 import domain.SecondhandVO;
-import domain.MemberVO;
 
 public class SecondhandDAO {
 	private static SecondhandDAO instance = null;
