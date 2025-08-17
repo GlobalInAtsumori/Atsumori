@@ -43,8 +43,6 @@
 			document.getElementById("chatContainer").style.display = "block";
 			document.getElementById("chatHeader").style.display = "flex"; // 상단 바 표시
 			document.getElementById("toggleBtn").style.display = "none"; // 토글 버튼 숨기기
-/* 	        document.getElementById("chatContainer2").style.height = "540px";
-	        document.getElementById("chatContainer2").style.width = "230px"; */
 			id.value = "";
 			isChatActive = true; // 실시간 채팅 모드로 전환
 
@@ -108,6 +106,7 @@
 		}
 	</script>
 
+<div class="chat-container">
 	<!-- 말풍선아이콘 클릭시 채팅창 열고 닫기 -->
 	<button id="toggleBtn" onclick="toggleChat()">💬 채팅</button>
 
@@ -116,11 +115,11 @@
 	<div id="chatContainer" style="display: none;">
 		<div id="introSection">
 			<div id="introHeader">
-				<button id="minimizeIntroBtn" class="in" onclick="minimizeChat()">⏷</button>
+				<button id="minimizeIntroBtn"  onclick="minimizeChat()">⏷</button>
 				<!--  축소 버튼 -->
 			</div>
 			<div id="chatHeader">
-				<button id="minimizeBtn" class="in" onclick="minimizeChat()">⏷</button>
+				<button id="minimizeBtn"  onclick="minimizeChat()">⏷</button>
 			</div>
 
 			<h2>실시간 채팅</h2>
@@ -134,8 +133,7 @@
 		<div id="chatFrameContainer" style="display: none;">
 			<iframe id="chatFrame" src="" frameborder="0" width="100%"></iframe>
 		</div>
-
-
+	</div>
 	</div>
 </body>
 </html>

@@ -13,7 +13,7 @@
 
 <script 
     src="https://maps.googleapis.com/maps/api/js?key=<%=mapApiKey%>&libraries=places" 
-    async 
+    async="true"
     defer>
 </script>
 
@@ -28,8 +28,9 @@
 <div class="wrapper">
     <jsp:include page="includes/navbar.jsp" />
     <jsp:include page="includes/banner.jsp" />
+	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
-    <form action="/review/create" method="post" name="shWriteForm" onsubmit="return validateForm()">
+    <form action="/review/create" method="post" name="shWriteForm" onsubmit="return validateForm()" enctype="multipart/form-data">
         <table class="shWrite">
             <tr>
                 <td class="textonly">店検索</td>
@@ -66,6 +67,12 @@
                     <textarea name="reviewContent" required></textarea>
                 </td>
             </tr>
+            <tr>
+	            <td class="textonly">사진 업로드</td>
+	            <td class="input">
+	                <input type="file" name="imageFile" accept="image/*">
+	            </td>
+	        </tr>
             <tr class="forCenter">
                 <td class="button" colspan="2">
                     <input type="submit" value="登録">

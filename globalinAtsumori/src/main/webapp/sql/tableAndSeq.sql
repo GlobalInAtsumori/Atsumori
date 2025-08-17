@@ -89,6 +89,9 @@ CREATE TABLE reviewImage (
     CONSTRAINT FK_REVIEWIMG_REVIEW FOREIGN KEY (reviewNo) REFERENCES review(reviewNo)
 );
 
+drop table reviewImage;
+select * from REVIEWIMAGE;
+select * from review where reviewno = 4;
 -- boardComment 테이블
 CREATE TABLE boardComment (
     commentNo NUMBER NOT NULL,

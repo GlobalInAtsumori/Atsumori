@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ public class ReviewController { //리뷰 등록/조회/수정/삭제
     }
 	
 	@PostMapping("/review/create")
-	public String createReview(ReviewCreateDTO reviewDto) { //추후 @SessionAttribute(name="userNo", required=false) int userNo 매개변수 추가
+	public String createReview(ReviewCreateDTO reviewDto) throws IOException{ //추후 @SessionAttribute(name="userNo", required=false) int userNo 매개변수 추가
 		int userNo = 2;
 		
 		reviewService.create(reviewDto, userNo);

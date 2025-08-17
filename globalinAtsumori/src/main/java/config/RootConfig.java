@@ -47,6 +47,7 @@ public class RootConfig {
                 domain.RestaurantVO.class,
                 domain.ReviewImageVO.class,
                 domain.ReviewVO.class,
+                domain.SecondhandVO.class,
             });
         
         org.apache.ibatis.session.Configuration mybatisConfig = new org.apache.ibatis.session.Configuration();
