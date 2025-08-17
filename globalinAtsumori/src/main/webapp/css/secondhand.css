@@ -92,3 +92,10 @@ td.button input:hover {
 	color: #000000;
 	background: #dddddd;
 }
+
+input[type=file]::file-selector-button {
+	background: #000000;
+	color: #ffffff;
+	border: none;
+	border-radius: 2px;
+}

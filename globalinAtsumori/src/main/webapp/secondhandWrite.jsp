@@ -38,6 +38,12 @@
 						<textarea name="tradeContent"></textarea>
 					</td>
 				</tr>
+				<tr>
+	            	<td class="textonly">写真アップロード</td>
+	            	<td class="input" style="border:none;">
+	                	<input type="file" name="imageFile" accept="image/*">
+	            	</td>
+	        	</tr>
 				<tr class="forCenter">
 					<td class="button">
 						<input type="submit" value="投稿">
