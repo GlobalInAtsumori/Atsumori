@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import domain.SecondhandImageVO;
 import domain.SecondhandVO;
 
 public class SecondhandDAO {
@@ -25,54 +26,94 @@ public class SecondhandDAO {
 		
 	}
 	
-	public void insertSHArticle(SecondhandVO shArticle) {
+	public int insertSHArticle(SecondhandVO shArticle, SecondhandImageVO imageVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "";
 		
 		int tradePostNo = 0;
 		
 		try {
 			
 			con = DBConnect.getConnection();
+			 con.setAutoCommit(false);
 			
-			sql = "insert into tradePost(tradePostNo, tradeTitle, tradeContent, cost, "
-					+ "status, memberNo, createDate) "
-					+ "values(tradepost_seq.nextval, ?, ?, ?, ?, ?, ?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, shArticle.getTradeTitle());
-			pstmt.setString(2, shArticle.getTradeContent());
-			pstmt.setInt(3, shArticle.getCost());
-			//status null인 경우 기본값으로 AVAILABLE로 설정
-			String status = shArticle.getStatus();
-			if (status == null || status.trim().isEmpty()) {
-			    status = "AVAILABLE";
+			//시퀀스 값 미리 받기
+			String seqSql = "select tradepost_seq.NEXTVAL from dual";
+			pstmt = con.prepareStatement(seqSql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				tradePostNo = rs.getInt(1);
 			}
-			pstmt.setString(4, status);
-			pstmt.setInt(5, shArticle.getMemberNo());
-			pstmt.setTimestamp(6, shArticle.getCreateDate());
+			rs.close();
+			pstmt.close();
+			
+			//tradePost insert
+			String postSql = "insert into tradePost(tradePostNo, tradeTitle, tradeContent, cost, "
+					+ "status, memberNo, createDate) "
+					+ "values(?, ?, ?, ?, ?, ?, ?)";
+			pstmt = con.prepareStatement(postSql);
+			pstmt.setInt(1, tradePostNo);
+			pstmt.setString(2, shArticle.getTradeTitle());
+			pstmt.setString(3, shArticle.getTradeContent());
+			pstmt.setInt(4, shArticle.getCost());
+			//status null인 경우 기본값으로 AVAILABLE로 설정
+			String status = 
+					(shArticle.getStatus() == null || shArticle.getStatus().trim().isEmpty()) 
+                    ? "AVAILABLE" : shArticle.getStatus();
+			pstmt.setString(5, status);
+			pstmt.setInt(6, shArticle.getMemberNo());
+			pstmt.setTimestamp(7, shArticle.getCreateDate());
 			
 			pstmt.executeUpdate();
+			pstmt.close();
+			
+			//tradeImage insert
+			String imgSql = "INSERT INTO tradeImage(tradeImgNo, tradeImgUrl, tradePostNo) "
+					+ "VALUES(tradeimage_seq.NEXTVAL, ?, ?)";
+			pstmt = con.prepareStatement(imgSql);
+			pstmt.setString(1, imageVO.getTradeImgUrl());
+			pstmt.setInt(2, tradePostNo);
+			pstmt.executeUpdate();
+			
+			con.commit(); //모든 것이 성공하면
 			
 		} catch (Exception e) {
+			try {
+				if(con != null) con.rollback(); //실패한 게 있으면 롤백
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			
-			try {
-				if(pstmt!=null) pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-			try {
-				if(con!=null) con.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
+			try {if(rs != null) rs.close();} catch (SQLException se) {se.printStackTrace();}
+			try {if(pstmt!=null) pstmt.close();} catch (SQLException se) {se.printStackTrace();}
+			try {if(con!=null) con.close();} catch (SQLException se) {se.printStackTrace();}
 			
 		}
+		return tradePostNo;
 		
 	}//end insertSHArticle
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
