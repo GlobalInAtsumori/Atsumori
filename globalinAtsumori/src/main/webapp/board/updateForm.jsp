@@ -25,6 +25,10 @@ try{
     BoardVO article = dbPro.updateGetArticle(num);
 %>
 <body>
+
+<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+
+
 <div align="center">
 <b>글 수정</b><br>
 <form action="updateProc.jsp?pageNum=<%=pageNum %>" method="post" name="writeForm"

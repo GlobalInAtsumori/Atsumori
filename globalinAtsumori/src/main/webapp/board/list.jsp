@@ -57,6 +57,9 @@ BoardDAO dbPro = BoardDAO.getInstance();
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="<%=bodyback_c%>">
+	
+	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+
 	<div align="center">
 		<b>글목록(전체 글: <%=count%>)
 		</b>
