@@ -14,6 +14,9 @@ String pageNum = request.getParameter("pageNum");
 <script type="text/javascript" src="script.js"></script>
 </head>
 <body bgcolor="<%=bodyback_c%>">
+
+<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+
 <div align="center">
 <b>글삭제</b><br>
 <form action="deleteProc.jsp?pageNum=<%=pageNum %>" 
