@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 
 import domain.SecondhandImageVO;
 import domain.SecondhandVO;
@@ -96,7 +98,44 @@ public class SecondhandDAO {
 		
 	}//end insertSHArticle
 	
-	
+	public List<SecondhandVO> getSHListForMain(int start, int end) {
+		List<SecondhandVO> list = new ArrayList<SecondhandVO>();
+		String sql = "select tp.tradePostNo, tp, tradeTitle, tp.cost, tp.status, tp.createDate, "
+				+ "(select ti.tradeImgUrl from tradeImage ti where ti.tradePostNo = tp.tradePostNo "
+				+ "and ROWNUM = 1) as thumbnail "
+				+ "from tradePost tp order by tp.tradePostNo DESC "
+				+ "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+		
+		try (Connection con = DBConnect.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				
+				while(rs.next()) {
+					SecondhandVO vo = new SecondhandVO();
+					vo.setTradePostNo(rs.getInt("tradePostNo"));
+					vo.setTradeTitle(rs.getString("tradeTitle"));
+					vo.setCost(rs.getInt("cost"));
+					//거래 상태에 대한 것
+					String status = rs.getString("status");
+					vo.setStatus("AVAILABLE".equals(status) ? "판매중" : status);
+					vo.setCreateDate(rs.getTimestamp("createDate"));
+					//vo에 썸네일 필드 만들고 연동시켜야 함.. 
+					
+					list.add(vo);
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	} // end getSHListForMain
 	
 	
 	
