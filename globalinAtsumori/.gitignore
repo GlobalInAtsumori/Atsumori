@@ -18,6 +18,6 @@ Thumbs.db.swp
 
 /src/main/webapp/js/constConfig.js
 /src/main/resources/application.properties
-
+/src/main/webapp/WEB-INF/lib/*
 
 

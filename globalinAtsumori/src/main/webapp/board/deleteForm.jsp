@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
 <%@ include file="color.jsp" %>
 <%
 int num = Integer.parseInt(request.getParameter("num"));
@@ -10,15 +11,20 @@ String pageNum = request.getParameter("pageNum");
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="script.js"></script>
 </head>
 <body bgcolor="<%=bodyback_c%>">
 
-<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+<div class="wrapper">
+	<jsp:include page="/includes/navbar.jsp" />
+	<jsp:include page="/includes/banner.jsp" />
+	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+
+<%--	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />		--%>
 
 <div align="center">
-<b>글삭제</b><br>
+<br><b>글삭제</b><br><br>
 <form action="deleteProc.jsp?pageNum=<%=pageNum %>" 
 name="delForm" method="post" onsubmit="return deleteSave()">
 <table width="360" border="1" align="center" cellpadding="0" cellspacing="0">
@@ -45,6 +51,9 @@ name="delForm" method="post" onsubmit="return deleteSave()">
 </tr>
 </table>
 </form>
-<body>
+
+</div>
+
+</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
-   <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
 
   <%@ page import="board.BoardDAO" %>
   <%@ page import="board.BoardVO" %>
@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="script.js"></script>
 </head>
 
@@ -26,11 +26,16 @@ try{
 %>
 <body>
 
-<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+<div class="wrapper">
+	<jsp:include page="/includes/navbar.jsp" />
+	<jsp:include page="/includes/banner.jsp" />
+	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+	
+<%--	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />		--%>
 
 
 <div align="center">
-<b>글 수정</b><br>
+<br><b>글 수정</b><br><br>
 <form action="updateProc.jsp?pageNum=<%=pageNum %>" method="post" name="writeForm"
 onsubmit="return writeSave()">
 
@@ -89,5 +94,8 @@ align="center" bgcolor="<%=bodyback_c%>">
 </form>
 </div>
 <%} catch(Exception e){e.printStackTrace();}%>
+
+</div>
+
 </body>
 </html>

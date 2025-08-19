@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
+
 
 <%--    <%@ page import = "com.boardone.BoardDAO"   %>
     <%@ page import = "com.boardone.BoardVO"   %> --%>
+<%@ page import="board.BoardDAO" %>
+<%@ page import="board.BoardVO" %>
+
 
 <%@ page import="board.*"%>
 <%@ page import="java.util.List"%>
@@ -63,8 +68,20 @@ BoardDAO dbPro = BoardDAO.getInstance();
 	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 	<div align="center">
-		<b>글목록(전체 글: <%=count%>)
+		<br><b>글목록(전체 글: <%=count%>)
 		</b>
+		<p>		<%-- 한칸 띄움 --%>
+		
+		
+		<%-- 임시로 만들어둔 로그인정보 버튼. 테스트끝나면 지울거임 시작--%>
+		<tr>
+			<td align="center" width="100">
+			<a href="<%=request.getContextPath()%>/memberone/login.jsp">로그인정보</a></td>
+		</tr>
+		<%-- 임시로 만들어둔 로그인정보 버튼. 테스트끝나면 지울거임 끝--%>
+		
+		
+		<%--글목록(전체 글: count) 아래에 표시되는 글쓰기 링크 --%>
 		<%--
 		<table width="700">
 			<tr>
@@ -173,9 +190,46 @@ BoardDAO dbPro = BoardDAO.getInstance();
 			} // end if
 		}
 		%>
-		<form action="writeForm.jsp" style="position: fixed; right: 610px;">
+		
+		
+		
+		<%
+			String loginID = (String) session.getAttribute("loginID");
+		%>
+		
+		<div style="text-align: right; width: 700px; margin: 10px auto;">
+		
+		<%
+			if (loginID == null){
+		%>
+			
+			<form action="<%= request.getContextPath() %>/memberone/login.jsp" method="post"
+				onsubmit="return alert('로그인이 되지 않았습니다. 로그인 해 주세요.');">
+				<input type="submit" value="글쓰기">
+			</form>
+				
+		<%
+			} else {
+		%>
+			
+			<form action="writeForm.jsp">
+				<input type="submit" value="글쓰기">
+			</form>
+			
+		<%
+			}
+		%>
+			
+		</div>
+		
+		
+		<%--
+		<div style="text-align: right; width: 700px; margin: 10px auto;">
+		<form action="writeForm.jsp">
 		<input type="submit" value="글쓰기">
 		</form>
+		</div>
+		--%>
 		
 		<!-- 검색일때, 검색이 아닐때 -->
 		<form action="list.jsp">

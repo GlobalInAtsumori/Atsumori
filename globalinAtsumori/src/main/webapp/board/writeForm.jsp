@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
 <%@ include file="color.jsp" %>		<%-- 색상 변수들이 정의된 JSP 파일을 포함 --%>
 
 <!DOCTYPE html>
@@ -10,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="script.js"></script>		<%-- 자바스크립트 파일 연결 --%>
 </head>
+
 <!-- 새글과 답변글을 구분하는 코드 추가 -->
 <%
 int num = 0, ref=1, step=0, depth=0;
@@ -21,10 +23,7 @@ try {
 				step = Integer.parseInt(request.getParameter("step"));
 				depth = Integer.parseInt(request.getParameter("depth"));
 			}
-			
 %>
-
-
 
 <body bgcolor="<%=bodyback_c%>">				<%-- 배경색은 color.jsp에서 설정한 변수 사용 --%>
 
@@ -33,7 +32,7 @@ try {
 	<jsp:include page="/includes/banner.jsp" />
 	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
-<div align="center"><b>글쓰기</b></div><br>
+<div align="center"><br><b>글쓰기</b></div><br>
 <form action="writeProc.jsp" method="post" name="writeForm"
 onsubmit="return writeSave()">
     <%-- 글 작성 완료 시 writeProc.jsp로 POST 전송 / 자바스크립트 유효성 검사 수행 --%>
