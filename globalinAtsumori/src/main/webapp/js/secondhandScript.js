@@ -77,5 +77,5 @@ function shWriteSave() {
 		document.shWriteForm.imageFile.focus();
 		return false;
 	}
-	
+	return true;
 }
