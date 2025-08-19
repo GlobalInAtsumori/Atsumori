@@ -10,36 +10,65 @@
     	<result property="tradeContent" column="tradeContent" />
     	<result property="cost" column="cost" />
     	<result property="status" column="status" />
+    	<!-- 
     	<result property="customer" column="customer" />
+    	 -->
     	<result property="memberNo" column="memberNo" />
     	<result property="createDate" column="createDate" />
     	<result property="thumbnailUrl" column="thumbnailUrl"/>
     </resultMap>
     
     <!-- 게시글 등록 -->
-    <insert id="insertTradePost" parameterType="domain.SecondhandVO" useGeneratedKeys="true" keyProperty="tradePostNo">
-        INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, customer, memberNo, createDate)
-        VALUES (tradePost_seq.NEXTVAL, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{customer}, #{memberNo}, SYSDATE)
+    <insert id="insertSHPost" parameterType="domain.SecondhandVO">
+    	<selectKey keyProperty="tradePostNo" resultType="int" order="BEFORE">
+        	SELECT tradePost_seq.NEXTVAL FROM dual
+    	</selectKey>
+        INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, memberNo, createDate)
+        VALUES (#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
     </insert>
     
     <!-- 이미지 등록 -->
-    <insert id="insertTradeImage">
+    <insert id="insertSHImage">
         INSERT INTO tradeImage (tradeImgNo, tradeImgUrl, tradePostNo)
-        VALUES (tradeImg_seq.NEXTVAL, #{param2}, #{param1})
+        VALUES (tradeImg_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
     </insert>
     
-    <!-- 상세페이지 -->
-    <select id="selectTradePost" resultMap="SecondhandMap">
-        SELECT tp.tradePostNo, tp.tradeTitle, tp.tradeContent, tp.cost,
-               tp.status, tp.customer, tp.memberNo, tp.createDate,
-               (SELECT ti.tradeImgUrl
-                  FROM tradeImage ti
-                 WHERE ti.tradePostNo = tp.tradePostNo
-                   AND ROWNUM = 1) AS thumbnailUrl
-          FROM tradePost tp
-         WHERE tp.tradePostNo = #{tradePostNo}
+    <!-- 메인페이지 출력용 -->
+    <select id="getSecondhandList" resultMap="SecondhandMap">
+        SELECT 
+            tp.tradePostNo,
+            tp.tradeTitle,
+            tp.cost,
+            tp.status,
+            tp.createDate,
+            (SELECT ti.tradeImgUrl 
+               FROM tradeImage ti 
+              WHERE ti.tradePostNo = tp.tradePostNo 
+                AND ROWNUM = 1) AS thumbnailUrl
+        FROM tradePost tp
+        ORDER BY tp.tradePostNo DESC
+    </select>
+
+    <!-- 상세페이지 출력용 -->
+    <select id="getSecondhandDetail" resultMap="SecondhandMap" parameterType="int">
+        SELECT 
+            tp.tradePostNo,
+            tp.tradeTitle,
+            tp.tradeContent,
+            tp.cost,
+            tp.status,
+            tp.memberNo,
+            tp.createDate
+        FROM tradePost tp
+        WHERE tp.tradePostNo = #{tradePostNo}
     </select>
     
+    <!-- 상세 이미지 조회 -->
+	<select id="getTradeImages" resultType="domain.TradeImageVO" parameterType="int">
+		SELECT tradeImgNo, tradeImgUrl, tradePostNo 
+		FROM tradeImage 
+		WHERE tradePostNo = #{tradePostNo}
+	</select>
     
 
 </mapper>
