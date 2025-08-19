@@ -16,6 +16,8 @@ public class SecondhandVO {
 	private Timestamp createDate;
 	//멤버번호용
 	private int memberNo;
+	
+	//메인페이지 리스트 출력용
+	private String statusLabel;
+	private String thumbnailUrl;
 }
-
-
