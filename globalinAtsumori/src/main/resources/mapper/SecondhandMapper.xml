@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.SecondhandMapper">
+    <!-- 전체 글 -->
+    <select id="selectAll" resultType="domain.SecondhandVO">
+        SELECT 
+            p.tradePostNo,
+            p.tradeTitle,
+            p.cost,
+            p.status,
+            p.createDate,
+            (
+                SELECT MIN(i.tradeImgUrl)
+                FROM tradeImage i
+                WHERE i.tradePostNo = p.tradePostNo
+            ) AS thumbnailUrl
+        FROM tradePost p
+        ORDER BY p.tradePostNo DESC
+    </select>
+
+    <!-- 글쓰기-->
+    <insert id="insert" parameterType="domain.SecondhandVO">
+        INSERT INTO secondhand (trade_title, trade_content, cost, status, member_no, create_date)
+        VALUES (#{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, NOW())
+    </insert>
+
+    <!-- 상세 페이지 -->
+    <select id="selectById" parameterType="int" resultType="domain.SecondhandVO">
+        SELECT * FROM secondhand WHERE trade_post_no = #{tradePostNo}
+    </select>
+
+    <!-- 상태 -->
+    <update id="updateStatus">
+        UPDATE secondhand SET status = #{status} WHERE trade_post_no = #{tradePostNo}
+    </update>
+
+</mapper>

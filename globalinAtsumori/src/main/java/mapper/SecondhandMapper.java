@@ -17,6 +17,6 @@ public interface SecondhandMapper {
 	//상세페이지
 	SecondhandVO selectById(int tradePostNo);
 	
-	//글 수정
+	//상태
 	void updateStatus(int tradePostNo, String status);
 }

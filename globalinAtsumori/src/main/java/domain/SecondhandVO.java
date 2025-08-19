@@ -11,13 +11,13 @@ public class SecondhandVO {
 	private String tradeTitle;
 	private String tradeContent;
 	private int cost;
-	private String status;
+	private String status; //AVAILABLE, TRADING, DONE
 	private int customer;
 	private Timestamp createDate;
 	//멤버번호용
 	private int memberNo;
 	
 	//메인페이지 리스트 출력용
-	private String statusLabel;
+	private String statusLabel; //상태 표기
 	private String thumbnailUrl;
 }
