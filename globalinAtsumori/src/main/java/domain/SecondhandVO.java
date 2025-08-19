@@ -18,6 +18,20 @@ public class SecondhandVO {
 	private int memberNo;
 	
 	//메인페이지 리스트 출력용
-	private String statusLabel; //상태 표기
 	private String thumbnailUrl;
+	
+	//status 라벨용
+	public String getStatusLabel() {
+		if(status == null) return "";
+		switch(status) {
+		case "AVAILABLE":
+			return "販売中"; 
+		case "TRADING":
+			return "取引中";
+		case "DONE":
+			return "販売完了";
+		default : 
+			return status;
+		}
+	}
 }
