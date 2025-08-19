@@ -107,8 +107,8 @@ public class SecondhandDAO {
 		try {
 			con = DBConnect.getConnection();
 			
-			String sql ="select p.tradePost, p.tradeTitle, p.cost, p.status, p.createDate, "
-					+ "(select img.tradeImgUrl from tradeImgUrl img where img.tradePostNo = p.tradePost.No "
+			String sql ="select p.tradePostNo, p.tradeTitle, p.cost, p.status, p.createDate, "
+					+ "(select img.tradeImgUrl from tradeImage img where img.tradePostNo = p.tradePostNo "
 					+ "and ROWNUM = 1) as thumbnailUrl from tradePost p ORDER BY p.tradePostNo DESC";
 			
 			pstmt = con.prepareStatement(sql);
