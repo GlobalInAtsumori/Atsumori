@@ -71,4 +71,11 @@ function shWriteSave() {
 		return false;
 	}
 	
+	//사진 업로드 필수 지정
+	if(document.shWriteForm.imageFile.value=="") {
+		alert("写真をアップロードしてください。");
+		document.shWriteForm.imageFile.focus();
+		return false;
+	}
+	
 }
