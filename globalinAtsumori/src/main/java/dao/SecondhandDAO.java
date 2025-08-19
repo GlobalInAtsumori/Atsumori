@@ -98,40 +98,52 @@ public class SecondhandDAO {
 		
 	}//end insertSHArticle
 	
-	public List<SecondhandVO> getSHListForMain(int start, int end) {
+	public List<SecondhandVO> getSHListForMain() {
 		List<SecondhandVO> list = new ArrayList<SecondhandVO>();
-		String sql = "select tp.tradePostNo, tp, tradeTitle, tp.cost, tp.status, tp.createDate, "
-				+ "(select ti.tradeImgUrl from tradeImage ti where ti.tradePostNo = tp.tradePostNo "
-				+ "and ROWNUM = 1) as thumbnail "
-				+ "from tradePost tp order by tp.tradePostNo DESC "
-				+ "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
-		try (Connection con = DBConnect.getConnection();
-			PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try {
+			con = DBConnect.getConnection();
 			
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
+			String sql ="select p.tradePost, p.tradeTitle, p.cost, p.status, p.createDate, "
+					+ "(select img.tradeImgUrl from tradeImgUrl img where img.tradePostNo = p.tradePost.No "
+					+ "and ROWNUM = 1) as thumbnailUrl from tradePost p ORDER BY p.tradePostNo DESC";
 			
-			try (ResultSet rs = pstmt.executeQuery()) {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SecondhandVO vo = new SecondhandVO();
+				vo.setTradePostNo(rs.getInt("tradePostNo"));
+				vo.setTradeTitle(rs.getString("tradeTitle"));
+				vo.setCost(rs.getInt("cost"));
+				vo.setStatus(rs.getString("status"));
+				vo.setCreateDate(rs.getTimestamp("createDate"));
+				vo.setThumbnailUrl(rs.getString("thumbnailUrl"));
 				
-				while(rs.next()) {
-					SecondhandVO vo = new SecondhandVO();
-					vo.setTradePostNo(rs.getInt("tradePostNo"));
-					vo.setTradeTitle(rs.getString("tradeTitle"));
-					vo.setCost(rs.getInt("cost"));
-					//거래 상태에 대한 것
-					String status = rs.getString("status");
-					vo.setStatus("AVAILABLE".equals(status) ? "판매중" : status);
-					vo.setCreateDate(rs.getTimestamp("createDate"));
-					//vo에 썸네일 필드 만들고 연동시켜야 함.. 
-					
-					list.add(vo);
+				//status 값 AVAILABLE 판매중, 
+				String status = rs.getString("status");
+				if ("AVAILABLE".equalsIgnoreCase(status)) {
+					vo.setStatusLabel("판매중");
+				} else if ("TRADING".equalsIgnoreCase(status)) {
+					vo.setStatusLabel("거래중");
+				} else if ("DONE".equalsIgnoreCase(status)) {
+					vo.setStatusLabel("판매완료");
+				} else {
+					vo.setStatusLabel("알수없음");
 				}
 				
+				list.add(vo);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {if (rs != null) rs.close();} catch (SQLException se) {se.printStackTrace();}
+			try {if (pstmt != null) pstmt.close();} catch (SQLException se) {se.printStackTrace();}
+			try {if (con != null) con.close();} catch (SQLException se) {se.printStackTrace();}
 		}
 		
 		return list;
