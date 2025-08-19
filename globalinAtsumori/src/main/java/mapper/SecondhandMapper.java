@@ -13,10 +13,10 @@ public interface SecondhandMapper {
     void insertTradeImage(int tradePostNo, String tradeImgUrl);
     
     //상세페이지
-    SecondhandVO selectTradePost(int tradePostNo);
+    SecondhandVO getSecondhandDetail(int tradePostNo);
     
     //메인페이지 조회(리스트)
-    List<SecondhandVO> selectTradePostList();
+    List<SecondhandVO> getSecondhandList();
     
     //페이징용 글 개수
     int countTradePost();

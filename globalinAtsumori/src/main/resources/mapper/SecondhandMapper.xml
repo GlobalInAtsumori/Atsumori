@@ -4,6 +4,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.SecondhandMapper">
-    <!-- resultMap -->
+    <resultMap type="domain.SecondhandVO" id="SecondhandMap">
+    	<id property="tradePostNo" column="tradePostNo"/>
+    	<result property="tradeTitle" column="tradeTitle" />
+    	<result property="tradeContent" column="tradeContent" />
+    	<result property="cost" column="cost" />
+    	<result property="status" column="status" />
+    	<result property="customer" column="customer" />
+    	<result property="memberNo" column="memberNo" />
+    	<result property="createDate" column="createDate" />
+    	<result property="thumbnailUrl" column="thumbnailUrl"/>
+    </resultMap>
+    
+    <!-- 게시글 등록 -->
+    <insert id="insertTradePost" parameterType="domain.SecondhandVO" useGeneratedKeys="true" keyProperty="tradePostNo">
+        INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, customer, memberNo, createDate)
+        VALUES (tradePost_seq.NEXTVAL, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{customer}, #{memberNo}, SYSDATE)
+    </insert>
+    
+    <!-- 이미지 등록 -->
+    <insert id="insertTradeImage">
+        INSERT INTO tradeImage (tradeImgNo, tradeImgUrl, tradePostNo)
+        VALUES (tradeImg_seq.NEXTVAL, #{param2}, #{param1})
+    </insert>
+    
+    <!-- 상세페이지 -->
+    <select id="selectTradePost" resultMap="SecondhandMap">
+        SELECT tp.tradePostNo, tp.tradeTitle, tp.tradeContent, tp.cost,
+               tp.status, tp.customer, tp.memberNo, tp.createDate,
+               (SELECT ti.tradeImgUrl
+                  FROM tradeImage ti
+                 WHERE ti.tradePostNo = tp.tradePostNo
+                   AND ROWNUM = 1) AS thumbnailUrl
+          FROM tradePost tp
+         WHERE tp.tradePostNo = #{tradePostNo}
+    </select>
+    
+    
 
 </mapper>
