@@ -64,7 +64,7 @@
     </select>
     
     <!-- 상세 이미지 조회 -->
-	<select id="getTradeImages" resultType="domain.TradeImageVO" parameterType="int">
+	<select id="getTradeImages" resultType="domain.SecondhandVO" parameterType="int">
 		SELECT tradeImgNo, tradeImgUrl, tradePostNo 
 		FROM tradeImage 
 		WHERE tradePostNo = #{tradePostNo}
