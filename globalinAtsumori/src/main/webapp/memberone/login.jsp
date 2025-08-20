@@ -15,7 +15,7 @@
 <title>Login</title>
 <link href="style.css" rel ="stylesheet" type = "text/css">
 </head>
-<body bgcolor = "#fef7b5">
+<body bgcolor>
 
 <% if(loginID != null ){ %>
 <table width="300" border="1" >
