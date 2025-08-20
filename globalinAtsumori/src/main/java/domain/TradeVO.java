@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SecondhandVO {
+public class TradeVO {
 	private int tradePostNo;
 	private String tradeTitle;
 	private String tradeContent;

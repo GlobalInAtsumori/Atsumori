@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 	
 	// 폼 제출 시에는 경고 제거
-	document.shWriteForm.addEventListener("submit", function() {
+	document.trWriteForm.addEventListener("submit", function() {
 		formDirty = false;
 	});
 	
@@ -51,30 +51,30 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 });
 
-function shWriteSave() {
+function trWriteSave() {
 	
-	if(document.shWriteForm.tradeTitle.value=="") {
+	if(document.trWriteForm.tradeTitle.value=="") {
 		alert("タイトルを入力してください。");
-		document.shWriteForm.tradeTitle.focus();
+		document.trWriteForm.tradeTitle.focus();
 		return false;
 	}
 	
-	if(document.shWriteForm.cost.value=="") {
+	if(document.trWriteForm.cost.value=="") {
 		alert("希望価格を入力してください。");
-		document.shWriteForm.cost.focus();
+		document.trWriteForm.cost.focus();
 		return false;
 	}
 	
-	if(document.shWriteForm.tradeContent.value=="") {
+	if(document.trWriteForm.tradeContent.value=="") {
 		alert("内容を入力してください。");
-		document.shWriteForm.tradeContent.focus();
+		document.trWriteForm.tradeContent.focus();
 		return false;
 	}
 	
 	//사진 업로드 필수 지정
-	if(document.shWriteForm.imageFile.value=="") {
+	if(document.trWriteForm.imageFile.value=="") {
 		alert("写真をアップロードしてください。");
-		document.shWriteForm.imageFile.focus();
+		document.trWriteForm.imageFile.focus();
 		return false;
 	}
 	return true;

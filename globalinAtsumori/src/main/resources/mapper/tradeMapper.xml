@@ -3,10 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.SecondhandMapper">
+<mapper namespace="mapper.TradeMapper">
     
     <!-- 게시글 등록 -->
-    <insert id="insertTradePost" parameterType="domain.SecondhandVO">
+    <insert id="insertTradePost" parameterType="domain.TradeVO">
     	<selectKey keyProperty="tradePostNo" resultType="int" order="BEFORE">
     		SELECT tradePost_seq.NEXTVAL from dual
     	</selectKey>
@@ -15,7 +15,7 @@
     </insert>
     
     <!-- SH 메인페이지 출력용 -->
-    <select id="getSecondhandList" resultType="domain.SecondhandVO">
+    <select id="getTradeList" resultType="domain.TradeVO">
     	SELECT 
     		tp.tradePostNo,
     		tp.tradeTitle,
@@ -28,7 +28,7 @@
     </select>
     
     <!-- SH 상세 페이지 출력용 -->
-    <select id="getSecondhandDetail" resultType="domain.SecondhandVO" parameterType="int">
+    <select id="getTradeDetail" resultType="domain.TradeVO" parameterType="int">
     	SELECT 
     		tp.tradePostNo,
     		tp.tradeTitle,

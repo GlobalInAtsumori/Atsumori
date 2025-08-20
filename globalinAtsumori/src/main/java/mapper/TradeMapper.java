@@ -2,18 +2,18 @@ package mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import domain.SecondhandVO;
+import domain.TradeVO;
 
 @Mapper
-public interface SecondhandMapper {
+public interface TradeMapper {
 	//게시글 등록
-    void insertTradePost(SecondhandVO vo);
+    void insertTradePost(TradeVO vo);
     
     //메인페이지 조회(리스트)
-    List<SecondhandVO> getSecondhandList();
+    List<TradeVO> getTradeList();
     
     //상세페이지
-    SecondhandVO getSecondhandDetail(int tradePostNo);
+    TradeVO getTradeDetail(int tradePostNo);
     
     //페이징용 글 개수
     int countTradePost();

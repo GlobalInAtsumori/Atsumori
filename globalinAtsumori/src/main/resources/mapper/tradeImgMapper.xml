@@ -6,13 +6,13 @@
 <mapper namespace="mapper.SecondhandImgMapper">
 
     <!-- 이미지 등록용 -->
-    <insert id="insertSHImage" parameterType="domain.SecondhandImageVO">
+    <insert id="insertTradeImage" parameterType="domain.TradeImageVO">
     	INSERT INTO tradeImg (tradeImgNo, tradeImgUrl, tradePostNo) 
     	VALUES (tradeImg_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
     </insert>
     
     <!-- 이미지 조회용 -->
-    <select id="getSHImage" resultType="domain.SecondhandVO" parameterType="int">
+    <select id="getTradeImage" resultType="domain.TradeVO" parameterType="int">
     	SELECT tradeImgNo, tradeImgUrl, tradePostNo 
     	FROM tradeImage WHERE tradePostNo = #{tradePostNo}
     </select>

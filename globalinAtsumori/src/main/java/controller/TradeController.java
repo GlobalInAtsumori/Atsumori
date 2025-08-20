@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import domain.SecondhandImageVO;
-import domain.SecondhandVO;
+import domain.TradeImageVO;
+import domain.TradeVO;
 import lombok.RequiredArgsConstructor;
 import service.S3Service;
 
 @Controller
-public class SecondhandController {
+public class TradeController {
 	
 	private final S3Service s3Service;
-	public SecondhandController(S3Service s3service) {
+	public TradeController(S3Service s3service) {
 		this.s3Service = s3service;
 	}
 	
-	@GetMapping("/secondhandMain")
-	public String shMainPage() {
-		return "secondhandMain";
+	@GetMapping("/tradeMain")
+	public String trMainPage() {
+		return "tradeMain";
 	}
 	
-	@GetMapping("/secondhandWrite")
+	@GetMapping("/tradeWrite")
 	public String reviewWritePage() {
     	
-		return "secondhandWrite";
+		return "tradeWrite";
     }
 	
-	@PostMapping("/secondhand/write")
-	public String writeSecondhandArticle(SecondhandVO shArticle, @RequestParam("imageFile") MultipartFile file) {
+	@PostMapping("/trade/write")
+	public String writeTradeArticle(TradeVO shArticle, @RequestParam("imageFile") MultipartFile file) {
 		
 		try {
 			// 로그인 기능 없어서 임시로 '김철수'로 하드코딩
@@ -45,19 +45,15 @@ public class SecondhandController {
 			String imageUrl = s3Service.uploadFile(file);
 			
 			//img VO 생성
-			SecondhandImageVO imageVO = new SecondhandImageVO();
+			TradeImageVO imageVO = new TradeImageVO();
 			imageVO.setTradeImgUrl(imageUrl);
-			
-			// 글과 이미지 DB에 저장
-			//SecondhandDAO dao = SecondhandDAO.getInstance();
-			//dao.insertSHArticle(shArticle, imageVO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
         
-        return "redirect:/secondhandMain";
+        return "redirect:/tradeMain";
 	}
 	
 }

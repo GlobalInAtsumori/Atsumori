@@ -9,11 +9,11 @@
 	outline: none;
 }
 
-div.sh-container {
+div.tr-container {
 	padding: 0 55px;
 }
 
-div.sh-container button {
+div.tr-container button {
 	display: block;
 	margin: 0 auto;
     width: 80px;
@@ -26,12 +26,12 @@ div.sh-container button {
     cursor: pointer;
 }
 
-div.sh-container button:hover {
+div.tr-container button:hover {
 	color: #000000;
 	background: #dddddd;
 }
 
-table.shWrite {
+table.trWrite {
 	display: flex;
 	flex-direction: column;
 	align-content: center;
