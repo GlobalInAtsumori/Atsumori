@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import dao.SecondhandDAO;
 import domain.SecondhandImageVO;
 import domain.SecondhandVO;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +49,8 @@ public class SecondhandController {
 			imageVO.setTradeImgUrl(imageUrl);
 			
 			// 글과 이미지 DB에 저장
-			SecondhandDAO dao = SecondhandDAO.getInstance();
-			dao.insertSHArticle(shArticle, imageVO);
+			//SecondhandDAO dao = SecondhandDAO.getInstance();
+			//dao.insertSHArticle(shArticle, imageVO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
