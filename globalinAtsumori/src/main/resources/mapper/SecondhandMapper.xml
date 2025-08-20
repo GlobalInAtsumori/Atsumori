@@ -4,71 +4,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.SecondhandMapper">
-    <resultMap type="domain.SecondhandVO" id="SecondhandMap">
-    	<id property="tradePostNo" column="tradePostNo"/>
-    	<result property="tradeTitle" column="tradeTitle" />
-    	<result property="tradeContent" column="tradeContent" />
-    	<result property="cost" column="cost" />
-    	<result property="status" column="status" />
-    	<!-- 
-    	<result property="customer" column="customer" />
-    	 -->
-    	<result property="memberNo" column="memberNo" />
-    	<result property="createDate" column="createDate" />
-    	<result property="thumbnailUrl" column="thumbnailUrl"/>
-    </resultMap>
     
     <!-- 게시글 등록 -->
-    <insert id="insertSHPost" parameterType="domain.SecondhandVO">
+    <insert id="insertTradePost" parameterType="domain.SecondhandVO">
     	<selectKey keyProperty="tradePostNo" resultType="int" order="BEFORE">
-        	SELECT tradePost_seq.NEXTVAL FROM dual
+    		SELECT tradePost_seq.NEXTVAL from dual
     	</selectKey>
-        INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, memberNo, createDate)
-        VALUES (#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
+    	INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, memnerNo, createDate) 
+    	VALUES (#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memnerNo}, SYSDATE)
     </insert>
     
-    <!-- 이미지 등록 -->
-    <insert id="insertSHImage">
-        INSERT INTO tradeImage (tradeImgNo, tradeImgUrl, tradePostNo)
-        VALUES (tradeImg_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
-    </insert>
-    
-    <!-- 메인페이지 출력용 -->
-    <select id="getSecondhandList" resultMap="SecondhandMap">
-        SELECT 
-            tp.tradePostNo,
-            tp.tradeTitle,
-            tp.cost,
-            tp.status,
-            tp.createDate,
-            (SELECT ti.tradeImgUrl 
-               FROM tradeImage ti 
-              WHERE ti.tradePostNo = tp.tradePostNo 
-                AND ROWNUM = 1) AS thumbnailUrl
-        FROM tradePost tp
-        ORDER BY tp.tradePostNo DESC
-    </select>
-
-    <!-- 상세페이지 출력용 -->
-    <select id="getSecondhandDetail" resultMap="SecondhandMap" parameterType="int">
-        SELECT 
-            tp.tradePostNo,
-            tp.tradeTitle,
-            tp.tradeContent,
-            tp.cost,
-            tp.status,
-            tp.memberNo,
-            tp.createDate
-        FROM tradePost tp
-        WHERE tp.tradePostNo = #{tradePostNo}
+    <!-- SH 메인페이지 출력용 -->
+    <select id="getSecondhandList" resultType="domain.SecondhandVO">
+    	SELECT 
+    		tp.tradePostNo,
+    		tp.tradeTitle,
+    		tp.cost,
+    		tp.status,
+    		tp.createDate,
+    		(SELECT ti.tradeImgUrl FROM tradeImage ti 
+    		WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl 
+    		FROM tradePost tp ORDER BY tp.tradePostNo DESC
     </select>
     
-    <!-- 상세 이미지 조회 -->
-	<select id="getTradeImages" resultType="domain.SecondhandVO" parameterType="int">
-		SELECT tradeImgNo, tradeImgUrl, tradePostNo 
-		FROM tradeImage 
-		WHERE tradePostNo = #{tradePostNo}
-	</select>
-    
+    <!-- SH 상세 페이지 출력용 -->
+    <select id="getSecondhandDetail" resultType="domain.SecondhandVO" parameterType="int">
+    	SELECT 
+    		tp.tradePostNo,
+    		tp.tradeTitle,
+    		tp.tradeContent,
+    		tp.cost,
+    		tp.status,
+    		tp.memberNo,
+    		tp.createDate 
+    	FROM tradePost tp 
+    	WHERE tp.tradePostNo = #{tradePostNo}
+    </select>
 
 </mapper>
