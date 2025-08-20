@@ -1,5 +1,5 @@
 package dao;
-
+//사용 안 할 수도.. 오류 무시부탁드립니다!ㅠ
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
