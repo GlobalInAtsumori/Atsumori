@@ -1,6 +1,8 @@
 package domain;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +21,9 @@ public class TradeVO {
 	
 	//메인페이지 리스트 출력용
 	private String thumbnailUrl;
+	
+	//상세페이지 이미지용
+	private List<TradeImageVO> image;
 	
 	//status 라벨용
 	public String getStatusLabel() {

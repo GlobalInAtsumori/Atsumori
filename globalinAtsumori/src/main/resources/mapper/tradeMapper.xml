@@ -10,11 +10,11 @@
     	<selectKey keyProperty="tradePostNo" resultType="int" order="BEFORE">
     		SELECT tradePost_seq.NEXTVAL from dual
     	</selectKey>
-    	INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, memnerNo, createDate) 
-    	VALUES (#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memnerNo}, SYSDATE)
+    	INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, memberNo, createDate) 
+    	VALUES (#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
     </insert>
     
-    <!-- SH 메인페이지 출력용 -->
+    <!-- 메인페이지 출력용 -->
     <select id="getTradeList" resultType="domain.TradeVO">
     	SELECT 
     		tp.tradePostNo,
@@ -27,7 +27,7 @@
     		FROM tradePost tp ORDER BY tp.tradePostNo DESC
     </select>
     
-    <!-- SH 상세 페이지 출력용 -->
+    <!-- 상세 페이지 출력용 -->
     <select id="getTradeDetail" resultType="domain.TradeVO" parameterType="int">
     	SELECT 
     		tp.tradePostNo,

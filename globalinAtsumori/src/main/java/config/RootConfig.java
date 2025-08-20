@@ -48,6 +48,7 @@ public class RootConfig {
                 domain.ReviewImageVO.class,
                 domain.ReviewVO.class,
                 domain.TradeVO.class,
+                domain.TradeImageVO.class,
             });
         
         org.apache.ibatis.session.Configuration mybatisConfig = new org.apache.ibatis.session.Configuration();
