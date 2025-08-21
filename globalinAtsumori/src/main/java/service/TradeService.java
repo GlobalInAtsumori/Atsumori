@@ -17,7 +17,7 @@ public class TradeService {
 	
 	private final TradeMapper tradeMapper;
 	private final TradeImgMapper tradeImgMapper;
-	private final S3Service s3Service;
+	//private final S3Service s3Service;
 	
 	//게시글(+이미지) 등록
 	@Transactional
@@ -26,8 +26,10 @@ public class TradeService {
 		//1. 글 등록
 		tradeMapper.insertTradePost(tradeVO);
 		
-		//2. 이미지 등록
+		//2. tradePostNosms selectKey로 자동 세팅
 		imageVO.setTradePostNo(tradeVO.getTradePostNo());
+		
+		//3. 이미지 등록
 		tradeImgMapper.insertTradeImage(imageVO);
 		
 	}

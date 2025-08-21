@@ -10,8 +10,10 @@
     	<selectKey keyProperty="tradePostNo" resultType="int" order="BEFORE">
     		SELECT tradePost_seq.NEXTVAL from dual
     	</selectKey>
-    	INSERT INTO tradePost (tradePostNo, tradeTitle, tradeContent, cost, status, memberNo, createDate) 
-    	VALUES (#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
+    	INSERT INTO tradePost 
+    		(tradePostNo, tradeTitle, tradeContent, cost, status, memberNo, createDate) 
+    	VALUES 
+    		(#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
     </insert>
     
     <!-- 메인페이지 출력용 -->

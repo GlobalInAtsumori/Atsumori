@@ -8,7 +8,7 @@
     <!-- 이미지 등록용 -->
     <insert id="insertTradeImage" parameterType="domain.TradeImageVO">
     	INSERT INTO tradeImage (tradeImgNo, tradeImgUrl, tradePostNo) 
-    	VALUES (tradeImg_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
+    	VALUES (tradeimage_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
     </insert>
     
     <!-- 이미지 조회용 -->
