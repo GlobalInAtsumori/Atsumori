@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,4 +40,11 @@ public class RestaurantController { //지도 범위 내 가게 조회, 가게 �
     	
 		return "map";
     }
+    
+    @GetMapping("/restaurant/{no}")
+	public String detailRest(@PathVariable int no) {
+    	
+    	
+		return "mainPage";
+	}
 }

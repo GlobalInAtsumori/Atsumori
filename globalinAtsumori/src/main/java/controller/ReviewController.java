@@ -38,11 +38,6 @@ public class ReviewController { //리뷰 등록/조회/수정/삭제
 		return "mainPage";
 	}
 	
-	@GetMapping("/review/read")
-	public String readReview() {
-		return "mainPage";
-	}
-	
 	@PostMapping("/review/update")
 	public String updateReview() {
 		return "mainPage";
