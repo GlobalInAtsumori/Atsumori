@@ -10,4 +10,22 @@
     	</selectKey>
     	insert into review values (#{reviewNo}, #{reviewTitle}, #{reviewContent}, #{memberNo}, #{restNo}, #{createDate})
 	</insert>
+	
+	<select id="findReviewsByRestNo" resultType="dto.ReviewDTO">
+	    SELECT 
+	        rv.reviewNo,
+	        rv.reviewTitle,
+	        rv.reviewContent,
+	        rv.createDate,
+	        rv.memberNo,
+	        m.memberName,
+	        m.memberId,
+	        m.country,
+	        rv.restNo,
+	        ri.reviewImgUrl
+	    FROM review rv
+	    JOIN member m ON rv.memberNo = m.memberNo
+	    LEFT JOIN reviewImage ri ON rv.reviewNo = ri.reviewNo
+	    WHERE rv.restNo = #{restNo}
+	</select>
 </mapper>

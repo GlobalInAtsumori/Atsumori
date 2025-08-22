@@ -34,4 +34,10 @@
     	</selectKey>
     	insert into restaurant values (#{restNo}, #{restName}, #{address}, #{longitude}, #{latitude})
 	</insert>
+	
+	<select id="findRestaurantByNo" resultType="restaurantVO">
+		SELECT restNo, restName, address, longitude, latitude
+	    FROM restaurant
+	    WHERE restNo = #{restNo}
+	</select>
 </mapper>

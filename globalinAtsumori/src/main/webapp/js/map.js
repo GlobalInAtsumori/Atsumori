@@ -137,7 +137,7 @@ function updateMarkers() {
 					        item.style.height = "auto";
 					    } else {
 					        // 리뷰가 이미 보이면 상세 페이지 이동
-					        window.location.href = "/restaurant/detail?restNo=" + place.restNo;
+					        window.location.href = "/restaurant?restNo=" + place.restNo;
 					    }
 					});
 
