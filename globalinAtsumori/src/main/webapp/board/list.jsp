@@ -76,7 +76,7 @@ BoardDAO dbPro = BoardDAO.getInstance();
 		<%-- 임시로 만들어둔 로그인정보 버튼. 테스트끝나면 지울거임 시작--%>
 		<tr>
 			<td align="center" width="100">
-			<a href="<%=request.getContextPath()%>/memberone/login.jsp">로그인정보</a></td>
+			<a href="<%=request.getContextPath()%>/member/login.jsp">로그인정보</a></td>
 		</tr>
 		<%-- 임시로 만들어둔 로그인정보 버튼. 테스트끝나면 지울거임 끝--%>
 		
@@ -203,7 +203,7 @@ BoardDAO dbPro = BoardDAO.getInstance();
 			if (loginID == null){
 		%>
 			
-			<form action="<%= request.getContextPath() %>/memberone/login.jsp" method="post"
+			<form action="<%= request.getContextPath() %>/member/login.jsp" method="post"
 				onsubmit="return alert('로그인이 되지 않았습니다. 로그인 해 주세요.');">
 				<input type="submit" value="글쓰기">
 			</form>

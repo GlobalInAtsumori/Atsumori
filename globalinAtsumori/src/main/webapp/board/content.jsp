@@ -100,13 +100,13 @@ align="center" bgcolor="<%=bodyback_c%>">
 		%>
 		
 			<input type="button" value="글수정" 
-				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/memberone/login.jsp';">
+				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/member/login.jsp';">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="글삭제" 
-				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/memberone/login.jsp';">
+				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/member/login.jsp';">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="답변글작성"
-				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/memberone/login.jsp';">
+				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/member/login.jsp';">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 		<%
