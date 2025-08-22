@@ -17,12 +17,14 @@
 </head>
 
 <%
+/* 사용자가 클릭한 글 번호(num)와 현재 페이지 번호(pageNum)를 가져옴 */
 int num = Integer.parseInt(request.getParameter("num"));
 String pageNum = request.getParameter("pageNum");
 
 try{
+	 /* DB와 연결하기 위해 DAO 객체를 가져옴 */
     BoardDAO dbPro = BoardDAO.getInstance();
-    BoardVO article = dbPro.updateGetArticle(num);
+    BoardVO article = dbPro.updateGetArticle(boardNo);
 %>
 <body>
 
@@ -43,7 +45,7 @@ onsubmit="return writeSave()">
 align="center" bgcolor="<%=bodyback_c%>">
 
 <tr>
-    <td width="70" bgcolor="<%=value_c%>" align="center">✨이름</td>
+    <td width="70" bgcolor="<%=value_c%>" align="center">이름</td>
     <td width="330" >
         <input type="text" size="12" maxlength="12" name="writer"
         value="<%=article.getWriter()%>">
@@ -52,14 +54,14 @@ align="center" bgcolor="<%=bodyback_c%>">
 </tr>
 
 <tr>
-    <td width="70" bgcolor="<%=value_c%>" align="center">✨이메일</td>
+    <td width="70" bgcolor="<%=value_c%>" align="center">이메일</td>
     <td width="330" >
     <input type="text" size="30" maxlength="30" name="email" value="<%=article.getEmail()%>">
     </td>
 </tr>
 
 <tr>
-    <td width="70" bgcolor="<%=value_c%>" align="center">✨제목</td>
+    <td width="70" bgcolor="<%=value_c%>" align="center">제목</td>
     <td width="330" >
         <input type="text" size="50" maxlength="50" name="subject"
         value="<%=article.getSubject()%>">
@@ -75,17 +77,10 @@ align="center" bgcolor="<%=bodyback_c%>">
 </tr>
 
 <tr>
-    <td width="70" bgcolor="<%=value_c%>" align="center">✨비밀번호</td>
-    <td width="330" >
-        <input type="password" size="10" maxlength="10" name="pass">
-    </td>
-</tr>
-
-<tr>
     <td align="center" colspan="2" bgcolor="<%=value_c%>">
         <input type="submit" value="글수정">
         <input type="reset" value="다시작성">
-        <input type="button" value="📑글목록"
+        <input type="button" value="글목록"
         onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'">
     </td>
 </tr>

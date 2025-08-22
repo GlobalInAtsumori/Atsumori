@@ -4,80 +4,25 @@ import java.sql.*;
 
 public class BoardVO {
 
-	private int num;
-	private String writer;
-	private String email;
-	private String subject;
-	private String pass;
-	private int readcount;
-	private int ref;		/*댓글*/
-	private int step;		/*답글*/
-	private int depth;	/*답답글*/
-	private Timestamp regdate;
+	private int boardno;
+	private String title;
 	private String content;
-	private String ip;
+	private Date createdate;
+	private int memberno;
 	
 	
 	// Getter와 Setter 메소드들
-	public int getNum() {
-		return num;
+	public int getBoardno() {
+		return boardno;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setBoardno(int boardno) {
+		this.boardno = boardno;
 	}
-	public String getWriter() {
-		return writer;
+	public String getTitle() {
+		return title;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-	public int getReadcount() {
-		return readcount;
-	}
-	public void setReadcount(int readcount) {
-		this.readcount = readcount;
-	}
-	public int getRef() {
-		return ref;
-	}
-	public void setRef(int ref) {
-		this.ref = ref;
-	}
-	public int getStep() {
-		return step;
-	}
-	public void setStep(int step) {
-		this.step = step;
-	}
-	public int getDepth() {
-		return depth;
-	}
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
-	public Timestamp getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Timestamp regdate) {
-		this.regdate = regdate;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getContent() {
 		return content;
@@ -85,13 +30,18 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getIp() {
-		return ip;
+	public Date getCreatedate() {
+		return createdate;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
 	}
-	
+	public int getMemberno() {
+		return memberno;
+	}
+	public void setMemberno(int memberno) {
+		this.memberno = memberno;
+	}
 	
 	
 	

@@ -14,14 +14,11 @@
 
 <!-- 새글과 답변글을 구분하는 코드 추가 -->
 <%
-int num = 0, ref=1, step=0, depth=0;
+int boardno = 0;
 try {
     // 기존 글에 대한 답변이라면 (파라미터가 존재할 경우) 값들을 받아옴
-			if(request.getParameter("num") != null){
-				num = Integer.parseInt(request.getParameter("num"));
-				ref = Integer.parseInt(request.getParameter("ref"));
-				step = Integer.parseInt(request.getParameter("step"));
-				depth = Integer.parseInt(request.getParameter("depth"));
+			if(request.getParameter("boardno") != null){
+				boardno = Integer.parseInt(request.getParameter("boardno"));
 			}
 %>
 
@@ -36,12 +33,6 @@ try {
 <form action="writeProc.jsp" method="post" name="writeForm"
 onsubmit="return writeSave()">
     <%-- 글 작성 완료 시 writeProc.jsp로 POST 전송 / 자바스크립트 유효성 검사 수행 --%>
-
-    <%-- 숨겨진 입력값 (새글인지 답글인지 판단에 필요) --%>
-<input type="hidden" name="num" value="<%=num%>">
-<input type="hidden" name="ref" value="<%=ref%>">
-<input type="hidden" name="step" value="<%=step%>">
-<input type="hidden" name="depth" value="<%=depth%>">
 
 <table width="470" border="1" cellpadding="0" cellspacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
