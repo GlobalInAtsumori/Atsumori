@@ -1,0 +1,39 @@
+@charset "UTF-8";
+div.tr-list {
+	width: 700px;
+	display: grid;
+	grid-template-rows: repeat(2, 300px);
+	column-gap: 50px;
+	grid-template-columns: repeat(3, 200px);
+	row-gap: 30px;
+}
+
+div.thumb {
+	/*
+	width: 200px;
+	*/
+	border: 1px solid red;
+}
+
+div.thumb div.thumbTop {
+	display: flex;
+	justify-content: space-between;
+}
+
+div.thumb ul li {
+	list-style: none;
+}
+
+div.imgBox {
+	width: 100%;
+}
+
+div.imgBox img {
+	width: 100%;
+}
+
+div.thumb div.thumbBottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+}

@@ -10,6 +10,7 @@
 <title>🛒中古品売買🛒</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/trade.css">
+<link rel="stylesheet" href="css/tradeMain.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -24,13 +25,23 @@
 				<!-- 등록된 글 리스트 출력 -->
 				<c:forEach var="post" items="${tradeList}">
 					<div class="thumb">
-						${post.tradePostNo} - <b>${post.tradeTitle}</b>
+						<div class="thumbTop">					
+							<p class="postNo">${post.tradePostNo}</p>
+							<div class="status">${post.statusLabel}</div>
+						</div>
 						<c:if test="${! empty post.thumbnailUrl}">
-							<div style="width: 200px;">
-								<img alt="썸네일" src="${post.thumbnailUrl}" width="100%">
+							<div class="imgBox">
+								<img alt="썸네일" src="${post.thumbnailUrl}">
 							</div>
 						</c:if>
-						${post.cost} ${post.statusLabel} ${post.dateFormat}
+						<div class="thumbBottom">						
+							<ul>
+								<li class="title">${post.tradeTitle}</li>
+								<li class="cost">${post.cost}</li>
+								<li class="memberName">${post.memberName}</li>
+							</ul>
+							<p class="date">${post.dateFormat}</p>
+						</div>
 					</div>
 				</c:forEach>
 			</div>

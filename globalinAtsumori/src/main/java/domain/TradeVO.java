@@ -21,6 +21,8 @@ public class TradeVO {
 	private Date createDate;
 	//멤버번호용
 	private int memberNo;
+	//작성자(멤버 이름) 출력용
+	private String memberName;
 	//메인페이지 리스트 출력용
 	private String thumbnailUrl;
 	//상세페이지 이미지용
