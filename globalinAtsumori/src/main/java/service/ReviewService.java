@@ -46,7 +46,7 @@ public class ReviewService {
 
         reviewMapper.insertReview(reviewVO); //리뷰 추가
         
-        if(dto.getImageFile() != null) {
+        if(dto.getImageFile() != null && !dto.getImageFile().isEmpty()) {
         	ReviewImageVO riVO = new ReviewImageVO();
         	String url = null;
         	url = s3service.uploadFile(dto.getImageFile());
