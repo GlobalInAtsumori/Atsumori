@@ -14,4 +14,7 @@ public class RestDetailDTO {
 	double longitude;
 	double latitude;
 	List<ReviewDTO> reviewList;
+	int totalReviews;
+	int totalPages;
+	int currentPage;
 }

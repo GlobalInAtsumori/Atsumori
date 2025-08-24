@@ -22,10 +22,14 @@ public class RestaurantService {
         return restaurantMapper.findInBounds(swLat, swLng, neLat, neLng);
     }
 	
-	public RestDetailDTO getRestDetail(int restNo) {
+	public RestDetailDTO getRestDetail(int restNo, int page, int size) {
 		
         RestaurantVO restaurantVO = restaurantMapper.findRestaurantByNo(restNo);
-        List<ReviewDTO> reviewList = reviewMapper.findReviewsByRestNo(restNo);
+        
+        int offset = (page - 1) * size;
+        List<ReviewDTO> reviewList = reviewMapper.reviewPaging(restNo, size, offset);
+        int totalReviews = reviewMapper.countReviewsByRestNo(restNo);
+        int totalPages = (int) Math.ceil((double) totalReviews / size);
 
         RestDetailDTO dto = new RestDetailDTO();
         dto.setRestNo(restaurantVO.getRestNo());
@@ -34,7 +38,10 @@ public class RestaurantService {
         dto.setLongitude(restaurantVO.getLongitude());
         dto.setLatitude(restaurantVO.getLatitude());
         dto.setReviewList(reviewList);
-
+        dto.setTotalReviews(totalReviews);
+        dto.setTotalPages(totalPages);
+        dto.setCurrentPage(page);
+        
         return dto;
 	}
 }
