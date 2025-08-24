@@ -21,4 +21,9 @@ public interface RestaurantMapper {
 	void insertRestuarant(RestaurantVO restaurantVO);
 	
 	RestaurantVO findRestaurantByNo(int restNo);
+	
+	Integer findRestNoByNameAndAddress(
+			@Param("restName") String restName,
+            @Param("address") String address
+    );
 }

@@ -66,7 +66,8 @@ CREATE TABLE restaurant (
 insert into restaurant values(1, 'testRest', '영등포구 영등포동', 100, 100);
 insert into restaurant values(2, '영등포역', '영등포구 영등포동', 126.90466, 37.50933);
 delete from restaurant where restNo = 2;
-select * from restaurant;
+delete from restaurant;
+
 -- review 테이블
 CREATE TABLE review (
     reviewNo NUMBER NOT NULL,
@@ -80,6 +81,7 @@ CREATE TABLE review (
     CONSTRAINT FK_REVIEW_RESTAURANT FOREIGN KEY (restNo) REFERENCES restaurant(restNo)
 );
 select * from review;
+delete from review;
 -- reviewImage 테이블
 CREATE TABLE reviewImage (
     reviewImgNo NUMBER NOT NULL,
@@ -92,6 +94,7 @@ CREATE TABLE reviewImage (
 drop table reviewImage;
 select * from REVIEWIMAGE;
 select * from review where reviewno = 4;
+delete from reviewImage;
 -- boardComment 테이블
 CREATE TABLE boardComment (
     commentNo NUMBER NOT NULL,

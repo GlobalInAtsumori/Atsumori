@@ -24,7 +24,7 @@
 	            m.country,
 	            rv.restNo,
 	            ri.reviewImgUrl,
-	            ROW_NUMBER() OVER (ORDER BY rv.createDate DESC) AS rn
+	            ROW_NUMBER() OVER (ORDER BY rv.reviewNo DESC) AS rn
 	        FROM review rv
 	        JOIN member m ON rv.memberNo = m.memberNo
 	        LEFT JOIN reviewImage ri ON rv.reviewNo = ri.reviewNo
