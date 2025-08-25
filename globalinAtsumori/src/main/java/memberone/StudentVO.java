@@ -1,4 +1,4 @@
-package com.memberone;
+package memberone;
 
 public class StudentVO {
 

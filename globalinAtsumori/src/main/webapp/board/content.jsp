@@ -1,26 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
 
-<%@ page import="board.BoardDAO" %>		<%-- 게시판 데이터 처리하는 클래스 임포트 --%>
-<%@ page import="board.BoardVO" %>		<%-- 게시글 데이터 저장용 클래스 임포트 --%>
-<%@ page import="java.util.List" %>						<%-- 여러 개의 게시글을 담기 위한 리스트 --%>
-<%@ page import="java.text.SimpleDateFormat" %>	<%-- 날짜 형식 변환용 클래스 --%>
-<%@ include file="color.jsp" %>						<%-- 색상값을 담은 JSP 파일 포함 --%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="dto.BoardDTO" %>
+<%@ include file="color.jsp" %>
 
+<%-- Controller가 Model에 담아준 데이터를 사용합니다 --%>
 <%
-
-	int num = Integer.parseInt(request.getParameter("num"));
-	String pageNum = request.getParameter("pageNum");
+	// Controller에서 "article"이라는 이름으로 넘겨준 BoardDTO 객체를 가져옵니다.
+	BoardDTO article = (BoardDTO) request.getAttribute("article");
+	// Controller에서 "pageNum"으로 넘겨준 현재 페이지 번호를 가져옵니다.
+	String pageNum = (String) request.getAttribute("pageNum");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-	try {
-		BoardDAO dbPro = BoardDAO.getInstance();
-		BoardVO article = dbPro.getArticle(num);
-		int ref = article.getRef();
-		int step = article.getStep();
-		int depth = article.getDepth();
-
 %>
 
 <!DOCTYPE html>
@@ -47,24 +40,21 @@ align="center" bgcolor="<%=bodyback_c%>">
 
 <tr height="30">
 		<td align="center" width="20%" bgcolor="<%=value_c%>">글번호</td>
-		<td align="center" width="30%"><%=article.getNum() %></td>
+		<td align="center" width="30%"><%=article.getBoardno() %></td>
 		
 		<td align="center" width="20%" bgcolor="<%=value_c%>">조회수</td>
-		<td align="center" width="30%"><%=article.getReadcount() %></td>
-</tr>
+		<td align="center" width="30%">1</td> </tr>
 
 
 <tr height="30">
 		<td align="center" width="20%" bgcolor="<%=value_c%>">작성자</td>
-		<td align="center" width="30%"><%=article.getWriter() %></td>
-		
-		<td align="center" width="20%" bgcolor="<%=value_c%>">작성일</td>
+		<td align="center" width="30%"><%=article.getMemberno() %></td> <td align="center" width="20%" bgcolor="<%=value_c%>">작성일</td>
 		<td align="center" width="30%">
-		<%=sdf.format(article.getRegdate()) %></td>
+		<%=sdf.format(article.getCreatedate()) %></td>
 </tr>
 </table>
 
-<br>		<%-- 간격 띄우기 --%>
+<br>
 
 <table width="500" border="2" cellpadding="0" cellpacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
@@ -72,7 +62,7 @@ align="center" bgcolor="<%=bodyback_c%>">
 <tr height="30">
 		<td align="center" width="20%" bgcolor="<%=value_c%>">글제목</td>
 		<td align="center" width="375" colspan="3">
-		<%=article.getSubject() %></td>
+		<%=article.getTitle() %></td>
 </tr>
 
 
@@ -84,13 +74,12 @@ align="center" bgcolor="<%=bodyback_c%>">
 </tr>
 </table>
 
-<br>			<%-- 간격 띄우기 --%>
+<br>
 
 <table width="500" border="2" cellpadding="0" cellpacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
 
 
-<%--로그인 상태일 경우 글수정, 글삭제, 답변글작성 가능. 로그인 상태가 아니면 로그인부터 해야함  --%>
 <tr height="30">
 	<td colspan="4" bgcolor="<%=value_c%>" align="right">
 	
@@ -99,10 +88,10 @@ align="center" bgcolor="<%=bodyback_c%>">
 			if (loginID == null) {
 		%>
 		
-			<input type="button" value="글수정" 
+			<input type="button" value="글수정"
 				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/member/login.jsp';">
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="글삭제" 
+			<input type="button" value="글삭제"
 				onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='<%=request.getContextPath()%>/member/login.jsp';">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="답변글작성"
@@ -113,50 +102,24 @@ align="center" bgcolor="<%=bodyback_c%>">
 			} else {
 		%>
 		
-			<input type="button" value="글수정" 
-				onclick="document.location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
+			<input type="button" value="글수정"
+				onclick="document.location.href='updateForm.do?boardno=<%=article.getBoardno()%>&pageNum=<%=pageNum%>'">
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="글삭제" 
-				onclick="document.location.href='deleteForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
+			<input type="button" value="글삭제"
+				onclick="document.location.href='deleteForm.do?boardno=<%=article.getBoardno()%>&pageNum=<%=pageNum%>'">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="답변글작성"
-				onclick="document.location.href='writeForm.jsp?num=<%=num%>&ref=<%=ref%>&step=<%=step%>&depth=<%=depth%>'">
+				onclick="document.location.href='writeForm.do?boardno=<%=article.getBoardno()%>'">
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			
 		<%
 			}
 		%>
-		<input type="button" value="글목록" 
-			onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'">
+		<input type="button" value="글목록"
+			onclick="document.location.href='list.do?pageNum=<%=pageNum%>'">
 	</td>
 </tr>
-
-<%--
-<tr height="30">
-	<td colspan="4" bgcolor="<%=value_c%>" align="right">
-			<input type="button" value="글수정" 
-			onclick="document.location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="글삭제" 
-			onclick="document.location.href='deleteForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			
-			<input type="button" value="답변글작성"
-			onclick="document.location.href='writeForm.jsp?num=<%=num%>&ref=<%=ref%>&step=<%=step%>&depth=<%=depth%>'">
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			
-			<input type="button" value="글목록" 
-			onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'">
-			
-	</td>
-</tr>
---%>
 </table>
-	<%}catch(Exception e){e.printStackTrace();} %>
-
-</form>
-
-
 </div>
 
 </div>

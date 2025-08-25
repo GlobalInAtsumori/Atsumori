@@ -1,9 +1,9 @@
-<%@page import ="java.util.Vector, com.memberone.*"%>
+<%@page import ="java.util.Vector,memberone.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <jsp:useBean id="dao" class="com.memberone.StudentDAO" />
+    <jsp:useBean id="dao" class="memberone.StudentDAO" />
     
     <%
     request.setCharacterEncoding("utf-8");

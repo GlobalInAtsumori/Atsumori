@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="com.memberone.*" %>
-    <jsp:useBean id="dao" class="com.memberone.StudentDAO" />
+    <%@ page import="memberone.*" %>
+    <jsp:useBean id="dao" class="memberone.StudentDAO" />
     
     
 <!DOCTYPE html>

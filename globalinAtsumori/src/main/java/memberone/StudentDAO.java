@@ -1,4 +1,4 @@
-package com.memberone;
+package memberone;
 
 import java.awt.Window;
 import java.sql.*;
