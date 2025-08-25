@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <title>✏️中古品売買✏️</title>
 <link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/secondhand.css">
-<script type="text/javascript" src="js/secondhandScript.js"></script>
+<link rel="stylesheet" href="/css/trade.css">
+<script type="text/javascript" src="js/tradeScript.js"></script>
 </head>
 <body>
 
@@ -18,8 +18,8 @@
 		<jsp:include page="includes/banner.jsp" />
 		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 	
-		<form action="/secondhand/write" method="post" name="shWriteForm" onsubmit="return shWriteSave()">
-			<table class="shWrite">
+		<form action="/trade/write" method="post" name="trWriteForm" enctype="multipart/form-data" onsubmit="return trWriteSave()">
+			<table class="trWrite">
 				<tr>
 					<td class="textonly">タイトル</td>
 					<td class="input">
@@ -38,11 +38,17 @@
 						<textarea name="tradeContent"></textarea>
 					</td>
 				</tr>
+				<tr>
+	            	<td class="textonly">写真アップロード</td>
+	            	<td class="input" style="border:none;">
+	                	<input type="file" name="imageFile" accept="image/*">
+	            	</td>
+	        	</tr>
 				<tr class="forCenter">
 					<td class="button">
 						<input type="submit" value="投稿">
 						<input type="reset" value="書換え">
-						<input type="button" value="取消し" onclick="window.location='secondhandMain.jsp'">						
+						<input type="button" value="取消し" onclick="window.location='tradeMain.jsp'">						
 					</td>
 				</tr>
 			</table>
