@@ -24,29 +24,36 @@ public class ReviewService {
 	private final S3Service s3service;
 	
 	public void create(ReviewCreateDTO dto, int userNo) throws IOException{
+		
 		RestaurantVO restaurantVO = new RestaurantVO();
-        ReviewVO reviewVO = new ReviewVO();
-        
-        restaurantVO.setRestName(dto.getRestName());
-        restaurantVO.setAddress(dto.getAddress());
-        System.out.println(dto.getRestName());
-        System.out.println(dto.getAddress());
-        System.out.println(dto.getLatitude());
-        System.out.println(dto.getLongitude());
-        restaurantVO.setLongitude(Double.parseDouble(dto.getLongitude()));
-        restaurantVO.setLatitude(Double.parseDouble(dto.getLatitude()));
-        
-        restaurantMapper.insertRestuarant(restaurantVO); //식당 추가
+		ReviewVO reviewVO = new ReviewVO();
+		
+		Integer restNo = restaurantMapper.findRestNoByNameAndAddress(dto.getRestName(), dto.getAddress());
+		
+		if(restNo == null) {
+			restaurantVO.setRestName(dto.getRestName());
+	        restaurantVO.setAddress(dto.getAddress());
+	        System.out.println(dto.getRestName());
+	        System.out.println(dto.getAddress());
+	        System.out.println(dto.getLatitude());
+	        System.out.println(dto.getLongitude());
+	        restaurantVO.setLongitude(Double.parseDouble(dto.getLongitude()));
+	        restaurantVO.setLatitude(Double.parseDouble(dto.getLatitude()));
+	        
+	        restaurantMapper.insertRestuarant(restaurantVO); //식당 추가
+	        
+	        restNo = restaurantVO.getRestNo();
+		}
         
         reviewVO.setReviewTitle(dto.getReviewTitle());
-        reviewVO.setRestNo(restaurantVO.getRestNo());
+        reviewVO.setRestNo(restNo);
         reviewVO.setReviewContent(dto.getReviewContent());
         reviewVO.setCreateDate(new Date(System.currentTimeMillis()));
         reviewVO.setMemberNo(userNo);
 
         reviewMapper.insertReview(reviewVO); //리뷰 추가
         
-        if(dto.getImageFile() != null) {
+        if(dto.getImageFile() != null && !dto.getImageFile().isEmpty()) {
         	ReviewImageVO riVO = new ReviewImageVO();
         	String url = null;
         	url = s3service.uploadFile(dto.getImageFile());

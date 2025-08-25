@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dto.RestDetailDTO;
 import dto.RestListDTO;
 import lombok.RequiredArgsConstructor;
 import service.RestaurantService;
@@ -38,4 +40,16 @@ public class RestaurantController { //지도 범위 내 가게 조회, 가게 �
     	
 		return "map";
     }
+    
+    @GetMapping("/restaurant/{restNo}")
+	public String detailRest(@PathVariable int restNo, 
+							@RequestParam(defaultValue = "1") int page,
+							@RequestParam(defaultValue = "5") int size,
+							Model model) {
+    	
+    	RestDetailDTO restDetailDto = restaurantService.getRestDetail(restNo, page, size);
+    	model.addAttribute("restDetailDto", restDetailDto);
+    	
+		return "restDetail";
+	}
 }

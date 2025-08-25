@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import domain.RestaurantVO;
+import dto.RestDetailDTO;
 import dto.RestListDTO;
 
 @Mapper
@@ -18,4 +19,11 @@ public interface RestaurantMapper {
     );
 	
 	void insertRestuarant(RestaurantVO restaurantVO);
+	
+	RestaurantVO findRestaurantByNo(int restNo);
+	
+	Integer findRestNoByNameAndAddress(
+			@Param("restName") String restName,
+            @Param("address") String address
+    );
 }
