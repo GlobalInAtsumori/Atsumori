@@ -26,7 +26,7 @@
 				<c:forEach var="post" items="${tradeList}">
 					<div class="thumb">
 						<div class="thumbTop">					
-							<p class="postNo">${post.tradePostNo}</p>
+							<p class="postNo">${post.rn}</p>
 							<div class="status">${post.statusLabel}</div>
 						</div>
 						<c:if test="${! empty post.thumbnailUrl}">

@@ -19,6 +19,8 @@ public class TradeVO {
 	private String status = "AVAILABLE"; //AVAILABLE, TRADING, DONE
 	private Integer customer;
 	private Date createDate;
+	//행 넘버 출력용
+	private int rn;
 	//멤버번호용
 	private int memberNo;
 	//작성자(멤버 이름) 출력용
