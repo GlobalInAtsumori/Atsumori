@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
 
 <%@ page import="java.util.List" %>
@@ -13,7 +13,6 @@
 	BoardDTO article = (BoardDTO) request.getAttribute("article");
 	// Controller에서 "pageNum"으로 넘겨준 현재 페이지 번호를 가져옵니다.
 	String pageNum = (String) request.getAttribute("pageNum");
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 
 <!DOCTYPE html>
@@ -35,7 +34,7 @@
 <form action="">
 
 
-<table width="500" border="2" cellpadding="0" cellpacing="0"
+<table width="500" border="2" cellpadding="0" cellspacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
 
 <tr height="30">
@@ -50,13 +49,13 @@ align="center" bgcolor="<%=bodyback_c%>">
 		<td align="center" width="20%" bgcolor="<%=value_c%>">작성자</td>
 		<td align="center" width="30%"><%=article.getMemberno() %></td> <td align="center" width="20%" bgcolor="<%=value_c%>">작성일</td>
 		<td align="center" width="30%">
-		<%=sdf.format(article.getCreatedate()) %></td>
+		<%=article.getCreatedate()%></td>
 </tr>
 </table>
 
 <br>
 
-<table width="500" border="2" cellpadding="0" cellpacing="0"
+<table width="500" border="2" cellpadding="0" cellspacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
 
 <tr height="30">
@@ -76,7 +75,7 @@ align="center" bgcolor="<%=bodyback_c%>">
 
 <br>
 
-<table width="500" border="2" cellpadding="0" cellpacing="0"
+<table width="500" border="2" cellpadding="0" cellspacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
 
 

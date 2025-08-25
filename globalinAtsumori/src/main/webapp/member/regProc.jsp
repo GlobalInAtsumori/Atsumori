@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
     
     <% request.setCharacterEncoding("utf-8"); %>
-    <jsp:useBean id="dao" class="com.memberone.StudentDAO" />
-    <jsp:useBean id="vo" class="com.memberone.StudentVO" />
+    <jsp:useBean id="dao" class="member.StudentDAO" />
+    <jsp:useBean id="vo" class="member.StudentVO" />
     
     <jsp:setProperty property="*" name="vo"/>
     

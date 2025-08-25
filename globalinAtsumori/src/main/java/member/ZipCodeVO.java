@@ -1,4 +1,4 @@
-package memberone;
+package member;
 
 public class ZipCodeVO {
 

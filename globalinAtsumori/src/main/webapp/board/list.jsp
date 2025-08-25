@@ -4,7 +4,6 @@
 
 
 <%@ page import="java.util.List"%>
-<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="dto.BoardDTO"%>
 <%@ include file="color.jsp"%>
 
@@ -19,7 +18,6 @@
 	
 	List<BoardDTO> articleList = (List<BoardDTO>) request.getAttribute("articleList");
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 			
 		
@@ -67,7 +65,6 @@
 					<%=article.getMemberno()%>
 				</td>
 				<td align="center" width="150">
-					<!-- 수정된 부분: sdf.format() 제거 -->
 					<%=article.getCreatedate()%>
 				</td>
 			</tr>

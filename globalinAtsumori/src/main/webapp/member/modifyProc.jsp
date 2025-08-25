@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="memberone.*" %>
+    <%@ page import="member.*" %>
 <%
 request.setCharacterEncoding("utf-8");
 %>
-<jsp:useBean id="dao" class="memberone.StudentDAO" />
+<jsp:useBean id="dao" class="member.StudentDAO" />
 
-<jsp:useBean id="vo" class="memberone.StudentVO">
+<jsp:useBean id="vo" class="member.StudentVO">
 	<jsp:setProperty name="vo" property="*" />
 </jsp:useBean>
 
