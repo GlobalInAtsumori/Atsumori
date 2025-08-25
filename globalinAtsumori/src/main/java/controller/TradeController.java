@@ -72,7 +72,7 @@ public class TradeController {
 	}
 	
 	//상세페이지
-	@GetMapping("/trade/detail")
+	@GetMapping("/tradeDetail")
 	public String tradeDetail( @RequestParam("tradePostNo") int tradePostNo, Model model ) {
 		TradeVO post = tradeService.getPostDetail(tradePostNo);
 		model.addAttribute("post", post);
