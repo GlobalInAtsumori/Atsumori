@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/board")
@@ -66,7 +67,11 @@ public class BoardController {
     }
 
     @PostMapping("/writeProc.do")
-    public String writeArticle(@ModelAttribute BoardDTO article) {
+    public String writeArticle(@ModelAttribute BoardDTO article, HttpSession session) {
+        // 실제 로그인 기능이 있다면 세션에서 memberNo를 가져와야 합니다.
+        // 현재는 memberNo 1번으로 고정하여 테스트합니다.
+        // 이 부분은 실제 로그인 구현 시 수정이 필요합니다.
+        article.setMemberno(1);
         boardService.insertArticle(article);
         return "redirect:/board/list.do";
     }
@@ -80,7 +85,9 @@ public class BoardController {
     }
 
     @PostMapping("/updateProc.do")
-    public String updateArticle(@ModelAttribute BoardDTO updateDTO, @RequestParam String pageNum) {
+    public String updateArticle(@ModelAttribute BoardDTO updateDTO, @RequestParam int boardno, @RequestParam int pageNum) {
+        // 폼에서 넘어온 boardno를 DTO에 수동으로 설정
+        updateDTO.setBoardno(boardno);
         boardService.updateArticle(updateDTO);
         return "redirect:/board/list.do?pageNum=" + pageNum;
     }

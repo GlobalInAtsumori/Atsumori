@@ -66,7 +66,7 @@ public class BoardService {
         vo.setBoardno(dto.getBoardno());
         vo.setTitle(dto.getTitle());
         vo.setContent(dto.getContent());
-        vo.setMemberno(dto.getMemberno());
+        vo.setMemberno(2); // 추후에 변경
 
         try {
             if (dto.getCreatedate() != null) {
