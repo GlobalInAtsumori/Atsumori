@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.BoardCommentMapper">
+
+    <select id="getCommentsByBoardNo" resultType="dto.BoardCommentDTO">
+        SELECT
+            c.commentNo,
+            c.content,
+            c.createDate,
+            c.boardNo,
+            c.memberNo,
+            m.memberId,
+            m.memberName
+        FROM boardComment c
+        JOIN member m ON c.memberNo = m.memberNo
+        WHERE c.boardNo = #{boardNo}
+        ORDER BY c.createDate DESC
+    </select>
+    
+    <insert id="insertComment">
+        INSERT INTO boardComment (commentNo, content, createDate, boardNo, memberNo)
+        VALUES (boardcomment_seq.nextval, #{content}, SYSDATE, #{boardNo}, #{memberNo})
+    </insert>
+
+    <delete id="deleteComment">
+        DELETE FROM boardComment WHERE commentNo = #{commentNo}
+    </delete>
+</mapper>

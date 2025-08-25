@@ -1,6 +1,8 @@
 package controller;
 
+import dto.BoardCommentDTO;
 import dto.BoardDTO;
+import service.BoardCommentService;
 import service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private BoardCommentService boardCommentService; // 댓글 부분을 추가
 
     @GetMapping("/list.do")
     public String getArticleList(@RequestParam(defaultValue = "1") int pageNum,
@@ -56,8 +60,12 @@ public class BoardController {
                              @RequestParam String pageNum,
                              Model model) {
         BoardDTO article = boardService.getArticle(boardno);
+        List<BoardCommentDTO> commentList = boardCommentService.getCommentsByBoardNo(boardno); // 이 부분을 추가
+
         model.addAttribute("article", article);
         model.addAttribute("pageNum", pageNum);
+        model.addAttribute("commentList", commentList); // 이 부분을 추가
+
         return "board/content";
     }
 

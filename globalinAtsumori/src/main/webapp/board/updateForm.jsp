@@ -18,7 +18,7 @@
 	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 <div align="center"><br><b>글수정</b></div><br>
-<form action="updateProc.do" method="post" name="updateForm" onsubmit="return writeSave()">
+<form action="updateProc.do" method="post" name="updateForm">
 	<input type="hidden" name="boardno" value="${article.boardno}">
     <input type="hidden" name="pageNum" value="${pageNum}">
 
