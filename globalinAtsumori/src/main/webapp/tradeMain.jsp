@@ -24,7 +24,7 @@
 			<div class="tr-list">
 				<!-- 등록된 글 리스트 출력 -->
 				<c:forEach var="post" items="${tradeList}">
-					<div class="thumb">
+					<div class="thumb" onclick="location.href='tradeDetail?tradePostNo=${post.tradePostNo}'">
 						<div class="thumbTop">					
 							<p class="postNo">${post.rn}</p>
 							<div class="status">${post.statusLabel}</div>
