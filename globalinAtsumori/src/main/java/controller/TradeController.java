@@ -37,12 +37,6 @@ public class TradeController {
 		model.addAttribute("tradeList", tradeList);
 		return "tradeMain";
 	}
-	/*
-	@GetMapping("/tradeMain")
-	public String trMainPage() {
-		return "tradeMain";
-	}
-	*/
 	
 	//글쓰기
 	@GetMapping("/tradeWrite")
@@ -75,6 +69,12 @@ public class TradeController {
 		}
         
         return "redirect:/tradeMain";
+	}
+	
+	//상세페이지
+	@GetMapping("/trade/detail")
+	public String tradeDetail( @RequestParam("tradePostNo") int tradePostNo, Model model ) {
+		TradeVO post = tradeService.getPostDetail(tradePostNo);
 	}
 	
 	
