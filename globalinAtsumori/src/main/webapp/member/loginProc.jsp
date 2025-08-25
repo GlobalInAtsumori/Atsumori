@@ -24,12 +24,12 @@ if(check == 1){ //로그인 성공
 }else if(check == 0) { //비밀번호가 맞지 않는 경우
 %>
 <script type="text/javascript">
-alert("비밀번호가 맞지 않스무니DA");
+alert("비밀번호가 맞지 않습니다.");
 history.go(-1);
 </script>
 <%} else { // 아이디가 존재하지 않는 경우%>
 <script type="text/javascript">
-alert("아이디가 존재하지 않스무NI다");
+alert("아이디가 존재하지 않습니다.");
 history.go(-1);
 </script>
 

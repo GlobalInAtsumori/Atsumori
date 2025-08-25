@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
+<% request.setAttribute("bannerMessage", "자유 게시판"); %>
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -112,9 +112,11 @@ align="center" bgcolor="<%=bodyback_c%>">
         <form action="addComment.do" method="post">
           	<input type="hidden" name="boardNo" value="${article.boardno}">
   		  	<input type="hidden" name="pageNum" value="<%=pageNum%>">
-    		<textarea name="content" rows="3" cols="60" placeholder="댓글을 입력하세요." required></textarea>
+    		<textarea name="content" rows="3" cols="68" placeholder="댓글을 입력하세요." required></textarea>
     		<br>
+    		<div align="right">
     		<input type="submit" value="댓글 작성">
+    		</div>
 		</form>
     </c:if>
     <c:if test="${empty sessionScope.loginID}">
@@ -122,17 +124,24 @@ align="center" bgcolor="<%=bodyback_c%>">
     </c:if>
 
     <c:forEach var="comment" items="${commentList}">
-        <div style="border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 5px;">
-            <p><strong>${comment.memberName}</strong> <small>(${comment.createDate})</small></p>
-            <p>${comment.content}</p>
-            <c:if test="${sessionScope.loginID == comment.memberId}">
-                <form action="deleteComment.do" method="post" style="display:inline;">
-                    <input type="hidden" name="commentNo" value="${comment.commentNo}">
-                    <input type="hidden" name="boardNo" value="${comment.boardNo}">
-                    <input type="hidden" name="pageNum" value="${pageNum}">
-                    <input type="submit" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?');">
-                </form>
-            </c:if>
+    <div style="border: 2px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 5px;">
+        <p><strong>${comment.memberName}</strong> <small>(${comment.createDate})</small></p>
+        <p>${comment.content}</p>
+        
+        <%-- 로그인 기능이 구현되어있지 않아 주석 처리 --%>
+        <%-- <c:if test="${not empty sessionScope.loginID and sessionScope.loginID.equals(comment.memberId)}">
+       		<div align="right"> --%>
+                <form action="deleteComment.do" method="post" style="display:inline;">
+                    <input type="hidden" name="commentNo" value="${comment.commentNo}">
+                    <input type="hidden" name="boardNo" value="${comment.boardNo}">
+                    <input type="hidden" name="pageNum" value="${pageNum}">
+                    <div align="right">
+                    <input type="submit" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?');">
+                    </div>
+                </form>
+            <%-- </div>
+        </c:if> --%>
+            
         </div>
     </c:forEach>
     <c:if test="${empty commentList}">

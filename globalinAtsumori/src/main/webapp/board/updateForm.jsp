@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<% request.setAttribute("bannerMessage", "자유 게시판(ღ˘⌣˘ღ)"); %>
+<% request.setAttribute("bannerMessage", "자유 게시판"); %>
 <%@ include file="color.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@
 	<input type="hidden" name="boardno" value="${article.boardno}">
     <input type="hidden" name="pageNum" value="${pageNum}">
 
-	<table width="470" border="1" cellpadding="0" cellspacing="0"
+	<table width="470" border="2" cellpadding="0" cellspacing="0"
 		align="center" bgcolor="<%=bodyback_c%>">
 		<tr>
 			<td align="right" colspan="2" bgcolor="<%=value_c%>">

@@ -26,11 +26,11 @@
 <%
 if(flag){
 	
-	out.println("<b>회원가입을 축하드립니다 (>.<)\u2665\u2665\u2665</b>");
+	out.println("<b>회원가입을 축하드립니다.</b>");
 	out.println("<a href=login.jsp>로그인</a>");
 }else{
-	out.println("<b>다시 입력하여 주십시요. (>.<)\u2664\u2664\u2664</b>");
-	out.println("<a href=regForm.jsp>다시가입해라(ㅇㅅㅇ)</a>");
+	out.println("<b>다시 입력하여 주십시요.</b>");
+	out.println("<a href=regForm.jsp>다시 가입 하십시오.</a>");
 }
 
 
