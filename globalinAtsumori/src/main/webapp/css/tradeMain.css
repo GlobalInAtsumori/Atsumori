@@ -10,17 +10,25 @@ div.tr-list {
 }
 
 div.thumb {
-	/*
-	width: 200px;
-	*/
-	border: 1px solid red;
+	cursor: pointer;
+	position: relative;
+	border-radius: 9px;
+	box-shadow: 0 0 2px #dddddd;
+	transition: transform 0.2s ease;
+}
+
+div.thumb:hover {
+	transform: scale(1.02);
+	box-shadow: 0 0 4px #dddddd;
 }
 
 /* thumbTop */
 div.thumb div.thumbTop {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	transform: translateY(32px);
+	position: absolute;
+	top: 7px;
 	padding: 0 6px;
 }
 
@@ -56,7 +64,9 @@ div.thumb div.thumbBottom {
 	display: flex;
 	justify-content: space-between;
 	align-items: end;
+	padding: 3px 10px;
 }
+
 div.thumb ul {
 	display: flex;
 	flex-direction: column;
@@ -82,4 +92,9 @@ div.thumb div.thumbBottom li.cost::after {
 	font-size: 15px;
 	margin-left: 5px;
 	vertical-align: bottom;
+}
+
+div.thumb div.thumbBottom p.date {
+	font-size: 14px;
+	color: #b4b4b4;
 }
