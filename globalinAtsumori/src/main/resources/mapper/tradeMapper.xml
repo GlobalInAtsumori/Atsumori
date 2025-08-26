@@ -52,5 +52,12 @@
     	JOIN member m ON tp.memberNo = m.memberNo
     	WHERE tp.tradePostNo = #{tradePostNo}
     </select>
+    
+    <!-- 거래희망 버튼용 (AVAILABLE to TRADING) -->
+    <update id="updateStatus">
+    	UPDATE tradePost 
+    	SET status = #{status} 
+    	WHERE tradePostNo = #{tradePostNo}
+    </update>
 
 </mapper>

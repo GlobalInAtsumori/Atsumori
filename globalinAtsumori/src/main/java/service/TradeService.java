@@ -55,4 +55,9 @@ public class TradeService {
 		
 	}
 	
+	//거래희망(클릭시 거래중 등의 표기)
+	public void updateStatusToTrading(int tradePostNo) {
+		tradeMapper.updateStatus(tradePostNo, "TRADING");
+	}
+	
 }

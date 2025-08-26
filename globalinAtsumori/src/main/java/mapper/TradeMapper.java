@@ -2,6 +2,8 @@ package mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import domain.TradeVO;
 
 @Mapper
@@ -17,4 +19,7 @@ public interface TradeMapper {
     
     //페이징용 글 개수
     int countTradePost();
+    
+    //거래희망 버튼 update(AVILABLE to TRADING)용
+    void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
 }
