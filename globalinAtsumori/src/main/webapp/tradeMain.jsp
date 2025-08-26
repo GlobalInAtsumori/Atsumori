@@ -27,7 +27,7 @@
 					<div class="thumb" onclick="location.href='tradeDetail?tradePostNo=${post.tradePostNo}'">
 						<div class="thumbTop">					
 							<p class="postNo">${post.rn}</p>
-							<div class="status">${post.statusLabel}</div>
+							<div class="status ${post.tradeBtnClass}">${post.statusLabel}</div>
 						</div>
 						<c:if test="${! empty post.thumbnailUrl}">
 							<div class="imgBox">

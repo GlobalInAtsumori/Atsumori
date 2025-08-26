@@ -57,16 +57,26 @@ div.trdTop button.tradeBtn {
     width: 180px;
     height: 45px;
     border-radius: 5px;
-    background: #000000;
     color: #ffffff;
 	font-size: 25px;
     font-weight: 600;
+}
+
+div.trdTop button.green {
+	background: green;
     cursor: pointer;
 }
 
-div.trdTop button.tradeBtn:hover {
-	color: #000000;
-	background: #dddddd;
+div.trdTop button.gray {
+	background: #b4b4b4;
+}
+
+div.trdTop button.black {
+	background: #000000;
+}
+
+div.trdTop button.green:hover {
+	background: yellowgreen;
 }
 
 div.trdBottom {

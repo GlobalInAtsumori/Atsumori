@@ -29,7 +29,7 @@
 						<li class="memberName">${post.memberName}</li>
 						<li class="costTitle">値段</li>
 						<li class="cost">${post.cost}</li>
-						<li><button class="tradeBtn">取引希望</button></li>
+						<li><button class="tradeBtn ${post.tradeBtnClass}" ${post.tradeBtnEnabled ? "" : "disabled"}>${post.tradeBtnLabel}</button></li>
 					</ul>
 				</div>
 				

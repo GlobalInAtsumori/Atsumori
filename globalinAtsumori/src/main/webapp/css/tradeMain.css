@@ -41,8 +41,20 @@ div.thumb div.thumbTop div.status {
 	font-size: 15px;
 	font-weight: 600;
 	padding: 2px 5px;
-	background: #dddddd;
+	color: #ffffff;
 	border-radius: 3px;
+}
+
+div.thumb div.thumbTop div.green {
+	background: green;
+}
+
+div.thumb div.thumbTop div.gray {
+	background: #b4b4b4;
+}
+
+div.thumb div.thumbTop div.black {
+	background: #000000;
 }
 
 div.imgBox {

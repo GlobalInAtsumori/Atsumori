@@ -49,17 +49,26 @@ public class TradeVO {
 			return status;
 		}
 	}
-	//tradeDetail에 거래희망 btn 라벨용
+	//tradeDetail 거래희망 btn 라벨용
 	public String getTradeBtnLabel() {
-		switch (status) {
+		switch (this.status) {
 		case "AVAILABLE":return "取引希望";
 		case "TRADING": return "取引中";
         case "DONE": return "販売完了";
 		default:return "";
 		}
 	}
-	//tradeDetail에 거래희망 btn 활성화 관리용
-	public boolean tradeBtnEnabled() {
+	//tradeDetail 거래희망 btn 활성화 관리용
+	public boolean isTradeBtnEnabled() {
 		return "AVAILABLE".equals(status);
+	}
+	//tradeDetail 거래희망 btn class 관리용
+	public String getTradeBtnClass() {
+		switch (this.status) {
+		case "AVAILABLE":return "green";
+		case "TRADING": return "gray";
+        case "DONE": return "black";
+		default:return "";
+		}
 	}
 }
