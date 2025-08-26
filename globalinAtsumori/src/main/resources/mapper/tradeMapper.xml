@@ -43,8 +43,13 @@
     		tp.cost,
     		tp.status,
     		tp.memberNo,
-    		tp.createDate 
+    		tp.createDate,
+    		m.memberName,
+    		(SELECT ti.tradeImgUrl 
+    		FROM tradeImage ti 
+    		WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl
     	FROM tradePost tp 
+    	JOIN member m ON tp.memberNo = m.memberNo
     	WHERE tp.tradePostNo = #{tradePostNo}
     </select>
 

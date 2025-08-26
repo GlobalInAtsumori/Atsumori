@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	border: none;
+	font-family: 'Segoe UI', sans-serif;
+	outline: none;
+}
+
+div.trdTop {
+	border: 1px solid red;
+	display: flex;
+}
+
+div.imgBox {	
+	border: 1px solid pink;
+	width: 350px;
+	height: 350px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+div.trdTop ul {
+	list-style: none;
+	width: fit-content;
+}
+
+div.imgBox img {
+	width: 100%;
+	height: 100%;
+}
+
+div.trdTop li.title {
+	font-size: 30px;
+	font-weight: 600;
+}
+
+div.trdTop li.memberName {
+	font-size: 20px;	
+}
+
+div.trdTop li.costTitle {
+	font-size: 18px;
+}
+
+div.trdTop li.cost {
+	font-size: 45px;
+	font-weight: 600;
+}
+
+div.trdTop button.tradeBtn {
+	display: block;
+	margin: 0 auto;
+    width: 180px;
+    height: 45px;
+    border-radius: 5px;
+    background: #000000;
+    color: #ffffff;
+	font-size: 25px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+div.trdTop button.tradeBtn:hover {
+	color: #000000;
+	background: #dddddd;
+}
+
+div.trdBottom {
+	border: 1px solid blue;
+}

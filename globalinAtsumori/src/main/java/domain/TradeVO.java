@@ -49,4 +49,17 @@ public class TradeVO {
 			return status;
 		}
 	}
+	//tradeDetail에 거래희망 btn 라벨용
+	public String getTradeBtnLabel() {
+		switch (status) {
+		case "AVAILABLE":return "取引希望";
+		case "TRADING": return "取引中";
+        case "DONE": return "販売完了";
+		default:return "";
+		}
+	}
+	//tradeDetail에 거래희망 btn 활성화 관리용
+	public boolean tradeBtnEnabled() {
+		return "AVAILABLE".equals(status);
+	}
 }
