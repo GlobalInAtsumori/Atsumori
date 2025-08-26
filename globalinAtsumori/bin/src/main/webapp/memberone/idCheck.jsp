@@ -1,11 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="domain.*" %>
-<jsp:useBean id="dao" class="dao.MembercheckDAO"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<jsp:useBean id="dao" class="com.memberone.StudentDAO" />
 
 <%
-    String id = request.getParameter("id");
-	boolean check = dao.idCheck(id);
+		String id = request.getParameter("id");
+		boolean check = dao.idCheck(id);
 %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +16,21 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script.js"></script>
 </head>
-<body bgcolor="#fef7b5">
+<body bgcolor="#ffffcc">
 <br>
-<div align="center"></div>
+<div align="center">
 <b><%=id %></b>
 <%
-if(check){
-    out.println("는 이미 존재하는 ID입니다.<br>");
-}else{
-    out.println("는 사용 가능한 ID입니다.<br>");
-}
+	if(check){
+		out.println("는 이미 존재하는 ID 입니다.<br>");
+	}else{
+		out.println("는 사용 가능한 ID 입니다.<br>");
+	}
 %>
-<a href="#" onclick="javascript: self.close()">닫기</a>
+
+<a href="#" onclick="javascript:self.close()"></a>
+
+</div>
+
 </body>
 </html>

@@ -1,19 +1,7 @@
 function writeSave(){
-	if(document.writeForm.writer.value==""){
-		alert("작성자를 입력해 주세요...♡");
-		document.writeForm.writer.focus();
-		return false;
-	}
-	
-	if(document.writeForm.email.value==""){
-		alert("이메일을 입력해 주세요...♡");
-		document.writeForm.email.focus();
-		return false;
-	}
-	
-	if(document.writeForm.subject.value==""){
+	if(document.writeForm.title.value==""){
 		alert("제목을 입력해 주세요...♡");
-		document.writeForm.subject.focus();
+		document.writeForm.title.focus();
 		return false;
 	}
 	
@@ -22,20 +10,9 @@ function writeSave(){
 		document.writeForm.content.focus();
 		return false;
 	}
-	
-	if(document.writeForm.pass.value==""){
-		alert("비밀번호를 입력해 주세요...♡");
-		document.writeForm.pass.focus();
-		return false;
-	}
-
-
 }
 
 function deleteSave(){
-	if(document.delForm.pass.value==""){
-		alert("비밀번호를 입력해 주세요.");
-		document.delForm.pass.focus();
-		return false;
-	}
+	// 비밀번호 필드를 제거했으므로 더 이상 필요하지 않습니다.
+	// 비밀번호 검증 없이 바로 삭제가 진행됩니다.
 }
