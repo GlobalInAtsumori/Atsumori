@@ -47,7 +47,7 @@ CREATE TABLE board2 (
     boardNo NUMBER NOT NULL,
     title VARCHAR2(100) NOT NULL,
     content VARCHAR2(3000) NOT NULL,
-    createDate DATE NOT NULL,
+    createDate TIMESTAMP NOT NULL,
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARD PRIMARY KEY (boardNo),
     CONSTRAINT FK_BOARD_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo)
@@ -99,7 +99,7 @@ delete from reviewImage;
 CREATE TABLE boardComment (
     commentNo NUMBER NOT NULL,
     content VARCHAR2(1000) NOT NULL,
-    createDate DATE NOT NULL,
+    createDate TIMESTAMP NOT NULL,
     boardNo NUMBER NOT NULL,
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARDCOMMENT PRIMARY KEY (commentNo),

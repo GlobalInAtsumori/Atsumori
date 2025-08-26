@@ -1,9 +1,11 @@
 package dto;
 
+import java.sql.Timestamp;
+
 public class BoardCommentDTO {
 	private int commentNo;
 	private String content;
-	private String createDate;
+	private Timestamp createDate;
 	private int boardNo;
 	private int memberNo;
 	private String memberName; 
@@ -23,10 +25,10 @@ public class BoardCommentDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getCreateDate() {
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
 	public int getBoardNo() {

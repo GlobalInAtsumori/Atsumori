@@ -1,13 +1,13 @@
 package domain;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 // 데이터베이스의 'board2' 테이블과 직접 연결되는 실제 데이터 모델입니다.
 public class BoardVO {
     private int boardno;
     private String title;
     private String content;
-    private Date createdate;
+    private Timestamp createdate;
     private int memberno;
 
     // Getter와 Setter 메소드들
@@ -29,10 +29,10 @@ public class BoardVO {
     public void setContent(String content) {
         this.content = content;
     }
-    public Date getCreatedate() {
+    public Timestamp getCreatedate() {
         return createdate;
     }
-    public void setCreatedate(Date createdate) {
+    public void setCreatedate(Timestamp createdate) {
         this.createdate = createdate;
     }
     public int getMemberno() {

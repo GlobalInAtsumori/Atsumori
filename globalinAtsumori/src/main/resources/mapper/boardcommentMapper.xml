@@ -16,7 +16,7 @@
         FROM boardComment c
         JOIN member m ON c.memberNo = m.memberNo
         WHERE c.boardNo = #{boardNo}
-        ORDER BY c.createDate DESC
+        ORDER BY c.createDate ASC
     </select>
     
     <insert id="insertComment">

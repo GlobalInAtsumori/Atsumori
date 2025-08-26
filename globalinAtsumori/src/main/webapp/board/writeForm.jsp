@@ -23,7 +23,7 @@
 <div align="center"><br><b>글쓰기</b></div><br>
 <form action="writeProc.do" method="post" name="writeForm">
 
-<table width="470" border="1" cellpadding="0" cellspacing="0"
+<table width="500" border="2" cellpadding="0" cellspacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
 
 <tr>

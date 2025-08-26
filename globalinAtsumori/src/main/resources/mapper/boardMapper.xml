@@ -9,18 +9,46 @@
     </select>
     
     <select id="getArticleCountBySearch" resultType="int">
-        SELECT count(*) FROM board2 WHERE ${searchWhat} LIKE '%' || #{searchText} || '%'
+        <choose>
+            <when test="searchWhat == 'subject'">
+                SELECT count(*) FROM board2 WHERE title LIKE '%' || #{searchText} || '%'
+            </when>
+            <when test="searchWhat == 'writer'">
+                SELECT count(*) FROM board2 WHERE memberNo LIKE '%' || #{searchText} || '%'
+            </when>
+            <when test="searchWhat == 'content'">
+                SELECT count(*) FROM board2 WHERE content LIKE '%' || #{searchText} || '%'
+            </when>
+            <otherwise>
+                SELECT count(*) FROM board2
+            </otherwise>
+        </choose>
     </select>
     
     <select id="getArticles" resultType="domain.BoardVO">
         SELECT * FROM (SELECT ROWNUM rnum, boardno, title, content, createdate, memberno
-                       FROM (SELECT * FROM board2 ORDER BY boardno DESC))
+                        FROM (SELECT * FROM board2 ORDER BY boardno DESC))
         WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
     </select>
     
     <select id="getArticlesBySearch" resultType="domain.BoardVO">
         SELECT * FROM (SELECT ROWNUM rnum, boardno, title, content, createdate, memberno
-                       FROM (SELECT * FROM board2 WHERE ${searchWhat} LIKE '%' || #{searchText} || '%' ORDER BY boardno DESC))
+                        FROM (
+                            SELECT * FROM board2
+                            <where>
+                                <if test="searchWhat == 'subject'">
+                                    title LIKE '%' || #{searchText} || '%'
+                                </if>
+                                <if test="searchWhat == 'writer'">
+                                    memberNo LIKE '%' || #{searchText} || '%'
+                                </if>
+                                <if test="searchWhat == 'content'">
+                                    content LIKE '%' || #{searchText} || '%'
+                                </if>
+                            </where>
+                            ORDER BY boardno DESC
+                        )
+                    )
         WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
     </select>
     

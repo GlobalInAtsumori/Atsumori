@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.sql.Timestamp; // Timestamp를 import 합니다.
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +54,6 @@ public class BoardService {
         return boardMapper.updateArticle(vo);
     }
 
-    // 비밀번호 매개변수를 제거했습니다.
     public int deleteArticle(int boardno) {
         return boardMapper.deleteArticle(boardno);
     }
@@ -66,17 +65,11 @@ public class BoardService {
         vo.setBoardno(dto.getBoardno());
         vo.setTitle(dto.getTitle());
         vo.setContent(dto.getContent());
-        vo.setMemberno(2); // 추후에 변경
+        vo.setMemberno(dto.getMemberno());
 
-        try {
-            if (dto.getCreatedate() != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                vo.setCreatedate(new Date(sdf.parse(dto.getCreatedate()).getTime()));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            vo.setCreatedate(new Date(System.currentTimeMillis()));
-        }
+        // Timestamp 객체를 그대로 사용
+        vo.setCreatedate(dto.getCreatedate()); 
+
         return vo;
     }
     
@@ -88,13 +81,10 @@ public class BoardService {
         dto.setTitle(vo.getTitle());
         dto.setContent(vo.getContent());
         dto.setMemberno(vo.getMemberno());
-
-        if (vo.getCreatedate() != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            dto.setCreatedate(sdf.format(vo.getCreatedate()));
-        } else {
-            dto.setCreatedate(null);
-        }
+        
+        // Timestamp 객체를 그대로 사용
+        dto.setCreatedate(vo.getCreatedate());
+        
         return dto;
     }
 }

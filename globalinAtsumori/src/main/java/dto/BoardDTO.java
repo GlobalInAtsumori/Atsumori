@@ -1,6 +1,6 @@
 package dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 // Controller와 View(JSP) 사이에서 데이터를 전달하는 그릇입니다.
 public class BoardDTO {
@@ -8,7 +8,7 @@ public class BoardDTO {
     private String title;
     private String content;
     private int memberno;
-    private String createdate;
+    private Timestamp createdate;
 
     public int getBoardno() {
         return boardno;
@@ -34,10 +34,10 @@ public class BoardDTO {
     public void setMemberno(int memberno) {
         this.memberno = memberno;
     }
-    public String getCreatedate() {
+    public Timestamp getCreatedate() {
         return createdate;
     }
-    public void setCreatedate(String createdate) {
+    public void setCreatedate(Timestamp createdate) {
         this.createdate = createdate;
     }
 }

@@ -1,11 +1,11 @@
 package domain;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BoardCommentVO {
     private int commentNo;
     private String content;
-    private Date createDate;
+    private Timestamp createDate;
     private int boardNo;
     private int memberNo;
 
@@ -26,11 +26,11 @@ public class BoardCommentVO {
         this.content = content;
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 

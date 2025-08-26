@@ -22,7 +22,7 @@
 	<input type="hidden" name="boardno" value="${article.boardno}">
     <input type="hidden" name="pageNum" value="${pageNum}">
 
-	<table width="470" border="2" cellpadding="0" cellspacing="0"
+	<table width="500" border="2" cellpadding="0" cellspacing="0"
 		align="center" bgcolor="<%=bodyback_c%>">
 		<tr>
 			<td align="right" colspan="2" bgcolor="<%=value_c%>">
