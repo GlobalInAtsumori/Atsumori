@@ -27,9 +27,15 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">		<%-- 스타일시트 연결 --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body bgcolor="<%=bodyback_c%>">
+
+<div class="wrapper">
+	<jsp:include page="/includes/navbar.jsp" />
+	<jsp:include page="/includes/banner.jsp" />
+	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+
 <div align="center">
 <b>글 상세 보기</b><br>
 <form action="">
@@ -95,5 +101,6 @@ align="center" bgcolor="<%=bodyback_c%>">
 
 </div>
 
+</div>
 </body>
 </html>

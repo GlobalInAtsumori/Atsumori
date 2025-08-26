@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link href="stlye.css" rel="stylesheet" type="text/css">		<%-- 스타일시트 연결 --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="script.js"></script>		<%-- 자바스크립트 파일 연결 --%>
 </head>
 <!-- 새글과 답변글을 구분하는 코드 추가 -->
@@ -27,6 +27,12 @@ try {
 
 
 <body bgcolor="<%=bodyback_c%>">				<%-- 배경색은 color.jsp에서 설정한 변수 사용 --%>
+
+<div class="wrapper">
+	<jsp:include page="/includes/navbar.jsp" />
+	<jsp:include page="/includes/banner.jsp" />
+	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
+
 <div align="center"><b>글쓰기</b></div><br>
 <form action="writeProc.jsp" method="post" name="writeForm"
 onsubmit="return writeSave()">
@@ -38,7 +44,7 @@ onsubmit="return writeSave()">
 <input type="hidden" name="step" value="<%=step%>">
 <input type="hidden" name="depth" value="<%=depth%>">
 
-<table width="400" border="1" cellpadding="0" cellspacing="0"
+<table width="470" border="1" cellpadding="0" cellspacing="0"
 align="center" bgcolor="<%=bodyback_c%>">
 
     <%-- 상단: 글목록으로 이동하는 링크 --%>
@@ -106,6 +112,7 @@ align="center" bgcolor="<%=bodyback_c%>">
 </table>
 
 </form>
-<%}catch(Exception e){e.printStackTrace();} %>	
+<%}catch(Exception e){e.printStackTrace();} %>
+</div>
 </body>
 </html>

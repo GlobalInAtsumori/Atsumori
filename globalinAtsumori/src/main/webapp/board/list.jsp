@@ -54,21 +54,25 @@ BoardDAO dbPro = BoardDAO.getInstance();
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body bgcolor="<%=bodyback_c%>">
-	
+<div class="wrapper">
+	<jsp:include page="/includes/navbar.jsp" />
+	<jsp:include page="/includes/banner.jsp" />
 	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 	<div align="center">
 		<b>글목록(전체 글: <%=count%>)
 		</b>
+		<%--
 		<table width="700">
 			<tr>
 				<td align="right" bgcolor=" <%=value_c%>"><a
 					href="writeForm.jsp">글쓰기</a></td>
 			</tr>
 		</table>
+		--%>
 		<%
 		if (count == 0) {
 		%>
@@ -169,6 +173,10 @@ BoardDAO dbPro = BoardDAO.getInstance();
 			} // end if
 		}
 		%>
+		<form action="writeForm.jsp" style="position: fixed; right: 610px;">
+		<input type="submit" value="글쓰기">
+		</form>
+		
 		<!-- 검색일때, 검색이 아닐때 -->
 		<form action="list.jsp">
 			<select name="searchWhat">
@@ -179,5 +187,7 @@ BoardDAO dbPro = BoardDAO.getInstance();
 			<input type="submit" value="검색">
 		</form>
 	</div>
+	
+</div>
 </body>
 </html>
