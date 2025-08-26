@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.BoardMapper">
+
+    <select id="getArticleCount" resultType="int">
+        SELECT count(*) FROM board2
+    </select>
+    
+    <select id="getArticleCountBySearch" resultType="int">
+        <choose>
+            <when test="searchWhat == 'subject'">
+                SELECT count(*) FROM board2 WHERE title LIKE '%' || #{searchText} || '%'
+            </when>
+            <when test="searchWhat == 'writer'">
+                SELECT count(*) FROM board2 WHERE memberNo LIKE '%' || #{searchText} || '%'
+            </when>
+            <when test="searchWhat == 'content'">
+                SELECT count(*) FROM board2 WHERE content LIKE '%' || #{searchText} || '%'
+            </when>
+            <otherwise>
+                SELECT count(*) FROM board2
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="getArticles" resultType="domain.BoardVO">
+        SELECT * FROM (SELECT ROWNUM rnum, boardno, title, content, createdate, memberno
+                        FROM (SELECT * FROM board2 ORDER BY boardno DESC))
+        WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
+    </select>
+    
+    <select id="getArticlesBySearch" resultType="domain.BoardVO">
+        SELECT * FROM (SELECT ROWNUM rnum, boardno, title, content, createdate, memberno
+                        FROM (
+                            SELECT * FROM board2
+                            <where>
+                                <if test="searchWhat == 'subject'">
+                                    title LIKE '%' || #{searchText} || '%'
+                                </if>
+                                <if test="searchWhat == 'writer'">
+                                    memberNo LIKE '%' || #{searchText} || '%'
+                                </if>
+                                <if test="searchWhat == 'content'">
+                                    content LIKE '%' || #{searchText} || '%'
+                                </if>
+                            </where>
+                            ORDER BY boardno DESC
+                        )
+                    )
+        WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
+    </select>
+    
+    <select id="getArticle" resultType="domain.BoardVO">
+        SELECT * FROM board2 WHERE boardno = #{boardno}
+    </select>
+    
+    <insert id="insertArticle">
+        INSERT INTO board2(boardno, title, content, createdate, memberno)
+        VALUES(board_seq2.nextval, #{title}, #{content}, SYSDATE, #{memberno})
+    </insert>
+    
+    <update id="updateArticle">
+        UPDATE board2
+        SET title = #{title}, content = #{content}
+        WHERE boardno = #{boardno}
+    </update>
+    
+    <delete id="deleteArticle">
+        DELETE FROM board2 WHERE boardno = #{boardno}
+    </delete>
+</mapper>

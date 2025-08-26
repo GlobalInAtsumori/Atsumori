@@ -11,17 +11,19 @@
 <title>아쯔모리</title>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=<%=mapApiKey%>&callback=initMap&v=weekly&libraries=marker"
-	async
+
+	async="true"
+
 	defer></script>
 <script src="js/map.js"></script>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="css/map.css">
-<link rel="stylesheet" href="css/basic.css">
 </head>
 <body>
 	<div class="wrapper">
 		<jsp:include page="includes/navbar.jsp" />
 		<jsp:include page="includes/banner.jsp" />
+		<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 		<div class="map-container">
 			<!-- 왼쪽: 맛집 목록 (JS에서 채움) -->
