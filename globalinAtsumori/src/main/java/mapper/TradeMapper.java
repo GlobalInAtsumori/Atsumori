@@ -17,9 +17,12 @@ public interface TradeMapper {
     //상세페이지
     TradeVO getTradeDetail(int tradePostNo);
     
-    //페이징용 글 개수
-    int countTradePost();
+    // 페이징된 게시글 목록 조회
+    List<TradeVO> selectPagedPosts(@Param("startRow") int startRow, @Param("endRow") int endRow);
+    
+    //페이징용 글 (총)개수
+    int countPosts();
     
     //거래희망 버튼 update(AVILABLE to TRADING)용
-    void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
+    public void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
 }

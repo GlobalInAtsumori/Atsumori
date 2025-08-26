@@ -46,6 +46,20 @@
 				</c:forEach>
 			</div>
 			
+			<!-- 페이징 -->
+			<div class="pagination">
+    			<c:forEach begin="1" end="${totalPages}" var="p">
+        			<c:choose>
+            			<c:when test="${p == currentPage}">
+                			<span>[${p}]</span>
+            			</c:when>
+            			<c:otherwise>
+       			        	<a href="tradeMain?page=${p}">${p}</a>
+            			</c:otherwise>
+			        </c:choose>
+    			</c:forEach>
+			</div>
+			
 			<!-- 글쓰기 버튼 -->
 			<button id="trWriteBtn" onclick="location.href='tradeWrite'">投稿</button>
 			

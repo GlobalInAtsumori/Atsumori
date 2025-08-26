@@ -34,6 +34,35 @@
     	ORDER BY tp.tradePostNo DESC
     </select>
     
+    <!-- 게시글 페이징 용 -->
+    <select id="selectPagedPosts" resultType="domain.TradeVO">
+		SELECT *
+		FROM (
+    		SELECT 
+        		tp.tradePostNo,
+        		tp.tradeTitle,
+       			tp.memberNo,
+        		m.memberName,
+        		tp.cost,
+        		tp.status,
+        		tp.createDate,
+        		(SELECT ti.tradeImgUrl 
+         		FROM tradeImage ti 
+         		WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
+        		ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rnDesc,
+        		COUNT(*) OVER () AS total_count
+    		FROM tradePost tp
+    		JOIN member m ON tp.memberNo = m.memberNo
+		)
+		WHERE rnDesc BETWEEN #{startRow} AND #{endRow}
+		ORDER BY tradePostNo DESC
+	</select>
+    
+    <!-- 전체 글 개수 -->
+	<select id="countPosts" resultType="int">
+    	SELECT COUNT(*) FROM tradePost
+  	</select>
+    
     <!-- 상세 페이지 출력용 -->
     <select id="getTradeDetail" resultType="domain.TradeVO" parameterType="int">
     	SELECT 
@@ -59,5 +88,6 @@
     	SET status = #{status} 
     	WHERE tradePostNo = #{tradePostNo}
     </update>
+    
 
 </mapper>

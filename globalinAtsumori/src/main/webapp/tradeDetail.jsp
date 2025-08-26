@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% request.setAttribute("bannerMessage", "🛍️中古品売買🛍️"); %>
 <%-- 테스트를 위해 임시로 로그인 정보 설정 --%>
-<% session.setAttribute("loginMemberNo", 4); %>
+<% session.setAttribute("loginMemberNo", 3); %>
 <!DOCTYPE html>
 <html>
 <head>
