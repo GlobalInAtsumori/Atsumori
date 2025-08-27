@@ -90,7 +90,7 @@
     </c:forEach>
     
     <%-- [다음] 버튼: 현재 페이지가 마지막 페이지보다 작을 때만 표시합니다. --%>
-    <c:if test="${pageNum < pageCount}">
+    <c:if test="${pageNum < pageCount-1}">
         <a href="list.do?pageNum=${pageNum + 1}">[다음]</a>
     </c:if>
 </c:if>
