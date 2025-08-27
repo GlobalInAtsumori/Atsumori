@@ -38,23 +38,22 @@
     <select id="selectPagedPosts" resultType="domain.TradeVO">
 		SELECT *
 		FROM (
-    		SELECT 
-        		tp.tradePostNo,
-        		tp.tradeTitle,
-       			tp.memberNo,
-        		m.memberName,
-        		tp.cost,
-        		tp.status,
-        		tp.createDate,
-        		(SELECT ti.tradeImgUrl 
-         		FROM tradeImage ti 
-         		WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
-        		ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rnDesc,
-        		COUNT(*) OVER () AS total_count
-    		FROM tradePost tp
-    		JOIN member m ON tp.memberNo = m.memberNo
-		)
-		WHERE rnDesc BETWEEN #{startRow} AND #{endRow}
+			SELECT 
+				tp.tradePostNo,
+				tp.tradeTitle,
+				tp.memberNo,
+				m.memberName,
+				tp.cost,
+				tp.status,
+				tp.createDate,
+				(SELECT ti.tradeImgUrl 
+					FROM tradeImage ti 
+					WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
+				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rn
+			FROM tradePost tp
+			JOIN member m ON tp.memberNo = m.memberNo
+			)
+		WHERE rn BETWEEN #{startRow} AND #{endRow}
 		ORDER BY tradePostNo DESC
 	</select>
     

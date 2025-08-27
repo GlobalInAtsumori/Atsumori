@@ -48,16 +48,22 @@
 			
 			<!-- 페이징 -->
 			<div class="pagination">
-    			<c:forEach begin="1" end="${totalPages}" var="p">
-        			<c:choose>
-            			<c:when test="${p == currentPage}">
-                			<span>[${p}]</span>
-            			</c:when>
-            			<c:otherwise>
-       			        	<a href="tradeMain?page=${p}">${p}</a>
-            			</c:otherwise>
-			        </c:choose>
+    			<c:if test="${currentPage > 1}">
+    				<a href="tradeMain?page=1">« </a>
+    				<a href="tradeMain?page=${currentPage - 1}">‹ 前へ</a>
+  				</c:if>
+  				
+				<c:forEach begin="1" end="${totalPages}" var="p">
+    				<c:choose>
+    					<c:when test="${p == currentPage}"><span>[${p}]</span></c:when>
+    					<c:otherwise><a href="tradeMain?page=${p}">${p}</a></c:otherwise>
+    				</c:choose>
     			</c:forEach>
+    			
+				<c:if test="${currentPage < totalPages}">
+    				<a href="tradeMain?page=${currentPage + 1}">Next ›</a>
+    				<a href="tradeMain?page=${totalPages}">次へ »</a>
+				</c:if>
 			</div>
 			
 			<!-- 글쓰기 버튼 -->

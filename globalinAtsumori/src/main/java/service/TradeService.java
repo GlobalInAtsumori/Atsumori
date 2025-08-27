@@ -44,18 +44,10 @@ public class TradeService {
 	
 	//메인페이지 페이징
 	public List<TradeVO> getPagedPosts(int page, int pageSize) {
-		int totalPosts = tradeMapper.countPosts();
-		int startRow = totalPosts - (page - 1) * pageSize - pageSize + 1;
-		if (startRow < 1) startRow = 1;
-		int endRow = totalPosts - (page - 1) * pageSize;
-		
-		List<TradeVO> posts = tradeMapper.selectPagedPosts(startRow, endRow);
-		
-		for (TradeVO post : posts) {
-	        post.setRn(totalPosts - post.getRn() + 1); // rnDesc는 쿼리에서 부여한 역순 ROW_NUMBER
-	    }
+		int startRow = (page - 1) * pageSize + 1;
+		int endRow = page * pageSize;
 	    
-	    return posts;
+	    return tradeMapper.selectPagedPosts(startRow, endRow);
 	}
 	
 	public int countPosts() {

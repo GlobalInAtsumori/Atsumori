@@ -39,16 +39,21 @@ public class TradeController {
 		//총 게시물 수
 		int total = tradeService.countPosts();
 		
-		//현재 페이지의 게시글 목록
-		List<TradeVO> tradeList = tradeService.getPagedPosts(page, pageSize);
+		//총 페이지 수(게시글 없을 때도 1페이지)
+		int totalPages = (int) Math.ceil(total / (double)pageSize);
+		if (totalPages == 0) totalPages = 1;
 		
-		//총 페이지 수 계산
-		int totalPages = (int)Math.ceil((double) total / pageSize );
+		//page의 범위
+		if(page < 1) page = 1;
+		if(page > totalPages) page = totalPages;
+		
+		//현재 페이지 목록
+		List<TradeVO> tradeList = tradeService.getPagedPosts(page, pageSize);
 		
 		//jsp 용
 		model.addAttribute("tradeList", tradeList);
 		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", total);
+		model.addAttribute("totalPages", totalPages);
 		
 		return "tradeMain";
 	}
