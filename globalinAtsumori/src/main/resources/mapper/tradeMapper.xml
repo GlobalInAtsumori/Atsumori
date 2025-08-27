@@ -49,11 +49,13 @@
 				(SELECT ti.tradeImgUrl 
 					FROM tradeImage ti 
 					WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
-				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rn
+				COUNT(*) OVER () AS totalCount,
+				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rnTmp,
+				(COUNT(*) OVER () - ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) + 1) AS rn
 			FROM tradePost tp
 			JOIN member m ON tp.memberNo = m.memberNo
 			)
-		WHERE rn BETWEEN #{startRow} AND #{endRow}
+		WHERE rnTmp BETWEEN #{startRow} AND #{endRow}
 		ORDER BY tradePostNo DESC
 	</select>
     

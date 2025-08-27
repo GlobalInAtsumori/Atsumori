@@ -50,10 +50,19 @@ public class TradeController {
 		//현재 페이지 목록
 		List<TradeVO> tradeList = tradeService.getPagedPosts(page, pageSize);
 		
+		//페이지 블록
+		int blockSize = 5;
+		int currentBlock = (int) Math.ceil((double) page / blockSize);
+		int startPage = (currentBlock - 1) * blockSize + 1;
+		int endPage = Math.min(currentBlock * blockSize, totalPages);
+		
+		
 		//jsp 용
 		model.addAttribute("tradeList", tradeList);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		
 		return "tradeMain";
 	}

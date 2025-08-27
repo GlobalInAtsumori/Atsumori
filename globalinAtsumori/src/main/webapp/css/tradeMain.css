@@ -111,3 +111,45 @@ div.thumb div.thumbBottom p.date {
 	color: #b4b4b4;
 }
 
+/* div.pagination */
+div.pagination {
+	width: fit-content;
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+
+div.pagination a {	
+	color: #000000;
+}
+
+div.pagination a.fl,
+div.pagination a.prev,
+div.pagination a.next,
+div.pagination a.num,
+div.pagination span.num {
+	border: 1px solid #d7d7d7;
+	padding: 3px 10px;
+}
+
+div.pagination a.fl:hover,
+div.pagination a.prev:hover,
+div.pagination a.next:hover,
+div.pagination a.num:hover {
+	background: #dedede;	
+}
+
+div.pagination span.current {
+	background: #dedede;	
+	font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+
+
