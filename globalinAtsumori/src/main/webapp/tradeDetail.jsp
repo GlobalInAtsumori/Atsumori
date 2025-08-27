@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% request.setAttribute("bannerMessage", "🛍️中古品売買🛍️"); %>
 <%-- 테스트를 위해 임시로 로그인 정보 설정 --%>
-<%-- 본인 아님 --%>
-<% session.setAttribute("loginMemberNo", 3); %>
+<%-- 본인:4 아님:3 --%>
+<% session.setAttribute("loginMemberNo", 4); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="css/tradeDetail.css">
 </head>
 <body>
+	<!-- 삭제 실패시 메시지 -->
+	<c:if test="${not empty errorMsg}">
+		<script>
+			alert("${errorMsg}");
+		</script>
+	</c:if>
 	<div class="wrapper">
 		<jsp:include page="includes/navbar.jsp" />
 		<jsp:include page="includes/banner.jsp" />
@@ -77,7 +83,25 @@
 			
 			
 			<!-- 버튼 출력 -->
-			<button id="trList" onclick="location.href='tradeMain'">リスト</button>
+			<div class="btnBox">
+				<c:choose>
+					<%-- 본인 글인 경우 --%>
+					<c:when test="${loginMemberNo != null && loginMemberNo == post.memberNo}">
+						<button>수정</button>
+						<form action="trade/delete" method="post" onsubmit="return confirm('本当に削除しますか？');">
+							<input type="hidden" name="tradePostNo" value="${post.tradePostNo}">
+							<button type="submit">削除</button>
+						</form>
+						<button id="trList" onclick="location.href='tradeMain'">リスト</button>
+					</c:when>
+					
+					<%-- 본인 글이 아닌 경우 --%>
+					<c:otherwise>
+						<button id="trList" onclick="location.href='tradeMain'">リスト</button>						
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 			
 		</div>
 	</div>

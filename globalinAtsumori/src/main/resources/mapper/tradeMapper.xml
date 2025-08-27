@@ -16,6 +16,11 @@
     		(#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
     </insert>
     
+    <!-- 게시글 삭제 -->
+    <delete id="deleteTradePost" parameterType="int">
+    	DELETE FROM tradePost WHERE tradePostNo = #{tradePostNo} AND status = 'AVAILABLE'
+    </delete>
+    
     <!-- 메인페이지 출력용 -->
     <select id="getTradeList" resultType="domain.TradeVO">
     	SELECT 

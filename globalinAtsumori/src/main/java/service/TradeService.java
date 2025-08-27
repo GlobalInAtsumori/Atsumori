@@ -37,6 +37,22 @@ public class TradeService {
 		
 	}
 	
+	//게시글(+이미지) 삭제
+	@Transactional
+	public void deleteTradePost(int tradePostNo) {
+		//status가 AVAILABLE일 때만 삭제 가능
+		TradeVO post = tradeMapper.getTradeDetail(tradePostNo);
+		if (!"AVAILABLE".equalsIgnoreCase(post.getStatus())) {
+			throw new IllegalStateException("取引中または販売完了の掲示物は削除不可能です。");
+		}
+		
+		//1. 게시글 삭제
+		tradeMapper.deleteTradePost(tradePostNo);
+		
+		//2. 이미지 삭제
+		tradeImgMapper.deleteTradeImage(tradePostNo);
+	}
+	
 	//메인페이지 출력용
 	public List<TradeVO> getTradeList() {
 		return tradeMapper.getTradeList();

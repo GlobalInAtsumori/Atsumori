@@ -10,27 +10,41 @@
 	outline: none;
 }
 
+/* div.trdTop */
 div.trdTop {
-	border: 1px solid red;
+	width: 80%;
+	margin: 50px auto;
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 div.imgBox {	
-	border: 1px solid pink;
 	width: 350px;
 	height: 350px;
+	border: 1px solid #dddddd;
 	border-radius: 10px;
+	box-shadow: 0 0 #000000;
 	overflow: hidden;
 }
 
 div.trdTop ul {
 	list-style: none;
-	width: fit-content;
+	width: 250px;
+	height: fit-content;
 }
 
 div.imgBox img {
 	width: 100%;
 	height: 100%;
+}
+
+div.trdTop li.date {
+	color: #b4b4b4;
+}
+
+div.trdTop li.date::before {
+	content: '投稿日 : ';
 }
 
 div.trdTop li.title {
@@ -39,7 +53,9 @@ div.trdTop li.title {
 }
 
 div.trdTop li.memberName {
-	font-size: 20px;	
+	font-size: 20px;
+	padding-bottom: 20px;
+	color: #495057;
 }
 
 div.trdTop li.costTitle {
@@ -47,13 +63,20 @@ div.trdTop li.costTitle {
 }
 
 div.trdTop li.cost {
-	font-size: 45px;
+	font-size: 40px;
 	font-weight: 600;
+	margin-top: -10px;
+	padding-bottom: 20px;
+}
+
+div.trdTop li.cost::after {
+	content: "¥";
+	font-size: 25px;
+	margin-left: 8px;
 }
 
 div.trdTop button.tradeBtn {
 	display: block;
-	margin: 0 auto;
     width: 180px;
     height: 45px;
     border-radius: 5px;
@@ -79,6 +102,51 @@ div.trdTop button.green:hover {
 	background: yellowgreen;
 }
 
+/* div.trdBottom */
 div.trdBottom {
-	border: 1px solid blue;
+	width: 76%;
+	margin: 0 auto 30px;
 }
+
+div.trdBottom p.detailTitle {
+	font-size: 24px;
+	font-weight: 600;
+	padding-bottom: 10px;
+}
+
+/* div.btnBox */
+div.btnBox {
+	width: fit-content;
+	margin: 0 auto;
+	padding-bottom: 50px;
+	display: flex;
+	gap: 10px;
+}
+
+div.btnBox button {
+	display: block;
+	margin: 0 auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #000000;
+    color: #ffffff;
+	font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+div.btnBox button:hover {
+	color: #000000;
+	background: #dddddd;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -11,6 +11,12 @@
     	VALUES (tradeimage_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
     </insert>
     
+    <!-- 이미지 삭제용 -->
+    <delete id="deleteTradeImage" parameterType="int">
+		DELETE FROM tradeImage WHERE tradePostNo = #{tradePostNo}
+	</delete>
+    
+    
     <!-- 이미지 조회용 -->
     <select id="getTradeImage" resultType="domain.TradeImageVO" parameterType="int">
     	SELECT tradeImgNo, tradeImgUrl, tradePostNo 

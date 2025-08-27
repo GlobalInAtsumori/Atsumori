@@ -101,6 +101,20 @@ public class TradeController {
         return "redirect:/tradeMain";
 	}
 	
+	//글 삭제
+	@PostMapping("/trade/delete")
+	public String deleteTradePost(@RequestParam("tradePostNo") int tradePostNo,
+									RedirectAttributes ra) {
+		try {
+			tradeService.deleteTradePost(tradePostNo);
+			ra.addFlashAttribute("msg", "削除しました。");
+			return "redirect:/tradeMain";
+		} catch (IllegalStateException e) {
+			ra.addFlashAttribute("errorMsg", e.getMessage());
+			return "redirect:/tradeDetail?tradePostNo=" + tradePostNo;
+		}
+	}
+	
 	//상세페이지
 	@GetMapping("/tradeDetail")
 	public String tradeDetail( @RequestParam("tradePostNo") int tradePostNo, Model model ) {

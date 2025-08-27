@@ -11,6 +11,9 @@ public interface TradeMapper {
 	//게시글 등록
     void insertTradePost(TradeVO vo);
     
+    //글 삭제
+    void deleteTradePost(int tradePostNo);
+    
     //메인페이지 조회(리스트)
     List<TradeVO> getTradeList();
     
@@ -25,4 +28,5 @@ public interface TradeMapper {
     
     //거래희망 버튼 update(AVILABLE to TRADING)용
     public void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
+    
 }
