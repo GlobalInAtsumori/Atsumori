@@ -46,11 +46,11 @@ public class TradeService {
 			throw new IllegalStateException("取引中または販売完了の掲示物は削除不可能です。");
 		}
 		
-		//1. 게시글 삭제
-		tradeMapper.deleteTradePost(tradePostNo);
-		
-		//2. 이미지 삭제
+		//1. 이미지 삭제
 		tradeImgMapper.deleteTradeImage(tradePostNo);
+		
+		//2. 게시글 삭제
+		tradeMapper.deleteTradePost(tradePostNo);
 	}
 	
 	//메인페이지 출력용
