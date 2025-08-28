@@ -22,7 +22,7 @@
 </script>
 
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/secondhand.css">
+<link rel="stylesheet" href="css/reviewWrite.css">
 </head>
 <body>
 <div class="wrapper">
