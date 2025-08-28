@@ -34,13 +34,15 @@
 								<img alt="썸네일" src="${post.thumbnailUrl}">
 							</div>
 						</c:if>
-						<div class="thumbBottom">						
-							<ul>
-								<li class="title">${post.tradeTitle}</li>
-								<li class="cost">${post.cost}</li>
-								<li class="memberName">${post.memberName}</li>
-							</ul>
-							<p class="date">${post.dateFormat}</p>
+						<div class="thumbBottom">
+							<p class="title">${post.tradeTitle}</p>
+							<div class="tbBox">
+								<ul>
+									<li class="cost">${post.cost}</li>
+									<li class="memberName">${post.memberName}</li>
+								</ul>
+								<p class="date">${post.dateFormat}</p>
+							</div>
 						</div>
 					</div>
 				</c:forEach>

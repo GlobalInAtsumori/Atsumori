@@ -11,6 +11,9 @@ public interface TradeMapper {
 	//게시글 등록
     void insertTradePost(TradeVO vo);
     
+    //글 수정
+    void updateTradePost(TradeVO vo);
+    
     //글 삭제
     void deleteTradePost(int tradePostNo);
     

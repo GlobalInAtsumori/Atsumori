@@ -16,6 +16,16 @@
     		(#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
     </insert>
     
+    <!-- 게시글 수정 -->
+    <update id="updateTradePost" parameterType="domain.TradeVO">
+    	UPDATE tradePost
+    	SET tradeTitle = #{tradeTitle},
+    		cost = #{cost},
+    		tradeContent = #{tradeContent},
+    		createDate = SYSDATE
+    	WHERE tradePostNo = #{tradePostNo}
+    </update>
+    
     <!-- 게시글 삭제 -->
     <delete id="deleteTradePost" parameterType="int">
     	DELETE FROM tradePost WHERE tradePostNo = #{tradePostNo} AND status = 'AVAILABLE'

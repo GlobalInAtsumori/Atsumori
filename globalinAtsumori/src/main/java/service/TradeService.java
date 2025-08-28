@@ -37,6 +37,31 @@ public class TradeService {
 		
 	}
 	
+	//게시글(+이미지) 수정
+	@Transactional
+	public void updateTradePost(TradeVO tradeVO) {
+		//1. 현재 게시글 상태 확인(AVAILABLE일 때만 수정 가능)
+		TradeVO statusCheck = tradeMapper.getTradeDetail(tradeVO.getTradePostNo());
+		if(!"AVAILABLE".equals(statusCheck.getStatus())) {
+			throw new IllegalStateException("取引中または販売完了の掲示物は修正不可能です。");
+		}
+		
+		//2. (AVILABLE일 때) 게시글 수정
+		tradeMapper.updateTradePost(tradeVO);
+		
+		//3. 이미지도 수정(재등록)하는 경우
+		if(tradeVO.getImage() != null && !tradeVO.getImage().isEmpty()) {
+			//기존 이미지 삭제
+			tradeImgMapper.deleteTradeImage(tradeVO.getTradePostNo());
+			//새로운 이미지 등록
+			for (TradeImageVO imageVO : tradeVO.getImage()) {
+				imageVO.setTradePostNo(tradeVO.getTradePostNo());
+				tradeImgMapper.insertTradeImage(imageVO);
+			}
+		}
+		
+	}
+	
 	//게시글(+이미지) 삭제
 	@Transactional
 	public void deleteTradePost(int tradePostNo) {

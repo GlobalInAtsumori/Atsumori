@@ -4,7 +4,7 @@
 <% request.setAttribute("bannerMessage", "🛍️中古品売買🛍️"); %>
 <%-- 테스트를 위해 임시로 로그인 정보 설정 --%>
 <%-- 본인:4 아님:3 --%>
-<% session.setAttribute("loginMemberNo", 4); %>
+<% session.setAttribute("loginMemberNo", 3); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +87,7 @@
 				<c:choose>
 					<%-- 본인 글인 경우 --%>
 					<c:when test="${loginMemberNo != null && loginMemberNo == post.memberNo}">
-						<button>수정</button>
+						<button id="tradeUpdate" onclick="location.href='tradeUpdate?tradePostNo=${post.tradePostNo}'">修正</button>
 						<form action="trade/delete" method="post" onsubmit="return confirm('本当に削除しますか？');">
 							<input type="hidden" name="tradePostNo" value="${post.tradePostNo}">
 							<button type="submit">削除</button>

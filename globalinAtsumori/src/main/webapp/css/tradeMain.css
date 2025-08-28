@@ -74,9 +74,25 @@ div.imgBox img {
 /* thumbBottom */
 div.thumb div.thumbBottom {
 	display: flex;
+	flex-direction: column;
+	padding: 3px 10px;
+	gap: 7px;
+}
+
+div.thumbBottom div.tbBox {
+	display: flex;
 	justify-content: space-between;
 	align-items: end;
-	padding: 3px 10px;
+}
+
+div.thumbBottom p.title {
+	font-size: 20px;
+	font-weight: 600;
+	/* 제목 길어질 경우 ... 처리 */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 180px;
 }
 
 div.thumb ul {
@@ -87,11 +103,6 @@ div.thumb ul {
 
 div.thumb ul li {
 	list-style: none;
-}
-
-div.thumb div.thumbBottom li.title {
-	font-size: 20px;
-	font-weight: 600;
 }
 
 div.thumb div.thumbBottom li.cost {

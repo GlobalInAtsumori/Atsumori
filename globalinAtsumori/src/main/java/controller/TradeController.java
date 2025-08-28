@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,7 @@ public class TradeController {
 		List<TradeVO> tradeList = tradeService.getPagedPosts(page, pageSize);
 		
 		//페이지 블록
-		int blockSize = 5;
+		int blockSize = 3;
 		int currentBlock = (int) Math.ceil((double) page / blockSize);
 		int startPage = (currentBlock - 1) * blockSize + 1;
 		int endPage = Math.min(currentBlock * blockSize, totalPages);
@@ -99,6 +100,60 @@ public class TradeController {
 		}
         
         return "redirect:/tradeMain";
+	}
+	
+	//글 수정 (원본 데이터 화면)
+	@GetMapping("/tradeUpdate")
+	public String tradeUpdate(@RequestParam("tradePostNo") int tradePostNo, 
+								Model model, RedirectAttributes ra) {
+		TradeVO post = tradeService.getPostDetail(tradePostNo);
+		
+		//status 체크
+		if(!"AVAILABLE".equals(post.getStatus())) {
+			ra.addFlashAttribute("errorMsg", "取引中または販売完了の掲示物は修正不可能です。");
+			return "redirect:/tradeDetail?tradePostNo="+tradePostNo;
+		}
+		
+		model.addAttribute("post", post);
+		return "tradeUpdate";
+	}
+	
+	//글 수정 (수정 처리)
+	@PostMapping("/trade/update")
+	public String updateTradePost(TradeVO tradeVO, 
+			@RequestParam(value = "imageFile", required = false) MultipartFile file, 
+			RedirectAttributes ra) {
+		
+		try {
+			//status 체크
+			TradeVO current = tradeService.getPostDetail(tradeVO.getTradePostNo());
+			if(!"AVAILABLE".equals(current.getStatus())) {
+				throw new IllegalStateException("取引中または販売完了の掲示物は修正不可能です。");
+			}
+			
+			//이미지를 새로 등록한 경우 교체
+			if(file != null && !file.isEmpty()) {
+				String imgUrl = s3Service.uploadFile(file);
+				TradeImageVO imageVO = new TradeImageVO();
+				imageVO.setTradeImgUrl(imgUrl);
+				
+				List<TradeImageVO> image = new ArrayList<TradeImageVO>();
+				image.add(imageVO);
+				tradeVO.setImage(image);
+			}
+			
+			tradeService.updateTradePost(tradeVO);
+			
+			ra.addFlashAttribute("msg", "修正しました。");
+			return "redirect:/tradeDetail?tradePostNo="+tradeVO.getTradePostNo();
+			
+		} catch (IllegalStateException ise) {
+			ra.addFlashAttribute("errorMsg", ise.getMessage());
+			return "redirect:/tradeDetail?tradePostNo="+tradeVO.getTradePostNo();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	//글 삭제
