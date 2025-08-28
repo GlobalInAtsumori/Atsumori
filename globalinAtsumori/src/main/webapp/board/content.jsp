@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<% request.setAttribute("bannerMessage", "雑談掲示板"); %>
+
 <%-- JSTL/EL로 대체되었으므로 JSP 스크립틀릿 부분은 제거하거나 주석 처리합니다. --%>
 <%--
 <%@ page import="java.util.List" %>
@@ -91,10 +93,10 @@ align="center" bgcolor="${bodyback_c}">
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginID}">
 				<input type="button" value="글수정"
-					onclick="document.location.href='updateForm.do?boardno=${article.boardno}&pageNum=${pageNum}'">
+					onclick="document.location.href='updateForm?boardno=${article.boardno}&pageNum=${pageNum}'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="글삭제"
-					onclick="document.location.href='deleteForm.do?boardno=${article.boardno}&pageNum=${pageNum}'">
+					onclick="document.location.href='deleteForm?boardno=${article.boardno}&pageNum=${pageNum}'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:when>
 			<c:otherwise>
@@ -108,7 +110,7 @@ align="center" bgcolor="${bodyback_c}">
 		</c:choose>
 		
 		<input type="button" value="글목록"
-			onclick="document.location.href='list.do?pageNum=${pageNum}'">
+			onclick="document.location.href='list?pageNum=${pageNum}'">
 	</td>
 </tr>
 </table>
@@ -127,7 +129,7 @@ align="center" bgcolor="${bodyback_c}">
         
         <%-- <c:if test="${not empty sessionScope.loginID and sessionScope.loginID == comment.memberId}"> --%>
             <div align="right">
-                <form action="deleteComment.do" method="post" style="display:inline;">
+                <form action="deleteComment" method="post" style="display:inline;">
                     <input type="hidden" name="commentNo" value="${comment.commentNo}">
                     <input type="hidden" name="boardNo" value="${comment.boardNo}">
                     <input type="hidden" name="pageNum" value="${pageNum}">
@@ -145,7 +147,7 @@ align="center" bgcolor="${bodyback_c}">
 
 	<%-- 댓글 입력란 --%>
 	<c:if test="${not empty sessionScope.loginID}">
-        <form action="addComment.do" method="post" style="display: flex; flex-direction: column; align-items: flex-end;">
+        <form action="addComment" method="post" style="display: flex; flex-direction: column; align-items: flex-end;">
           	<input type="hidden" name="boardNo" value="${article.boardno}">
   		  	<input type="hidden" name="pageNum" value="${pageNum}">
     		<textarea name="content" rows="3" cols="68" placeholder="댓글을 입력하세요." required></textarea>

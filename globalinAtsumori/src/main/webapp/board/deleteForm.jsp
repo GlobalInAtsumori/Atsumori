@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% request.setAttribute("bannerMessage", "자유 게시판"); %>
+    
+<% request.setAttribute("bannerMessage", "雑談掲示板"); %>
+
+
+<%-- JSTL을 사용하므로 스크립틀릿 코드를 주석 처리하거나 제거함
 <%@ include file="color.jsp" %>
 <%
 int boardno = (Integer) request.getAttribute("boardno");
 String pageNum = (String) request.getAttribute("pageNum");
 %>
+--%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +20,7 @@ String pageNum = (String) request.getAttribute("pageNum");
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="script.js"></script>
 </head>
-<body bgcolor="<%=bodyback_c%>">
+<body bgcolor="${bodyback_c}">
 
 <div class="wrapper">
 	<jsp:include page="/includes/navbar.jsp" />
@@ -23,25 +29,25 @@ String pageNum = (String) request.getAttribute("pageNum");
 
 <div align="center">
 <br><b>글삭제</b><br><br>
-<form action="deleteProc.do?pageNum=<%=pageNum %>" name="delForm" method="post">
+<form action="deleteProc?pageNum=${pageNum}" name="delForm" method="post">
 <table width="360" border="2" align="center" cellpadding="0" cellspacing="0">
 
 <tr height="30">
-	<td align="center" bgcolor="<%=value_c%>">
+	<td align="center" bgcolor="${value_c}">
 	   <b>이 글을 삭제하시겠습니까?</b>
 	</td>
 </tr>
 	
 <tr height="30">
 	<td align="center">
-	   <input type="hidden" name="boardno" value="<%=boardno%>">
+	   <input type="hidden" name="boardno" value="${boardno}">
 	</td>
 </tr>
 
 <tr height="30">
-    <td align="center" bgcolor="<%=value_c%>">
+    <td align="center" bgcolor="${value_c}">
         <input type="submit" value="글삭제">
-        <input type="button" value="글목록" onclick="document.location.href='list.do?pageNum=<%=pageNum%>'">
+        <input type="button" value="글목록" onclick="document.location.href='list?pageNum=${pageNum}'">
     </td>
 </tr>
 </table>

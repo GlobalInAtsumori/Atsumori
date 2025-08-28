@@ -22,7 +22,7 @@ public class BoardController {
     @Autowired
     private BoardCommentService boardCommentService; // 댓글 부분을 추가
 
-    @GetMapping("/list.do")
+    @GetMapping("/list")
     public String getArticleList(@RequestParam(defaultValue = "1") int pageNum,
                                  @RequestParam(required = false) String searchWhat,
                                  @RequestParam(required = false) String searchText,
@@ -55,7 +55,7 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/content.do")
+    @GetMapping("/content")
     public String getContent(@RequestParam int boardno,
                              @RequestParam String pageNum,
                              Model model) {
@@ -69,22 +69,22 @@ public class BoardController {
         return "board/content";
     }
 
-    @GetMapping("/writeForm.do")
+    @GetMapping("/writeForm")
     public String writeForm() {
         return "board/writeForm";
     }
 
-    @PostMapping("/writeProc.do")
+    @PostMapping("/writeProc")
     public String writeArticle(@ModelAttribute BoardDTO article, HttpSession session) {
         // 실제 로그인 기능이 있다면 세션에서 memberNo를 가져와야 합니다.
         // 현재는 memberNo 1번으로 고정하여 테스트합니다.
         // 이 부분은 실제 로그인 구현 시 수정이 필요합니다.
         article.setMemberno(1);
         boardService.insertArticle(article);
-        return "redirect:/board/list.do";
+        return "redirect:/board/list";
     }
 
-    @GetMapping("/updateForm.do")
+    @GetMapping("/updateForm")
     public String updateForm(@RequestParam int boardno, @RequestParam String pageNum, Model model) {
         BoardDTO article = boardService.getArticle(boardno);
         model.addAttribute("article", article);
@@ -92,29 +92,29 @@ public class BoardController {
         return "board/updateForm";
     }
 
-    @PostMapping("/updateProc.do")
+    @PostMapping("/updateProc")
     public String updateArticle(@ModelAttribute BoardDTO updateDTO, @RequestParam int boardno, @RequestParam int pageNum) {
         // 폼에서 넘어온 boardno를 DTO에 수동으로 설정
         updateDTO.setBoardno(boardno);
         boardService.updateArticle(updateDTO);
-        return "redirect:/board/list.do?pageNum=" + pageNum;
+        return "redirect:/board/list?pageNum=" + pageNum;
     }
 
-    @GetMapping("/deleteForm.do")
+    @GetMapping("/deleteForm")
     public String deleteForm(@RequestParam int boardno, @RequestParam String pageNum, Model model) {
         model.addAttribute("boardno", boardno);
         model.addAttribute("pageNum", pageNum);
         return "board/deleteForm";
     }
 
-    @PostMapping("/deleteProc.do")
+    @PostMapping("/deleteProc")
     public String deleteArticle(@RequestParam int boardno, @RequestParam String pageNum, RedirectAttributes redirectAttrs) {
         int check = boardService.deleteArticle(boardno);
         if (check == 1) {
-            return "redirect:/board/list.do?pageNum=" + pageNum;
+            return "redirect:/board/list?pageNum=" + pageNum;
         } else {
             redirectAttrs.addFlashAttribute("msg", "삭제에 실패했습니다.");
-            return "redirect:/board/deleteForm.do?boardno=" + boardno + "&pageNum=" + pageNum;
+            return "redirect:/board/deleteForm?boardno=" + boardno + "&pageNum=" + pageNum;
         }
     }
 }

@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%
 request.setAttribute("bannerMessage", "MyPage");
 %>
@@ -70,37 +73,37 @@ request.setAttribute("bannerMessage", "MyPage");
 			<!-- 왼쪽 마이페이지 카테고리 테이블 -->
 					<b style="font-size:20px;">《마이 페이지》</b><br><br><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">회원 정보 확인</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_memberUpdate.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_memberUpdate"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">회원 정보 수정</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_board.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_board"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 게시글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_boardComment.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_boardComment"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 댓글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_restaurantReview.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_restaurantReview"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 맛집리뷰글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_trade.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_trade"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 중고거래글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_followList.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_followList"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">팔로우 목록 보기</a><br><br>
@@ -112,7 +115,45 @@ request.setAttribute("bannerMessage", "MyPage");
 					<b style="font-size:20px;">내가 쓴 댓글 보기</b>
 				</div>
 				<div class="myPageContent">
-					<b style="font-size:15px;">테스트 입력6</b>
+				
+				
+				
+					<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
+					<%-- "myCommentList" 변수가 비어있지 않으면 테이블을 표시함 --%>
+					<c:choose>
+						<c:when test="${not empty myCommentList}">
+							<table class="myCommentTable">
+								<thead>
+									<tr>
+										<th>댓글번호</th>
+										<th>내용</th>
+										<th>작성일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%-- "myCommentList"의 각 항목을 반복하며 테이블 행을 생성함 --%>
+									<c:forEach var="comment" items="${myCommentList}">
+										<tr>
+											<td>${comment.commentNo}</td>
+											<td>
+												<a href="${pageContext.request.contextPath}/board/content?boardno=${comment.boardNo}&pageNum=1">
+													${comment.content}
+												</a>
+											</td>
+											<td><fmt:formatDate value="${comment.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:when>
+						<c:otherwise>
+							<p>작성된 댓글이 없습니다.</p>
+						</c:otherwise>
+					</c:choose>
+				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
+					
+					
+					
 				</div>
 			</div>		<%-- myPageWrapper2의 끝 --%>
 			

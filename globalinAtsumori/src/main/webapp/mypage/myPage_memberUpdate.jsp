@@ -70,37 +70,37 @@ request.setAttribute("bannerMessage", "MyPage");
 			<!-- 왼쪽 마이페이지 카테고리 테이블 -->
 					<b style="font-size:20px;">《마이 페이지》</b><br><br><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">회원 정보 확인</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_memberUpdate.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_memberUpdate"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">회원 정보 수정</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_board.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_board"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 게시글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_boardComment.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_boardComment"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 댓글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_restaurantReview.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_restaurantReview"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 맛집리뷰글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_trade.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_trade"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 중고거래글 보기</a><br><br>
 						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_followList.jsp"
+						"${pageContext.request.contextPath}/mypage/myPage_followList"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">팔로우 목록 보기</a><br><br>
@@ -112,7 +112,13 @@ request.setAttribute("bannerMessage", "MyPage");
 					<b style="font-size:20px;">회원 정보 수정</b>
 				</div>
 				<div class="myPageContent">
+				
+				
+				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
 					<b style="font-size:15px;">테스트 입력4</b>
+				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
+					
+					
 				</div>
 			</div>		<%-- myPageWrapper2의 끝 --%>
 			
