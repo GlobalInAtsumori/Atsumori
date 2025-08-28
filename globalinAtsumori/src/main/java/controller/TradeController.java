@@ -35,10 +35,14 @@ public class TradeController {
 	@GetMapping("/tradeMain")
 	public String trMainPage(@RequestParam(defaultValue = "1") int page,
 							@RequestParam(defaultValue = "6") int pageSize, //6개씩 출력
+							@RequestParam(required = false) String keyword, //검색 키워드
+							@RequestParam(defaultValue = "title") String type, //검색 대상(title, content, member)
 							Model model) {
 		
 		//총 게시물 수
-		int total = tradeService.countPosts();
+		int total = (keyword == null || keyword.isEmpty()) ? 
+				tradeService.countPosts() : 
+					tradeService.countPostsByKeyword(keyword, type);
 		
 		//총 페이지 수(게시글 없을 때도 1페이지)
 		int totalPages = (int) Math.ceil(total / (double)pageSize);
@@ -49,7 +53,9 @@ public class TradeController {
 		if(page > totalPages) page = totalPages;
 		
 		//현재 페이지 목록
-		List<TradeVO> tradeList = tradeService.getPagedPosts(page, pageSize);
+		List<TradeVO> tradeList = (keyword == null || keyword.isEmpty()) ? 
+				tradeService.getPagedPosts(page, pageSize) : 
+				tradeService.getPagedPosts(page, pageSize, keyword, type);
 		
 		//페이지 블록
 		int blockSize = 3;
@@ -64,6 +70,8 @@ public class TradeController {
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("type", type);
 		
 		return "tradeMain";
 	}

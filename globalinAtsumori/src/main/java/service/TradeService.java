@@ -83,16 +83,50 @@ public class TradeService {
 		return tradeMapper.getTradeList();
 	}
 	
-	//메인페이지 페이징
+	//메인페이지 페이징(검색 없음)
 	public List<TradeVO> getPagedPosts(int page, int pageSize) {
-		int startRow = (page - 1) * pageSize + 1;
-		int endRow = page * pageSize;
-	    
-	    return tradeMapper.selectPagedPosts(startRow, endRow);
+		int totalPosts = tradeMapper.countPosts();
+		
+		int startRow = totalPosts - (page - 1) * pageSize - pageSize + 1;
+		if (startRow < 1) startRow = 1;
+		int endRow = totalPosts - (page - 1) * pageSize;
+		
+		List<TradeVO> posts = tradeMapper.selectPagedPosts(startRow, endRow);
+		
+		for (TradeVO post : posts) {
+			post.setRn(totalPosts - post.getRn() + 1);
+		}
+		
+		return posts;
 	}
 	
+	//메인페이지 페이징(검색 있음)
+	public List<TradeVO> getPagedPosts(int page, int pageSize, String keyword, String type) {
+		int totalPosts = (keyword == null || keyword.isEmpty()) ?
+		        tradeMapper.countPosts() :
+		            tradeMapper.countPostsByKeyword(keyword, type);
+		int startRow = totalPosts - (page - 1) * pageSize - pageSize + 1;
+		if (startRow < 1) startRow = 1;
+		int endRow = totalPosts - (page - 1) * pageSize;
+	    
+		if(keyword == null || keyword.isEmpty()) {
+	        return tradeMapper.selectPagedPosts(startRow, endRow);
+	    } else {
+	        return tradeMapper.selectPagedPostsByKeyword(startRow, endRow, keyword, type);
+	    }
+	}
+	
+	//총개수
 	public int countPosts() {
 		return tradeMapper.countPosts();
+	}
+	
+	//검색용 글 개수
+	public int countPostsByKeyword(String keyword, String type) {
+		if(keyword == null || keyword.isEmpty()) {
+			return tradeMapper.countPosts();
+		}
+		return tradeMapper.countPostsByKeyword(keyword, type);
 	}
 	
 	//상세 보기

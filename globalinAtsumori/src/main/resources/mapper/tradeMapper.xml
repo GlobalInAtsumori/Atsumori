@@ -65,13 +65,73 @@
 					FROM tradeImage ti 
 					WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
 				COUNT(*) OVER () AS totalCount,
-				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rnTmp,
-				(COUNT(*) OVER () - ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) + 1) AS rn
+				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rn
 			FROM tradePost tp
 			JOIN member m ON tp.memberNo = m.memberNo
 			)
-		WHERE rnTmp BETWEEN #{startRow} AND #{endRow}
-		ORDER BY tradePostNo DESC
+		WHERE rn BETWEEN #{startRow} AND #{endRow}
+		ORDER BY rn ASC
+	</select>
+	
+	<!-- 검색용 출력 -->
+	<select id="selectPagedPostsByKeyword" resultType="domain.TradeVO">
+		SELECT * 
+		FROM (
+			SELECT
+				tp.tradePostNo,
+				tp.tradeTitle,
+				tp.memberNo,
+				m.memberName,
+				tp.cost,
+				tp.status,
+				tp.createDate,
+				(SELECT ti.tradeImgUrl 
+					FROM tradeImage ti 
+					WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
+				COUNT(*) OVER () AS totalCount,
+				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rn
+			FROM tradePost tp
+			JOIN member m ON tp.memberNo = m.memberNo
+			<where>
+				<if test="keyword != null and keyword != ''">
+					<choose>
+						<when test="type == 'title'">
+							tp.tradeTitle LIKE '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'content'">
+							tp.tradeContent LIKE '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'member'">
+							m.memberName LIKE '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</if>
+			</where>
+		)
+		WHERE rn BETWEEN #{startRow} AND #{endRow}
+		ORDER BY rn DESC
+	</select>
+	
+	<!-- 검색된 글 출력 -->
+	<select id="countPostsByKeyword" resultType="int">
+		SELECT COUNT(*) 
+		FROM tradePost tp 
+		JOIN member m ON tp.memberNo = m.memberNo
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<choose>
+					<when test="type == 'title'">
+						tp.tradeTitle LIKE '%' || #{keyword} || '%'
+					</when>
+					<when test="type == 'content'">
+						tp.tradeContent LIKE '%' || #{keyword} || '%'
+					</when>
+					<when test="type == 'member'">
+						m.memberName LIKE '%' || #{keyword} || '%'
+					</when>
+				</choose>
+			</if>
+		</where>
 	</select>
     
     <!-- 전체 글 개수 -->

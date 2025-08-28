@@ -21,8 +21,21 @@
 		
 		<div class="tr-container">
 			
+			<!-- 검색 -->
+			<div class="search">
+				<form action="tradeMain" method="get">
+					<select name="type">
+						<option value="title" ${type == 'title' ? 'selected' : ''}>タイトル</option>
+						<option value="content" ${type == 'content' ? 'selected' : ''}>内容</option>
+						<option value="member" ${type == 'member' ? 'selected' : ''}>投稿者</option>
+					</select>
+					<input type="text" name="keyword" value="${keyword}">
+					<input type="submit" value="検索">
+				</form>
+			</div>
+			
+			<!-- 등록된 글 리스트 출력 -->
 			<div class="tr-list">
-				<!-- 등록된 글 리스트 출력 -->
 				<c:forEach var="post" items="${tradeList}">
 					<div class="thumb" onclick="location.href='tradeDetail?tradePostNo=${post.tradePostNo}'">
 						<div class="thumbTop">					
