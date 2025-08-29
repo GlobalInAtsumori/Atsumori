@@ -99,11 +99,6 @@ request.setAttribute("bannerMessage", "MyPage");
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">내가 쓴 중고거래글 보기</a><br><br>
-						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_followList"
-						style="font-weight:bold; color:black; text-decoration:none;"
-						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">팔로우 목록 보기</a><br><br>
 			</div>
 		
 		
