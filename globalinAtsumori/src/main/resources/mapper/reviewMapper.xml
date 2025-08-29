@@ -38,4 +38,20 @@
 	    FROM review 
 	    WHERE restNo = #{restNo}
 	</select>    
+	
+	<select id="reviewPaging" resultType="reviewVO">
+	    SELECT * FROM (
+	        SELECT 
+	            rv.reviewNo,
+	            rv.reviewTitle,
+	            rv.reviewContent,
+	            rv.memberNo,
+	            rv.restNo,
+	            rv.createDate,
+	            ROW_NUMBER() OVER (ORDER BY rv.reviewNo DESC) AS rn
+	        FROM review rv
+	        WHERE rv.memberNo = #{memberNo}
+	    )
+	    WHERE rn BETWEEN (#{offset} + 1) AND (#{offset} + #{limit})
+	</select>
 </mapper>

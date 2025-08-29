@@ -19,4 +19,10 @@ public interface ReviewMapper {
 		);
 	
 	int countReviewsByRestNo(int restNo);
+	
+	List<ReviewVO> myReviewPaging(
+			@Param("memberNo") int memberNo,
+		    @Param("limit") int limit,
+		    @Param("offset") int offset
+		);
 }

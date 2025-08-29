@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -65,5 +66,10 @@ public class ReviewService {
             reviewImgMapper.insertReviewImg(riVO); //리뷰 이미지 추가
         }
     }
+	
+	public List<ReviewVO> getMyReviewList(int memberNo, int page, int size){
+		int offset = (page - 1) * size;
+		return reviewMapper.myReviewPaging(memberNo, size, offset);
+	}
 	
 }
