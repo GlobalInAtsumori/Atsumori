@@ -59,6 +59,12 @@ div.thumb div.thumbTop {
 div.thumb div.thumbTop p {
 	width: 20px;
 	text-align: center;
+	text-shadow:
+			1px 1px 0 #ffffff,
+			-1px 1px 0 #ffffff,
+			1px -1px 0 #ffffff,
+			-1px -1px 0 #ffffff;
+	font-weight: 600;
 }
 
 div.thumb div.thumbTop div.status {
