@@ -32,6 +32,7 @@
     </delete>
     
     <!-- 메인페이지 출력용 -->
+    <!-- 
     <select id="getTradeList" resultType="domain.TradeVO">
     	SELECT 
     		ROW_NUMBER() OVER (ORDER BY tp.tradePostNo ASC) AS rn,
@@ -48,6 +49,7 @@
     	JOIN member m ON tp.memberNo = m.memberNo
     	ORDER BY tp.tradePostNo DESC
     </select>
+     -->
     
     <!-- 게시글 페이징 용 -->
     <select id="selectPagedPosts" resultType="domain.TradeVO">
@@ -62,15 +64,15 @@
 				tp.status,
 				tp.createDate,
 				(SELECT ti.tradeImgUrl 
-					FROM tradeImage ti 
-					WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
+				FROM tradeImage ti 
+				WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
 				COUNT(*) OVER () AS totalCount,
-				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rn
+				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo ASC) AS rn
 			FROM tradePost tp
 			JOIN member m ON tp.memberNo = m.memberNo
-			)
+		)
 		WHERE rn BETWEEN #{startRow} AND #{endRow}
-		ORDER BY rn ASC
+		ORDER BY rn DESC
 	</select>
 	
 	<!-- 검색용 출력 -->
@@ -89,7 +91,7 @@
 					FROM tradeImage ti 
 					WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl,
 				COUNT(*) OVER () AS totalCount,
-				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo DESC) AS rn
+				ROW_NUMBER() OVER (ORDER BY tp.tradePostNo ASC) AS rn
 			FROM tradePost tp
 			JOIN member m ON tp.memberNo = m.memberNo
 			<where>
@@ -112,7 +114,7 @@
 		ORDER BY rn DESC
 	</select>
 	
-	<!-- 검색된 글 출력 -->
+	<!-- 검색된 글 출력(개수) -->
 	<select id="countPostsByKeyword" resultType="int">
 		SELECT COUNT(*) 
 		FROM tradePost tp 

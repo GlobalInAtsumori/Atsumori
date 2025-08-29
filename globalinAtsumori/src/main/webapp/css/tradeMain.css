@@ -9,6 +9,30 @@ div.tr-list {
 	row-gap: 30px;
 }
 
+/* div.search */
+div.search {
+	width: fit-content;
+	margin: 0 auto;
+	padding-top: 30px;
+}
+
+div.search form {
+	border: 1px solid #bbbbbb;
+	padding: 10px;
+	border-radius: 30px;
+}
+
+div.search select {
+	width: 80px;
+}
+
+div.search input.check {
+	background: #ffffff;
+	cursor: pointer;
+	padding: 3px;
+}
+
+/* div.thumb */
 div.thumb {
 	cursor: pointer;
 	position: relative;

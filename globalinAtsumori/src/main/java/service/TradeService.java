@@ -78,11 +78,6 @@ public class TradeService {
 		tradeMapper.deleteTradePost(tradePostNo);
 	}
 	
-	//메인페이지 출력용
-	public List<TradeVO> getTradeList() {
-		return tradeMapper.getTradeList();
-	}
-	
 	//메인페이지 페이징(검색 없음)
 	public List<TradeVO> getPagedPosts(int page, int pageSize) {
 		int totalPosts = tradeMapper.countPosts();
@@ -94,7 +89,7 @@ public class TradeService {
 		List<TradeVO> posts = tradeMapper.selectPagedPosts(startRow, endRow);
 		
 		for (TradeVO post : posts) {
-			post.setRn(totalPosts - post.getRn() + 1);
+			post.setRn(post.getRn());
 		}
 		
 		return posts;

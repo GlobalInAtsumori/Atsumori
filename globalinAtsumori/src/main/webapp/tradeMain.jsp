@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <% request.setAttribute("bannerMessage", "🛒中古品売買🛒"); %>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 						<option value="member" ${type == 'member' ? 'selected' : ''}>投稿者</option>
 					</select>
 					<input type="text" name="keyword" value="${keyword}">
-					<input type="submit" value="検索">
+					<input type="submit" value="🔍" class="check">
 				</form>
 			</div>
 			
@@ -51,7 +52,7 @@
 							<p class="title">${post.tradeTitle}</p>
 							<div class="tbBox">
 								<ul>
-									<li class="cost">${post.cost}</li>
+									<li class="cost"><fmt:formatNumber value="${post.cost}" type="number" groupingUsed="true"/></li>
 									<li class="memberName">${post.memberName}</li>
 								</ul>
 								<p class="date">${post.dateFormat}</p>

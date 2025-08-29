@@ -42,7 +42,7 @@ public class TradeController {
 		//총 게시물 수
 		int total = (keyword == null || keyword.isEmpty()) ? 
 				tradeService.countPosts() : 
-					tradeService.countPostsByKeyword(keyword, type);
+				tradeService.countPostsByKeyword(keyword, type);
 		
 		//총 페이지 수(게시글 없을 때도 1페이지)
 		int totalPages = (int) Math.ceil(total / (double)pageSize);

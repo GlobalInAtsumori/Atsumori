@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <% request.setAttribute("bannerMessage", "🛍️中古品売買🛍️"); %>
 <%-- 테스트를 위해 임시로 로그인 정보 설정 --%>
 <%-- 본인:4 아님:3 --%>
-<% session.setAttribute("loginMemberNo", 3); %>
+<% session.setAttribute("loginMemberNo", 4); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +39,7 @@
 						<li class="title">${post.tradeTitle}</li>
 						<li class="memberName">${post.memberName}</li>
 						<li class="costTitle">値段</li>
-						<li class="cost">${post.cost}</li>
+						<li class="cost"><fmt:formatNumber value="${post.cost}" type="number" groupingUsed="true"/></li>
 						<li>
 							<form action="updateStatus" method="post">
 								<input type="hidden" name="tradePostNo" value="${post.tradePostNo}" />
