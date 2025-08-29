@@ -39,7 +39,7 @@
 	    WHERE restNo = #{restNo}
 	</select>    
 	
-	<select id="reviewPaging" resultType="reviewVO">
+	<select id="myReviewPaging" resultType="reviewVO">
 	    SELECT * FROM (
 	        SELECT 
 	            rv.reviewNo,
