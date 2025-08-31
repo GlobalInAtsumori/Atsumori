@@ -37,29 +37,39 @@
 			
 			<!-- 등록된 글 리스트 출력 -->
 			<div class="tr-list">
-				<c:forEach var="post" items="${tradeList}">
-					<div class="thumb" onclick="location.href='tradeDetail?tradePostNo=${post.tradePostNo}'">
-						<div class="thumbTop">					
-							<p class="postNo">${post.rn}</p>
-							<div class="status ${post.tradeBtnClass}">${post.statusLabel}</div>
-						</div>
-						<c:if test="${! empty post.thumbnailUrl}">
-							<div class="imgBox">
-								<img alt="썸네일" src="${post.thumbnailUrl}">
+			<c:choose>
+				<c:when test="${empty tradeList}">
+				<!-- 글이 없을 경우 -->
+					<p class="nopost"> </p>
+					<p class="nopost">まだ投稿がありません。</p>
+				</c:when>
+				<c:otherwise>
+				<!-- 글이 있을 경우 -->
+					<c:forEach var="post" items="${tradeList}">
+						<div class="thumb" onclick="location.href='tradeDetail?tradePostNo=${post.tradePostNo}'">
+							<div class="thumbTop">					
+								<p class="postNo">${post.rn}</p>
+								<div class="status ${post.tradeBtnClass}">${post.statusLabel}</div>
 							</div>
-						</c:if>
-						<div class="thumbBottom">
-							<p class="title">${post.tradeTitle}</p>
-							<div class="tbBox">
-								<ul>
-									<li class="cost"><fmt:formatNumber value="${post.cost}" type="number" groupingUsed="true"/></li>
-									<li class="memberName">${post.memberName}</li>
-								</ul>
-								<p class="date">${post.dateFormat}</p>
+							<c:if test="${! empty post.thumbnailUrl}">
+								<div class="imgBox">
+									<img alt="썸네일" src="${post.thumbnailUrl}">
+								</div>
+							</c:if>
+							<div class="thumbBottom">
+								<p class="title">${post.tradeTitle}</p>
+								<div class="tbBox">
+									<ul>
+											<li class="cost"><fmt:formatNumber value="${post.cost}" type="number" groupingUsed="true"/></li>
+										<li class="memberName">${post.memberName}</li>
+									</ul>
+									<p class="date">${post.dateFormat}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 			</div>
 			
 			<!-- 페이징 -->

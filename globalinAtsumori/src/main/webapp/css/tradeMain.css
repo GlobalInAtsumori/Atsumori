@@ -9,6 +9,14 @@ div.tr-list {
 	row-gap: 30px;
 }
 
+/* p.nopost 글 없을 경우 뜨는 메시지*/
+p.nopost {
+	padding: 20px 0;
+	text-align: center;
+	color: #555555;
+	font-weight: 500;
+}
+
 /* div.search */
 div.search {
 	width: fit-content;
