@@ -32,6 +32,7 @@ request.setAttribute("bannerMessage", "MyPage");
 			flex-direction: column; /* 자식 요소들을 세로로 정렬 */
 			flex-grow: 1;
 			gap: 20px;
+			width: 530px; /* 가로 크기 고정 */
 		}
 		
 		.myPageTitle {
@@ -111,7 +112,42 @@ request.setAttribute("bannerMessage", "MyPage");
 				
 				
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
-					<b style="font-size:15px;">테스트 입력2</b>
+				<table class="myTradeTable">
+            		<thead>
+                		<tr>
+                    		<th style="width:15%;">글번호</th>
+                    		<th style="width:65%;">제목</th>
+                    		<th style="width:30%;">작성일자</th>
+                		</tr>
+            		</thead>
+            		<tbody>
+                		<c:choose>
+                    		<c:when test="${not empty myBoardList}">
+                        		<c:forEach var="article" items="${myBoardList}">
+                            		<tr>
+                                		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                		${article.boardno}
+                                		</td>
+                                		<td>
+                                    		<a href="${pageContext.request.contextPath}/board/content?boardno=${article.boardno}&pageNum=1">
+                                        		${article.title}
+                                    		</a>
+                                		</td>
+                                		<td>&nbsp;
+                                			<fmt:formatDate value="${article.createdate}" pattern="yyyy-MM-dd"/><br>&nbsp;&nbsp;&nbsp;
+                                			<fmt:formatDate value="${article.createdate}" pattern="HH:mm:ss"/>
+                                		</td>
+                            		</tr>
+                        		</c:forEach>
+                    		</c:when>
+                    		<c:otherwise>
+                        		<tr>
+                            		<td colspan="3" style="text-align: center;">작성된 게시글이 없습니다.</td>
+                        		</tr>
+                    		</c:otherwise>
+                		</c:choose>
+            		</tbody>
+        		</table>
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
 					
 					

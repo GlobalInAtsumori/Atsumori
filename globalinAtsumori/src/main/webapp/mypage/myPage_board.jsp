@@ -55,9 +55,6 @@ request.setAttribute("bannerMessage", "MyPage");
 			/* min-height: 200px; */
 			/* flex-grow: 1; /* 남은 공간을 채우도록 함 */
 		}
-		
-		<%-- 테이블 스타일 --%>
-		
 	</style>
 	
 	
@@ -115,38 +112,43 @@ request.setAttribute("bannerMessage", "MyPage");
 				</div>
 				<div class="myPageContent">
 				
-					<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
-        <table class="myBoardTable">
-            <thead>
-                <tr>
-                    <th style="width:15%;">글번호</th>
-                    <th style="width:55%;">제목</th>
-                    <th style="width:30%;">작성일자</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:choose>
-                    <c:when test="${not empty myBoardList}">
-                        <c:forEach var="article" items="${myBoardList}">
-                            <tr>
-                                <td>${article.boardno}</td>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/board/content?boardno=${article.boardno}&pageNum=1">
-                                        ${article.title}
-                                    </a>
-                                </td>
-                                <td><fmt:formatDate value="${article.createdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                            </tr>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <tr>
-                            <td colspan="3" style="text-align: center;">작성된 게시글이 없습니다.</td>
-                        </tr>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-        </table>
+				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
+        		<table class="myBoardTable">
+            		<thead>
+                		<tr>
+                    		<th style="width:15%;">글번호</th>
+                    		<th style="width:65%;">제목</th>
+                    		<th style="width:30%;">작성일자</th>
+                		</tr>
+            		</thead>
+            		<tbody>
+                		<c:choose>
+                    		<c:when test="${not empty myBoardList}">
+                        		<c:forEach var="article" items="${myBoardList}">
+                            		<tr>
+                                		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                		${article.boardno}
+                                		</td>
+                                		<td>
+                                    		<a href="${pageContext.request.contextPath}/board/content?boardno=${article.boardno}&pageNum=1">
+                                        	${article.title}
+                                    		</a>
+                                		</td>
+                                		<td>&nbsp;
+                                			<fmt:formatDate value="${article.createdate}" pattern="yyyy-MM-dd"/><br>&nbsp;&nbsp;&nbsp;
+                                			<fmt:formatDate value="${article.createdate}" pattern="HH:mm:ss"/>
+                                		</td>
+                            		</tr>
+                        		</c:forEach>
+                    		</c:when>
+                    		<c:otherwise>
+                        		<tr>
+                            		<td colspan="3" style="text-align: center;">작성된 게시글이 없습니다.</td>
+                        		</tr>
+                    		</c:otherwise>
+                		</c:choose>
+            		</tbody>
+        		</table>
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
 					
 					

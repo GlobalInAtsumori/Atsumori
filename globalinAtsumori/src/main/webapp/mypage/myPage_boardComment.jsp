@@ -35,6 +35,7 @@ request.setAttribute("bannerMessage", "MyPage");
 			flex-direction: column; /* 자식 요소들을 세로로 정렬 */
 			flex-grow: 1;
 			gap: 20px;
+			width: 530px; /* 가로 크기 고정 */
 		}
 		
 		.myPageTitle {
@@ -110,42 +111,45 @@ request.setAttribute("bannerMessage", "MyPage");
 					<b style="font-size:20px;">내가 쓴 댓글 보기</b>
 				</div>
 				<div class="myPageContent">
-				
-				
-				
+
 					<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
-					<%-- "myCommentList" 변수가 비어있지 않으면 테이블을 표시함 --%>
-					<c:choose>
-						<c:when test="${not empty myCommentList}">
-							<table class="myCommentTable">
-								<thead>
-									<tr>
-										<th>댓글번호</th>
-										<th>내용</th>
-										<th>작성일자</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%-- "myCommentList"의 각 항목을 반복하며 테이블 행을 생성함 --%>
+					<table class="myBoardCommentTable">
+            			<thead>
+                			<tr>
+                    			<th style="width:15%;">댓글번호</th>
+                    			<th style="width:65%;">댓글내용</th>
+                    			<th style="width:30%;">작성일자</th>
+                			</tr>
+            			</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${not empty myCommentList}">
 									<c:forEach var="comment" items="${myCommentList}">
 										<tr>
-											<td>${comment.commentNo}</td>
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											${comment.commentNo}
+											</td>
 											<td>
 												<a href="${pageContext.request.contextPath}/board/content?boardno=${comment.boardNo}&pageNum=1">
 													${comment.content}
 												</a>
 											</td>
-											<td><fmt:formatDate value="${comment.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+											<td>&nbsp;
+												<fmt:formatDate value="${comment.createDate}" pattern="yyyy-MM-dd"/><br>&nbsp;&nbsp;
+												<fmt:formatDate value="${comment.createDate}" pattern="HH:mm:ss"/>
+											</td>
 										</tr>
 									</c:forEach>
-								</tbody>
-							</table>
-						</c:when>
-						<c:otherwise>
-							<p>작성된 댓글이 없습니다.</p>
-						</c:otherwise>
-					</c:choose>
-				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<td colspan="3" style="text-align: center;">작성된 댓글이 없습니다.</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+					<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
 					
 					
 					
