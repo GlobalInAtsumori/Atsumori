@@ -6,7 +6,7 @@
 	<div class="navbar-left"><a href="${pageContext.request.contextPath}/">아쯔모리</a></div>
 
 	<div class="navbar-center">
-		<a href="${pageContext.request.contextPath}/board/list.do">자유 게시판</a>
+		<a href="${pageContext.request.contextPath}/board/list">자유 게시판</a>
 		<a href="${pageContext.request.contextPath}/map">맛집 정보</a>
 		<a href="${pageContext.request.contextPath}/tradeMain">중고 거래</a>
 	</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.MypageMapper">
+
+	<!-- 마이페이지 관련!!!!!!!!! 내가 쓴 게시글 목록을 가져오는 새로운 쿼리 추가 -->
+        <select id="getArticlesByMemberNo" resultType="domain.BoardVO">
+            SELECT boardno, title, content, createdate, memberno
+            FROM board2
+            WHERE memberno = #{memberNo}
+            ORDER BY createdate DESC
+        </select>
+        
+    <!-- 내가 쓴 댓글 목록을 가져오는 새로운 쿼리 추가 -->
+    <select id="getCommentsByMemberNo" resultType="domain.BoardCommentVO">
+        SELECT commentNo, content, createDate, boardNo, memberNo
+        FROM boardComment
+        WHERE memberNo = #{memberNo}
+        ORDER BY createDate DESC
+    </select>
+</mapper>
