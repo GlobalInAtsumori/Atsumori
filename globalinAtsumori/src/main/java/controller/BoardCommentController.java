@@ -17,7 +17,7 @@ public class BoardCommentController {
     private BoardCommentService boardCommentService;
 
     // 댓글 작성 요청 처리
-    @PostMapping("/addComment.do")
+    @PostMapping("/addComment")
     public String addComment(@ModelAttribute BoardCommentDTO commentDto, 
                              @RequestParam String pageNum, // pageNum 파라미터를 추가
                              HttpSession session, 
@@ -37,11 +37,11 @@ public class BoardCommentController {
         redirectAttrs.addAttribute("boardno", commentDto.getBoardNo());
         redirectAttrs.addAttribute("pageNum", pageNum); 
         
-        return "redirect:/board/content.do";
+        return "redirect:/board/content";
     }
 
     // 댓글 삭제 요청 처리
-    @PostMapping("/deleteComment.do")
+    @PostMapping("/deleteComment")
     public String deleteComment(@RequestParam int commentNo, 
                                 @RequestParam int boardNo, 
                                 @RequestParam String pageNum, 
@@ -54,6 +54,6 @@ public class BoardCommentController {
         }
         redirectAttrs.addAttribute("boardno", boardNo);
         redirectAttrs.addAttribute("pageNum", pageNum);
-        return "redirect:/board/content.do";
+        return "redirect:/board/content";
     }
 }

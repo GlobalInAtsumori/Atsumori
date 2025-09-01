@@ -3,13 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<% request.setAttribute("bannerMessage", "雑談掲示板"); %>
+
 <%--
-	기존에 사용하던 JSP 스크립틀릿 변수들은 EL로 대체되었으므로 주석 처리합니다.
+	기존에 사용하던 JSP 스크립틀릿 변수들은 EL로 대체되었으므로 주석 처리.
 	<%@ page import="java.util.List"%>
 	<%@ page import="dto.BoardDTO"%>
 	<%@ include file="color.jsp"%>
 --%>
-<% request.setAttribute("bannerMessage", "자유 게시판"); %>
+
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +45,7 @@
 						<tr height="30">
 							<td align="center" width="50">${number}</td>
 							<td width="250">
-								<a href="content.do?boardno=${article.boardno}&pageNum=${pageNum}">
+								<a href="content?boardno=${article.boardno}&pageNum=${pageNum}">
 									${article.title}
 								</a>
 							</td>
@@ -72,7 +74,7 @@
     
     <%-- [이전] 버튼: 현재 페이지가 1보다 클 때만 표시합니다. --%>
     <c:if test="${pageNum > 1}">
-        <a href="list.do?pageNum=${pageNum - 1}">[이전]</a>
+        <a href="list?pageNum=${pageNum - 1}">[이전]</a>
     </c:if>
 
     <%-- 모든 페이지 링크를 표시합니다. --%>
@@ -84,14 +86,14 @@
             </c:when>
             <%-- 그 외의 페이지는 링크를 표시합니다. --%>
             <c:otherwise>
-                <a href="list.do?pageNum=${i}">[${i}]</a>
+                <a href="list?pageNum=${i}">[${i}]</a>
             </c:otherwise>
         </c:choose>
     </c:forEach>
     
     <%-- [다음] 버튼: 현재 페이지가 마지막 페이지보다 작을 때만 표시합니다. --%>
-    <c:if test="${pageNum < pageCount}">
-        <a href="list.do?pageNum=${pageNum + 1}">[다음]</a>
+    <c:if test="${pageNum < pageCount-1}">
+        <a href="list?pageNum=${pageNum + 1}">[다음]</a>
     </c:if>
 </c:if>
 		
@@ -105,14 +107,14 @@
 				</form>
 			</c:when>
 			<c:otherwise>
-				<form action="writeForm.do"> <input type="submit" value="글쓰기">
+				<form action="writeForm"> <input type="submit" value="글쓰기">
 				</form>
 			</c:otherwise>
 		</c:choose>
 			
 		</div>
 		
-		<form action="list.do">
+		<form action="list">
 			<select name="searchWhat">
 				<option value="writer" <c:if test="${searchWhat == 'writer'}">selected</c:if>>작성자</option>
 				<option value="subject" <c:if test="${searchWhat == 'subject'}">selected</c:if>>제목</option>
