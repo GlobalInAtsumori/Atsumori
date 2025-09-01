@@ -75,24 +75,47 @@
 			<!-- 페이징 -->
 			<div class="pagination">
     			<c:if test="${currentPage > 1}">
-    				<a href="tradeMain?page=1&type=${type}&keyword=${keyword}" class="fl">«</a>
-    				<a href="tradeMain?page=${currentPage - 1}&type=${type}&keyword=${keyword}" class="prev">‹ 前へ</a>
-  				</c:if>
+					<c:choose>
+						<c:when test="${not empty keyword}">
+							<a href="tradeMain?page=1&type=${type}&keyword=${keyword}" class="fl">«</a>
+							<a href="tradeMain?page=${currentPage - 1}&type=${type}&keyword=${keyword}" class="prev">‹ 前へ</a>			
+						</c:when>
+						<c:otherwise>    				
+							<a href="tradeMain?page=1" class="fl">«</a>
+							<a href="tradeMain?page=${currentPage - 1}" class="prev">‹ 前へ</a>			
+						</c:otherwise>
+					</c:choose>
+				</c:if>
   				
 				<c:forEach begin="${startPage}" end="${endPage}" var="p">
-    				<c:choose>
-    					<c:when test="${p == currentPage}">
-    						<span class="num current">${p}</span>
-    					</c:when>
-    					<c:otherwise>
-    						<a href="tradeMain?page=${p}&type=${type}&keyword=${keyword}" class="num">${p}</a>
-    					</c:otherwise>
-    				</c:choose>
-    			</c:forEach>
+					<c:choose>
+						<c:when test="${p == currentPage}">
+							<span class="num current">${p}</span>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${not empty keyword}">
+									<a href="tradeMain?page=${p}&type=${type}&keyword=${keyword}" class="num">${p}</a>
+								</c:when>
+								<c:otherwise>
+									<a href="tradeMain?page=${p}" class="num">${p}</a>    						
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
     			
 				<c:if test="${currentPage < totalPages}">
-    				<a href="tradeMain?page=${currentPage + 1}&type=${type}&keyword=${keyword}" class="next">次へ ›</a>
-    				<a href="tradeMain?page=${totalPages}&type=${type}&keyword=${keyword}" class="fl">»</a>
+					<c:choose>
+						<c:when test="${not empty keyword}">
+							<a href="tradeMain?page=${currentPage + 1}&type=${type}&keyword=${keyword}" class="next">次へ ›</a>
+							<a href="tradeMain?page=${totalPages}&type=${type}&keyword=${keyword}" class="fl">»</a>
+						</c:when>
+						<c:otherwise>
+							<a href="tradeMain?page=${currentPage + 1}" class="next">次へ ›</a>
+							<a href="tradeMain?page=${totalPages}" class="fl">»</a>						
+						</c:otherwise>
+					</c:choose>
 				</c:if>
 			</div>
 			
