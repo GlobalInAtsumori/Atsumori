@@ -99,7 +99,7 @@ public class TradeService {
 	public List<TradeVO> getPagedPosts(int page, int pageSize, String keyword, String type) {
 		int totalPosts = (keyword == null || keyword.isEmpty()) ?
 		        tradeMapper.countPosts() :
-		            tradeMapper.countPostsByKeyword(keyword, type);
+		        tradeMapper.countPostsByKeyword(keyword, type);
 		int startRow = totalPosts - (page - 1) * pageSize - pageSize + 1;
 		if (startRow < 1) startRow = 1;
 		int endRow = totalPosts - (page - 1) * pageSize;
@@ -143,6 +143,16 @@ public class TradeService {
 	//거래희망(클릭시 거래중 등의 표기)
 	public void updateStatusToTrading(int tradePostNo, String status) {
 		tradeMapper.updateStatus(tradePostNo, status);
+	}
+	
+	//마이페이지용 '내' 글 가져오기
+	public List<TradeVO> getMyPosts(Map<String, Object> paramMap) {
+		return tradeMapper.selectPostsByMember(paramMap);
+	}
+	
+	//마이페이지용 전체글
+	public int countMyPosts(int memberNo) {
+		return tradeMapper.countMyPosts(memberNo);
 	}
 	
 }

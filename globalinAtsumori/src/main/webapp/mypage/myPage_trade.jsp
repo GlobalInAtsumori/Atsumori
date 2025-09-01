@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-request.setAttribute("bannerMessage", "MyPage");
+request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,6 +56,7 @@ request.setAttribute("bannerMessage", "MyPage");
 	</style>
 	
 	
+	
 </head>
 <body>
 	<div class="wrapper">
@@ -104,55 +106,70 @@ request.setAttribute("bannerMessage", "MyPage");
 		
 		
 			<div class="myPageWrapper2">		<%-- myPageWrapper2의 시작 --%>
-				<div class="myPageTitle">
-					<b style="font-size:20px;">내가 쓴 중고거래글 보기</b>
+				<div class="myPageTitle tab-buttons">
+					<button id="myPost">내가 쓴 글</button>
+					<button id="myTrade">거래희망한 글</button>
 				</div>
-				<div class="myPageContent">
-				
-				
 				
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
-				<table class="myTradeTable">
-            		<thead>
-                		<tr>
-                    		<th style="width:15%;">글번호</th>
-                    		<th style="width:65%;">제목</th>
-                    		<th style="width:30%;">작성일자</th>
-                		</tr>
-            		</thead>
-            		<tbody>
-                		<c:choose>
-                    		<c:when test="${not empty myBoardList}">
-                        		<c:forEach var="article" items="${myBoardList}">
-                            		<tr>
-                                		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                		${article.boardno}
-                                		</td>
-                                		<td>
-                                    		<a href="${pageContext.request.contextPath}/board/content?boardno=${article.boardno}&pageNum=1">
-                                        		${article.title}
-                                    		</a>
-                                		</td>
-                                		<td>&nbsp;
-                                			<fmt:formatDate value="${article.createdate}" pattern="yyyy-MM-dd"/><br>&nbsp;&nbsp;&nbsp;
-                                			<fmt:formatDate value="${article.createdate}" pattern="HH:mm:ss"/>
-                                		</td>
-                            		</tr>
-                        		</c:forEach>
-                    		</c:when>
-                    		<c:otherwise>
-                        		<tr>
-                            		<td colspan="3" style="text-align: center;">작성된 게시글이 없습니다.</td>
-                        		</tr>
-                    		</c:otherwise>
-                		</c:choose>
-            		</tbody>
-        		</table>
-				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
-					
-					
-					
+				<div class="myPageContent">
+					<div class="tab-contents">
+						
+						<!-- 내가 쓴 글 -->
+						<div id="myPostContents">
+							<table>
+								<thead>
+									<tr>
+										<th>no</th>
+										<th>제목</th>
+										<th>작성일자</th>
+										<th>상태</th>
+										<th>수락</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:if test="${empty myPostList}">
+    <p>게시글이 없습니다.</p>
+</c:if>
+								<c:forEach var="post" items="${myPostList}">
+									<tr>
+										<td>${post.rn}</td>
+										<td>${post.tradeTitle}</td>
+										<td>${post.dateFormat}</td>
+										<td>${post.status}</td>
+										<td>test</td>
+									</tr>
+								</c:forEach>
+								</tbody>
+							</table>
+							<div class="pagination first">
+								<c:if test="${currentPage > 1}">
+									<a href="myPage_trade?page=${currentPage-1}">이전</a>
+								</c:if>
+								<c:forEach begin="1" end="${totalPages}" var="p">
+									<c:choose>
+										<c:when test="${p == currentPage}">
+											<span class="current">${p}</span>
+										</c:when>
+										<c:otherwise>
+											<a href="myPage_trade?page=${p}">${p}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${currentPage < totalPages}">
+									<a href="myPage_trade?page=${currentPage+1}">다음</a>
+								</c:if>
+							</div>
+						</div>
+						
+						
+						<!-- 거래희망한 글 -->
+						<div id="myTradeContents" style="display: none;">
+						test2
+						</div>
+					</div>
 				</div>
+				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>
 			</div>		<%-- myPageWrapper2의 끝 --%>
 			
 		</div>		<%-- myPageWrapper1의 끝 --%>
@@ -161,4 +178,20 @@ request.setAttribute("bannerMessage", "MyPage");
 		
 	</div>
 </body>
+
+	<script type="text/javascript">
+		const myPost = document.getElementById('myPost');
+		const myTrade = document.getElementById('myTrade');
+		const myPostContents = document.getElementById('myPostContents');
+		const myTradeContents = document.getElementById('myTradeContents');
+		
+		myPost.addEventListener('click', () => {
+			myPostContents.style.display = 'block';
+			myTradeContents.style.display = 'none';
+		});
+		myTrade.addEventListener('click', () => {
+			myPostContents.style.display = 'none';
+			myTradeContents.style.display = 'block';
+		});
+	</script>
 </html>

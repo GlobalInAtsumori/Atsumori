@@ -167,5 +167,24 @@
     	WHERE tradePostNo = #{tradePostNo}
     </update>
     
+    <!-- 마이페이지에 중고거래 글 가져오기 -->
+    <select id="selectPostsByMember" resultType="domain.TradeVO" parameterType="map">
+    	SELECT * 
+    	FROM (
+    		SELECT tradePostNo, tradeTitle, createdate, status,
+    				ROW_NUMBER() OVER (ORDER BY createdate DESC) AS rn
+    		FROM tradePost
+    		WHERE memberNo = #{memberNo}
+    	)
+    	WHERE rn BETWEEN #{startRow} AND #{endRow} 
+    	ORDER BY createdate DESC
+    </select>
+	
+	<!-- memberNo에 해당하는 글 개수 반환 -->
+	<select id="countMyPosts" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM tradePost
+		WHERE memberNo= #{memberNo}
+	</select>    
 
 </mapper>

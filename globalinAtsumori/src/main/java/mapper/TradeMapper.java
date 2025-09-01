@@ -1,6 +1,8 @@
 package mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,5 +44,11 @@ public interface TradeMapper {
     
     //거래희망 버튼 update(AVILABLE to TRADING)용
     public void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
+    
+    //로그인한 회원의 '내'글 가져오기
+    List<TradeVO> selectPostsByMember(Map<String, Object> paramMap);
+    
+    //memberNo에 해당하는 글 전체 수 반환
+    int countMyPosts(int memberNo);
     
 }
