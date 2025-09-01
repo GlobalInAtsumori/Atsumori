@@ -25,14 +25,15 @@
         </choose>
     </select>
     
-    <select id="getArticles" resultType="domain.BoardVO">
-        SELECT * FROM (SELECT ROWNUM rnum, boardno, title, content, createdate, memberno
-                        FROM (SELECT * FROM board2 ORDER BY boardno DESC))
+    <select id="getArticles" resultType="dto.BoardDTO">
+        SELECT * FROM (SELECT ROWNUM rnum, b.*, m.memberId, m.memberName
+                        FROM (SELECT * FROM board2 ORDER BY boardno DESC) b
+                        JOIN member m ON b.memberno = m.memberNo)
         WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
     </select>
     
-    <select id="getArticlesBySearch" resultType="domain.BoardVO">
-        SELECT * FROM (SELECT ROWNUM rnum, boardno, title, content, createdate, memberno
+    <select id="getArticlesBySearch" resultType="dto.BoardDTO">
+        SELECT * FROM (SELECT ROWNUM rnum, b.*, m.memberId, m.memberName
                         FROM (
                             SELECT * FROM board2
                             <where>
@@ -47,13 +48,17 @@
                                 </if>
                             </where>
                             ORDER BY boardno DESC
-                        )
+                        ) b
+                        JOIN member m ON b.memberno = m.memberNo
                     )
         WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
     </select>
     
-    <select id="getArticle" resultType="domain.BoardVO">
-        SELECT * FROM board2 WHERE boardno = #{boardno}
+    <select id="getArticle" resultType="dto.BoardDTO">
+        SELECT b.*, m.memberId, m.memberName
+        FROM board2 b
+        JOIN member m ON b.memberno = m.memberNo
+        WHERE b.boardno = #{boardno}
     </select>
     
     <insert id="insertArticle">

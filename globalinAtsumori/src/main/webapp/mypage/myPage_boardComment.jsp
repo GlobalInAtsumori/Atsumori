@@ -134,7 +134,7 @@ request.setAttribute("bannerMessage", "MyPage");
 											<td style="width:20%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											${comment.commentNo}
 											</td>
-											<td style="width:60%;">&nbsp;&nbsp;
+											<td style="width:60%;">
 												<a href="${pageContext.request.contextPath}/board/content?boardno=${comment.boardNo}&pageNum=1">
 													${comment.content}
 												</a>
