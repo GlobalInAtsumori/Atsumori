@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="domain.*" %>
+<%@ page import="dao.MemberDAO" %>
 <jsp:useBean id="dao" class="dao.MemberDAO" />
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원 탈퇴</title>
-<meta http-equiv="refresh" content="5;url=login.jsp">
-</head>
 <%
     String memberId = (String)session.getAttribute("loginID");
     String password = request.getParameter("password");
 
-    int check = dao.deleteMember(memberId, password);
+    boolean result = dao.deleteMember(memberId, password);
 
-    if (check == 1) {
+    if(result) {
         session.invalidate();
 %>
 <body bgcolor="#fef7b5">
@@ -26,12 +19,14 @@
 5초 후 Login Page로 이동합니다.
 </font>
 </div>
-<% } else { %>
+<meta http-equiv="refresh" content="5;url=login.jsp">
+<% 
+    } else { 
+%>
 <script>
-    alert("비밀번호가 맞지 않습니다.");
+    alert("비밀번호가 맞지 않거나 회원 탈퇴에 실패했습니다.");
     history.go(-1);
 </script>
 <% } %>
-<img src="images/goodbye.jpg" alt="잘가이미지" width="300" height="300">
 </body>
 </html>
