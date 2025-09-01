@@ -55,6 +55,11 @@ request.setAttribute("bannerMessage", "MyPage");
 			/* min-height: 200px; */
 			/* flex-grow: 1; /* 남은 공간을 채우도록 함 */
 		}
+		
+		.myBoardCommentTable {
+    	width: 100%;
+    	table-layout: fixed;
+		}
 	</style>
 	
 	
@@ -116,9 +121,9 @@ request.setAttribute("bannerMessage", "MyPage");
 					<table class="myBoardCommentTable">
             			<thead>
                 			<tr>
-                    			<th style="width:15%;">댓글번호</th>
-                    			<th style="width:65%;">댓글내용</th>
-                    			<th style="width:30%;">작성일자</th>
+                    			<th style="width:20%;">댓글번호</th>
+                    			<th style="width:60%;">댓글내용</th>
+                    			<th style="width:20%;">작성일자</th>
                 			</tr>
             			</thead>
 						<tbody>
@@ -126,16 +131,16 @@ request.setAttribute("bannerMessage", "MyPage");
 								<c:when test="${not empty myCommentList}">
 									<c:forEach var="comment" items="${myCommentList}">
 										<tr>
-											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<td style="width:20%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											${comment.commentNo}
 											</td>
-											<td>
+											<td style="width:60%;">&nbsp;&nbsp;
 												<a href="${pageContext.request.contextPath}/board/content?boardno=${comment.boardNo}&pageNum=1">
 													${comment.content}
 												</a>
 											</td>
-											<td>&nbsp;
-												<fmt:formatDate value="${comment.createDate}" pattern="yyyy-MM-dd"/><br>&nbsp;&nbsp;
+											<td style="width:20%;">&nbsp;
+												<fmt:formatDate value="${comment.createDate}" pattern="yyyy-MM-dd"/><br>&nbsp;&nbsp;&nbsp;
 												<fmt:formatDate value="${comment.createDate}" pattern="HH:mm:ss"/>
 											</td>
 										</tr>
