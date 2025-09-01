@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.TradeMapper">
+    
+    <!-- 게시글 등록 -->
+    <insert id="insertTradePost" parameterType="domain.TradeVO">
+    	<selectKey keyProperty="tradePostNo" resultType="int" order="BEFORE">
+    		SELECT tradePost_seq.NEXTVAL from dual
+    	</selectKey>
+    	INSERT INTO tradePost 
+    		(tradePostNo, tradeTitle, tradeContent, cost, status, memberNo, createDate) 
+    	VALUES 
+    		(#{tradePostNo}, #{tradeTitle}, #{tradeContent}, #{cost}, #{status}, #{memberNo}, SYSDATE)
+    </insert>
+    
+    <!-- 메인페이지 출력용 -->
+    <select id="getTradeList" resultType="domain.TradeVO">
+    	SELECT 
+    		tp.tradePostNo,
+    		tp.tradeTitle,
+    		tp.cost,
+    		tp.status,
+    		tp.createDate,
+    		m.memberName,
+    		(SELECT ti.tradeImgUrl FROM tradeImage ti 
+    	WHERE ti.tradePostNo = tp.tradePostNo AND ROWNUM = 1) AS thumbnailUrl 
+    	FROM tradePost tp 
+    	JOIN member m ON tp.memberNo = m.memberNo
+    	ORDER BY tp.tradePostNo DESC
+    </select>
+    
+    <!-- 상세 페이지 출력용 -->
+    <select id="getTradeDetail" resultType="domain.TradeVO" parameterType="int">
+    	SELECT 
+    		tp.tradePostNo,
+    		tp.tradeTitle,
+    		tp.tradeContent,
+    		tp.cost,
+    		tp.status,
+    		tp.memberNo,
+    		tp.createDate 
+    	FROM tradePost tp 
+    	WHERE tp.tradePostNo = #{tradePostNo}
+    </select>
+
+</mapper>

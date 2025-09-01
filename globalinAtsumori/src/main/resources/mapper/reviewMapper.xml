@@ -4,5 +4,38 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="mapper.ReviewMapper">
-
+	<insert id="insertReview" parameterType="reviewVO">
+    	<selectKey keyProperty="reviewNo" order="BEFORE" resultType="int">
+        	SELECT review_seq.NEXTVAL FROM dual
+    	</selectKey>
+    	insert into review values (#{reviewNo}, #{reviewTitle}, #{reviewContent}, #{memberNo}, #{restNo}, #{createDate})
+	</insert>
+	
+	<select id="reviewPaging" resultType="dto.ReviewDTO">
+	    SELECT * FROM (
+	        SELECT 
+	            rv.reviewNo,
+	            rv.reviewTitle,
+	            rv.reviewContent,
+	            rv.createDate,
+	            rv.memberNo,
+	            m.memberName,
+	            m.memberId,
+	            m.country,
+	            rv.restNo,
+	            ri.reviewImgUrl,
+	            ROW_NUMBER() OVER (ORDER BY rv.reviewNo DESC) AS rn
+	        FROM review rv
+	        JOIN member m ON rv.memberNo = m.memberNo
+	        LEFT JOIN reviewImage ri ON rv.reviewNo = ri.reviewNo
+	        WHERE rv.restNo = #{restNo}
+	    )
+	    WHERE rn BETWEEN (#{offset} + 1) AND (#{offset} + #{limit})
+	</select>
+	
+	<select id="countReviewsByRestNo" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM review 
+	    WHERE restNo = #{restNo}
+	</select>    
 </mapper>

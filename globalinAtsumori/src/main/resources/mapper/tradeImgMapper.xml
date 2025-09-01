@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.TradeImgMapper">
+
+    <!-- 이미지 등록용 -->
+    <insert id="insertTradeImage" parameterType="domain.TradeImageVO">
+    	INSERT INTO tradeImage (tradeImgNo, tradeImgUrl, tradePostNo) 
+    	VALUES (tradeimage_seq.NEXTVAL, #{tradeImgUrl}, #{tradePostNo})
+    </insert>
+    
+    <!-- 이미지 조회용 -->
+    <select id="getTradeImage" resultType="domain.TradeImageVO" parameterType="int">
+    	SELECT tradeImgNo, tradeImgUrl, tradePostNo 
+    	FROM tradeImage WHERE tradePostNo = #{tradePostNo}
+    </select>
+
+</mapper>

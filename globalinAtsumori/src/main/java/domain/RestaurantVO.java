@@ -9,6 +9,6 @@ public class RestaurantVO {
 	int restNo;
 	String restName;
 	String address;
-	int longitude;
-	int latitude;
+	double longitude;
+	double latitude;
 }

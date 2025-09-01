@@ -9,6 +9,7 @@ import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -17,6 +18,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @ComponentScan(basePackages = {"service", "controller", "config", "domain", "mapper"}) 
+@PropertySource("classpath:application.properties")
 public class RootConfig {
 
 	@Bean
@@ -44,7 +46,14 @@ public class RootConfig {
                 domain.MemberVO.class,
                 domain.RestaurantVO.class,
                 domain.ReviewImageVO.class,
+                domain.ReviewVO.class,
+                domain.TradeVO.class,
+                domain.TradeImageVO.class,
             });
+        
+        org.apache.ibatis.session.Configuration mybatisConfig = new org.apache.ibatis.session.Configuration();
+        mybatisConfig.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        factory.setConfiguration(mybatisConfig);
         
         return factory.getObject();
     }

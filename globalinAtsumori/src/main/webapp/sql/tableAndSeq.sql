@@ -10,7 +10,6 @@ CREATE TABLE member (
 );
 
 
-
 select * from member;
 
 -- tradePost 테이블
@@ -50,7 +49,7 @@ CREATE TABLE board2 (
     boardNo NUMBER NOT NULL,
     title VARCHAR2(100) NOT NULL,
     content VARCHAR2(3000) NOT NULL,
-    createDate DATE NOT NULL,
+    createDate TIMESTAMP NOT NULL,
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARD PRIMARY KEY (boardNo),
     CONSTRAINT FK_BOARD_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo)
@@ -66,6 +65,11 @@ CREATE TABLE restaurant (
     CONSTRAINT PK_RESTAURANT PRIMARY KEY (restNo)
 );
 
+insert into restaurant values(1, 'testRest', '영등포구 영등포동', 100, 100);
+insert into restaurant values(2, '영등포역', '영등포구 영등포동', 126.90466, 37.50933);
+delete from restaurant where restNo = 2;
+delete from restaurant;
+
 -- review 테이블
 CREATE TABLE review (
     reviewNo NUMBER NOT NULL,
@@ -78,7 +82,8 @@ CREATE TABLE review (
     CONSTRAINT FK_REVIEW_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo),
     CONSTRAINT FK_REVIEW_RESTAURANT FOREIGN KEY (restNo) REFERENCES restaurant(restNo)
 );
-
+select * from review;
+delete from review;
 -- reviewImage 테이블
 CREATE TABLE reviewImage (
     reviewImgNo NUMBER NOT NULL,
@@ -88,11 +93,15 @@ CREATE TABLE reviewImage (
     CONSTRAINT FK_REVIEWIMG_REVIEW FOREIGN KEY (reviewNo) REFERENCES review(reviewNo)
 );
 
+drop table reviewImage;
+select * from REVIEWIMAGE;
+select * from review where reviewno = 4;
+delete from reviewImage;
 -- boardComment 테이블
 CREATE TABLE boardComment (
     commentNo NUMBER NOT NULL,
     content VARCHAR2(1000) NOT NULL,
-    createDate DATE NOT NULL,
+    createDate TIMESTAMP NOT NULL,
     boardNo NUMBER NOT NULL,
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARDCOMMENT PRIMARY KEY (commentNo),

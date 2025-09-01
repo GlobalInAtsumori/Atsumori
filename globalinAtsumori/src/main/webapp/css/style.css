@@ -18,6 +18,7 @@ body {
 
 /* 네비게이션 바 */
 .navbar {
+	font-family: 'Segoe UI', sans-serif;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -27,6 +28,11 @@ body {
 .navbar-left {
 	font-size: 22px;
 	font-weight: bold;
+}
+
+.navbar-left a {
+	text-decoration: none;
+	color: #000000;
 }
 
 .navbar-center a {
@@ -52,6 +58,7 @@ body {
 	font-size: 32px;
 	font-weight: bold;
 	letter-spacing: 2px;
+	font-family: 'Segoe UI', sans-serif;
 }
 
 /* 이미지 영역 */

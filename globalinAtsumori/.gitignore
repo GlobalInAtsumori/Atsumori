@@ -17,4 +17,11 @@ Thumbs.db
 Thumbs.db.swp
 
 /src/main/webapp/js/constConfig.js
+<<<<<<< HEAD
 /src/main/resources/application.properties
+=======
+/src/main/resources/application.properties
+/src/main/webapp/WEB-INF/lib/*
+
+
+>>>>>>> origin/dev
