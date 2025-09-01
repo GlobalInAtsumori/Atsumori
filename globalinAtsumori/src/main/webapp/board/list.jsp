@@ -19,6 +19,12 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+
+<style>
+	<%-- 모든 a 태그의 밑줄을 제거 --%>
+	a {text-decoration: none;}
+</style>
+
 </head>
 <body bgcolor="${bodyback_c}">
 <div class="wrapper">
@@ -50,7 +56,7 @@
 								</a>
 							</td>
 							<td align="center" width="100">
-								${article.memberno}
+								${article.memberName}
 							</td>
 							<td align="center" width="150">
 								<fmt:formatDate value="${article.createdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -100,16 +106,15 @@
 		<div style="text-align: right; width: 700px; margin: 10px auto;">
 		
 		<c:choose>
-			<c:when test="${empty sessionScope.loginID}">
-				<form action="${pageContext.request.contextPath}/member/login.jsp" method="post"
-					onsubmit="return alert('로그인이 되지 않았습니다. 로그인 해 주세요.');">
-					<input type="submit" value="글쓰기">
-				</form>
-			</c:when>
-			<c:otherwise>
-				<form action="writeForm"> <input type="submit" value="글쓰기">
-				</form>
-			</c:otherwise>
+    		<c:when test="${empty sessionScope.loginID}">
+        		<form action="${pageContext.request.contextPath}/memberone/login.jsp" method="post"
+            	onsubmit="return alert('로그인이 되지 않았습니다. 로그인 해 주세요.');">
+            		<input type="submit" value="글쓰기">
+        		</form>
+    		</c:when>
+    		<c:otherwise>
+        		<form action="writeForm"> <input type="submit" value="글쓰기"></form>
+    		</c:otherwise>
 		</c:choose>
 			
 		</div>

@@ -44,7 +44,7 @@ align="center" bgcolor="${bodyback_c}">
 </tr>
 <tr height="30">
 	<td align="center" width="15%" bgcolor="${value_c}">작성자</td>
-	<td align="center" width="35%">${article.getMemberno() }</td>
+	<td align="center" width="35%">${article.getMemberName() }</td>
 	<td align="center" width="375" colspan="2"></td>
 </tr>
 
@@ -71,7 +71,7 @@ align="center" bgcolor="${bodyback_c}">
 
 <tr height="30">
 	<td align="center" width="15%" bgcolor="${value_c}">글제목</td>
-	<td align="center" width="375" colspan="3">
+	<td align="left" width="375" colspan="3">
 	${article.title}</td>
 </tr>
 
@@ -101,10 +101,10 @@ align="center" bgcolor="${bodyback_c}">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="글수정"
-					onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='${pageContext.request.contextPath}/member/login.jsp';">
+					onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='${pageContext.request.contextPath}/memberone/login.jsp';">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="글삭제"
-					onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='${pageContext.request.contextPath}/member/login.jsp';">
+					onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='${pageContext.request.contextPath}/memberone/login.jsp';">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:otherwise>
 		</c:choose>
