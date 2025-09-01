@@ -60,7 +60,7 @@
 								<p class="title">${post.tradeTitle}</p>
 								<div class="tbBox">
 									<ul>
-											<li class="cost"><fmt:formatNumber value="${post.cost}" type="number" groupingUsed="true"/></li>
+										<li class="cost"><fmt:formatNumber value="${post.cost}" type="number" groupingUsed="true"/></li>
 										<li class="memberName">${post.memberName}</li>
 									</ul>
 									<p class="date">${post.dateFormat}</p>

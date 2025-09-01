@@ -51,7 +51,7 @@
     </select>
      -->
     
-    <!-- 게시글 페이징 용 -->
+    <!-- 메인 페이지 출력용 -->
     <select id="selectPagedPosts" resultType="domain.TradeVO">
 		SELECT *
 		FROM (
