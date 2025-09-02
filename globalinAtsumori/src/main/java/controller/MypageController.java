@@ -73,9 +73,6 @@ public class MypageController {
     	
     	Integer memberNo = null;
 		memberNo = (Integer) session.getAttribute("memberNo");
-        
-    	System.out.println("내 회원 번호 : "+memberNo);
-    	
     	if(memberNo == null) {
             return "redirect:/login";
         }

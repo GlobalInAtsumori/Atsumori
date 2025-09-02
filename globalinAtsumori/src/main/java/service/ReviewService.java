@@ -26,7 +26,7 @@ public class ReviewService {
 	private final ReviewImgMapper reviewImgMapper;
 	private final S3Service s3service;
 	
-	public void create(ReviewCreateDTO dto, int userNo) throws IOException{
+	public void create(ReviewCreateDTO dto, int memberNo) throws IOException{
 		
 		RestaurantVO restaurantVO = new RestaurantVO();
 		ReviewVO reviewVO = new ReviewVO();
@@ -52,7 +52,7 @@ public class ReviewService {
         reviewVO.setRestNo(restNo);
         reviewVO.setReviewContent(dto.getReviewContent());
         reviewVO.setCreateDate(new Date(System.currentTimeMillis()));
-        reviewVO.setMemberNo(userNo);
+        reviewVO.setMemberNo(memberNo);
 
         reviewMapper.insertReview(reviewVO); //리뷰 추가
         
