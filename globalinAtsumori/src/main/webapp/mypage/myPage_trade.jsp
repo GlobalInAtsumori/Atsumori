@@ -136,7 +136,13 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 											<li class="title">${post.tradeTitle}</li>
 											<li class="date">${post.dateFormat}</li>
 											<li class="status ${post.tradeBtnClass}"><div>${post.statusLabel}</div></li>
-											<li class="check">test</li>
+											<li class="check">
+												<c:if test="${post.status eq 'TRADING'}">
+													<form action="${pageContext.request.contextPath}">
+													
+													</form>
+												</c:if>
+											</li>
 										</ul>
 									</c:forEach>
 								</div>

@@ -31,9 +31,14 @@ div.top.second ul.posts {
 /*리스트 크기 조정용*/
 li.no, li.check {
 	width: 10%;
+	text-align: center;
 }
 li.date, li.status {
 	width: 15%;
+	text-align: center;
+}
+ul.basic li.title {	
+	text-align: center;
 }
 li.title {
 	width: 50%;
