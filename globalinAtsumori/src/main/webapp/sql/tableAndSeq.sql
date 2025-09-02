@@ -106,8 +106,11 @@ CREATE TABLE boardComment (
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARDCOMMENT PRIMARY KEY (commentNo),
     CONSTRAINT FK_BOARDCOMM_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo),
-    CONSTRAINT FK_BOARDCOMM_BOARD FOREIGN KEY (boardNo) REFERENCES board2(boardNo)
+    CONSTRAINT FK_BOARDCOMM_BOARD FOREIGN KEY (boardNo) REFERENCES board2(boardNo) ON DELETE CASCADE
 );
+
+select * from boardComment;
+drop table boardComment;
 
 -- member 테이블용 시퀀스
 CREATE SEQUENCE member_seq
