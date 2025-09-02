@@ -15,19 +15,20 @@ request.setAttribute("bannerMessage", "MyPage");
 	
 	<style>
 		.myPageWrapper1 {
-			display: flex;
-			gap: 20px;
-			margin-top: 70px;
-			padding: 20px;
+		    display: flex;
+		    gap: 20px;
+		    margin-top: 70px;
+		    padding: 20px;
+		    align-items: stretch; /* 자식 요소 높이를 동일하게 맞춤 */
 		}
 		
 		.myPageMenu {
-			width: 200px;
-			height: 500px;
-			border: 2px solid black;
-			padding: 20px 0;
-			text-align: center;
-			background-color: #fff; /* 배경색 추가 */
+		    width: 200px;
+		    /* height: 500px;  <- 제거 */
+		    border: 2px solid black;
+		    padding: 20px 0;
+		    text-align: center;
+		    background-color: #fff;
 		}
 		
 		.myPageWrapper2 {
