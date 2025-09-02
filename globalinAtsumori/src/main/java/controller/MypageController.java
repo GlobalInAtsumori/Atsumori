@@ -101,15 +101,20 @@ public class MypageController {
 	}
     
     @GetMapping("/myPage_trade")
-    public String myPageTrade(Model model,@RequestParam(defaultValue = "1") int page) {
-    	//테스트용 하드코딩
-    	int loginMemberNo = 4;
+    public String myPageTrade(HttpSession session, 
+    						Model model, 
+    						@RequestParam(defaultValue = "1") int page) {
+    	Integer memberNo = null;
+    	memberNo = (Integer) session.getAttribute("memberNo");
+    	if(memberNo == null) {
+    		return "redirect:/login";
+    	}
     	
     	//페이징용
     	int pageSize = 6;
     	int blockSize = 3;
     	//전체 게시글 수
-    	int totalCount = tradeService.countMyPosts(loginMemberNo);
+    	int totalCount = tradeService.countMyPosts(memberNo);
     	//전체 페이지 수
     	int totalPages =(int)Math.ceil((double)totalCount / pageSize);
     	
@@ -129,7 +134,7 @@ public class MypageController {
     	
     	// Map으로 묶어서 Mapper와 호환
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("memberNo", loginMemberNo);
+        paramMap.put("memberNo", memberNo);
         paramMap.put("startRow", startRow);
         paramMap.put("endRow", endRow);
     	

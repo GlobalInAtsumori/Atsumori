@@ -120,7 +120,9 @@
 			</div>
 			
 			<!-- 글쓰기 버튼 -->
-			<button id="trWriteBtn" onclick="location.href='tradeWrite'">投稿</button>
+			<c:if test="${not empty sessionScope.memberNo }">
+				<button id="trWriteBtn" onclick="location.href='tradeWrite'">投稿</button>		
+			</c:if>
 			
 		</div>
 

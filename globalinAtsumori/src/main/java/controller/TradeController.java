@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,12 +87,18 @@ public class TradeController {
 	
 	//글 등록
 	@PostMapping("/trade/write")
-	public String writeTradeArticle(TradeVO trArticle, 
+	public String writeTradeArticle(HttpSession session,
+									TradeVO trArticle, 
 									@RequestParam("imageFile") MultipartFile file) {
 		
 		try {
-			//로그인 기능 없어서 임시로 하드코딩
-			trArticle.setMemberNo(4);
+			
+			Integer memberNo = null;
+			memberNo = (Integer) session.getAttribute("memberNo");
+	    	if(memberNo == null) {
+	            return "redirect:/login";
+	        }
+	    	trArticle.setMemberNo(memberNo);
 			
 			//img 파일을 S3에 업로드하여 URL 받기
 			String imageUrl = s3Service.uploadFile(file);

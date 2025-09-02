@@ -4,9 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <% request.setAttribute("bannerMessage", "🛍️中古品売買🛍️"); %>
-<%-- 테스트를 위해 임시로 로그인 정보 설정 --%>
-<%-- 본인:4 아님:3 --%>
-<% session.setAttribute("loginMemberNo", 4); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +46,7 @@
 									<c:when test="${post.status eq 'AVAILABLE'}">
 										<c:choose>
 											<%-- 본인 글일 경우 --%>
-											<c:when test="${post.memberNo eq sessionScope.loginMemberNo}">
+											<c:when test="${post.memberNo eq sessionScope.memberNo}">
 												<button type="button" class="tradeBtn ${post.tradeBtnClass}" 
 												onclick="alert('自分の掲示物は取引が不可能です。')">
 													${post.tradeBtnLabel}
