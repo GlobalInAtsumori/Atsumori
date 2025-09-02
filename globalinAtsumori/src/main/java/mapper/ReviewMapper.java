@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import domain.ReviewVO;
+import dto.MyReviewDTO;
 import dto.ReviewDTO;
 
 @Mapper
@@ -20,9 +21,11 @@ public interface ReviewMapper {
 	
 	int countReviewsByRestNo(int restNo);
 	
-	List<ReviewVO> myReviewPaging(
-			@Param("memberNo") int memberNo,
+	List<ReviewDTO> myReviewPaging(
+			@Param("memberId") String memberId,
 		    @Param("limit") int limit,
 		    @Param("offset") int offset
 		);
+	
+	int countReviewsByMemberNo(String memberId);
 }

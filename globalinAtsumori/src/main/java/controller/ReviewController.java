@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
-import domain.ReviewVO;
+import dto.MyReviewDTO;
 import dto.ReviewCreateDTO;
 import lombok.RequiredArgsConstructor;
 import service.ReviewService;
@@ -33,33 +34,44 @@ public class ReviewController { //리뷰 등록/조회/수정/삭제
     }
 	
 	@PostMapping("/review/create")
-	public String createReview(ReviewCreateDTO reviewDto) throws IOException{ //추후 @SessionAttribute(name="userNo", required=false) int userNo 매개변수 추가
-		int userNo = 2;
-		
-		reviewService.create(reviewDto, userNo);
+	public String createReview(ReviewCreateDTO reviewDto, @SessionAttribute(name="memberNo", required=false) Integer memberNo) throws IOException{
+		if(memberNo == null) {
+			//추가
+		}else {
+			reviewService.create(reviewDto, memberNo);
+		}
 		
 		return "mainPage";
 	}
 	
-	@GetMapping("/myReview")
-	public String myReview(@RequestParam(defaultValue = "1") int page,
-							@RequestParam(defaultValue = "5") int size,
-							Model model) {
-		int memberNo = 2;
-		
-		List<ReviewVO> list = reviewService.getMyReviewList(memberNo, page, size);
-		model.addAttribute("list", list);
-		
-		return "";
-	}
+//	@GetMapping("/myReview")
+//	public String myReview(@SessionAttribute(name="memberNo", required=false) Integer memberNo,
+//							@RequestParam(defaultValue = "1") int page,
+//							@RequestParam(defaultValue = "5") int size,
+//							Model model) {
+//		
+//		MyReviewDTO myReviewDTO = null;
+//		
+//		if(memberNo == null) {
+//			//추가
+//		}else {
+//			myReviewDTO = reviewService.getMyReviewList(memberNo, page, size);
+//		}
+//		
+//		model.addAttribute("myReviewDTO", myReviewDTO);
+//		
+//		return "";
+//	}
 	
-	@PostMapping("/review/update")
-	public String updateReview() {
+	@PostMapping("/review/update/{reviewNo}")
+	public String updateReview(@PathVariable int reviewNo) {
+		
 		return "mainPage";
 	}
 	
-	@DeleteMapping("/review/delete/{no}")
-	public String deleteReview(@PathVariable int no) {
+	@DeleteMapping("/review/delete/{reviewNo}")
+	public String deleteReview(@PathVariable int reviewNo) {
+		
 		return "mainPage";
 	}
 }
