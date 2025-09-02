@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,10 +36,13 @@ public class ReviewController { //리뷰 등록/조회/수정/삭제
     }
 	
 	@PostMapping("/review/create")
-	public String createReview(ReviewCreateDTO reviewDto, @SessionAttribute(name="memberNo", required=false) Integer memberNo) throws IOException{
-		if(memberNo == null) {
-			//추가
-		}else {
+	public String createReview(ReviewCreateDTO reviewDto, HttpSession session) throws IOException{
+		
+		Integer memberNo = null;
+		memberNo = (Integer) session.getAttribute("memberNo");
+    	if(memberNo == null) {
+            return "redirect:/login";
+        }else {
 			reviewService.create(reviewDto, memberNo);
 		}
 		

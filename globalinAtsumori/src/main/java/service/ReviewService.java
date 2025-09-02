@@ -26,7 +26,7 @@ public class ReviewService {
 	private final ReviewImgMapper reviewImgMapper;
 	private final S3Service s3service;
 	
-	public void create(ReviewCreateDTO dto, int userNo) throws IOException{
+	public void create(ReviewCreateDTO dto, int memberNo) throws IOException{
 		
 		RestaurantVO restaurantVO = new RestaurantVO();
 		ReviewVO reviewVO = new ReviewVO();
@@ -52,7 +52,7 @@ public class ReviewService {
         reviewVO.setRestNo(restNo);
         reviewVO.setReviewContent(dto.getReviewContent());
         reviewVO.setCreateDate(new Date(System.currentTimeMillis()));
-        reviewVO.setMemberNo(userNo);
+        reviewVO.setMemberNo(memberNo);
 
         reviewMapper.insertReview(reviewVO); //리뷰 추가
         
@@ -69,10 +69,10 @@ public class ReviewService {
         }
     }
 	
-	public MyReviewDTO getMyReviewList(String memberId, int page, int size){
+	public MyReviewDTO getMyReviewList(Integer memberNo, int page, int size){
 		int offset = (page - 1) * size;
-        List<ReviewDTO> reviewList = reviewMapper.myReviewPaging(memberId, size, offset);
-        int totalReviews = reviewMapper.countReviewsByMemberNo(memberId);
+        List<ReviewDTO> reviewList = reviewMapper.myReviewPaging(memberNo, size, offset);
+        int totalReviews = reviewMapper.countReviewsByMemberNo(memberNo);
         int totalPages = (int) Math.ceil((double) totalReviews / size);
         
         MyReviewDTO dto = new MyReviewDTO();
