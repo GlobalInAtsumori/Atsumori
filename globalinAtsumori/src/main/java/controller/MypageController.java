@@ -110,6 +110,9 @@ public class MypageController {
     		return "redirect:/login";
     	}
     	
+    	// ==================
+    	// 내가 쓴 중고거래 글    	
+    	// ==================
     	//페이징용
     	int pageSize = 6;
     	int blockSize = 3;
@@ -141,7 +144,14 @@ public class MypageController {
     	//로그인 사용자 글 가져오기
     	List<TradeVO> myPostList = tradeService.getMyPosts(paramMap);
     	
+    	
+    	// ==================
+    	// 내가 거래희망한 중고거래 글    	
+    	// ==================
+    	List<TradeVO> requestedTrades = tradeService.getRequestedTrades(memberNo);
+    	
     	model.addAttribute("myPostList", myPostList);
+    	model.addAttribute("requestedTrades", requestedTrades);
     	model.addAttribute("currentPage", page);
     	model.addAttribute("totalPages", totalPages);
     	model.addAttribute("startPage", startPage);

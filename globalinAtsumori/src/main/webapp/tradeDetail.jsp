@@ -45,18 +45,29 @@
 								<c:choose>
 									<c:when test="${post.status eq 'AVAILABLE'}">
 										<c:choose>
-											<%-- 본인 글일 경우 --%>
-											<c:when test="${post.memberNo eq sessionScope.memberNo}">
+											<%-- 로그인 안 한 경우 --%>
+											<c:when test="${empty sessionScope.memberNo}">
 												<button type="button" class="tradeBtn ${post.tradeBtnClass}" 
-												onclick="alert('自分の掲示物は取引が不可能です。')">
+												onclick="alert('ログインしてください。')">
 													${post.tradeBtnLabel}
 												</button>
 											</c:when>
-											<%-- 본인 글이 아닐 경우 --%>
 											<c:otherwise>
-												<button type="submit" class="tradeBtn ${post.tradeBtnClass}">
-													${post.tradeBtnLabel}
-												</button>
+												<c:choose>
+													<%-- 본인 글일 경우 --%>
+													<c:when test="${post.memberNo eq sessionScope.memberNo}">
+														<button type="button" class="tradeBtn ${post.tradeBtnClass}" 
+																onclick="alert('自分の掲示物は取引が不可能です。')">
+															${post.tradeBtnLabel}
+														</button>
+													</c:when>
+													<%-- 본인 글이 아닐 경우 --%>
+													<c:otherwise>
+														<button type="submit" class="tradeBtn ${post.tradeBtnClass}">
+															${post.tradeBtnLabel}
+														</button>
+													</c:otherwise>
+												</c:choose>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
@@ -85,7 +96,7 @@
 			<div class="btnBox">
 				<c:choose>
 					<%-- 본인 글인 경우 --%>
-					<c:when test="${loginMemberNo != null && loginMemberNo == post.memberNo}">
+					<c:when test="${memberNo != null && memberNo == post.memberNo}">
 						<button id="tradeUpdate" onclick="location.href='tradeUpdate?tradePostNo=${post.tradePostNo}'">修正</button>
 						<form action="trade/delete" method="post" onsubmit="return confirm('本当に削除しますか？');">
 							<input type="hidden" name="tradePostNo" value="${post.tradePostNo}">

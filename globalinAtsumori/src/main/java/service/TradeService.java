@@ -140,11 +140,6 @@ public class TradeService {
 		
 	}
 	
-	//거래희망(클릭시 거래중 등의 표기)
-	public void updateStatusToTrading(int tradePostNo, String status) {
-		tradeMapper.updateStatus(tradePostNo, status);
-	}
-	
 	
 	//마이페이지용
 	//'내'글 가져오기
@@ -157,9 +152,23 @@ public class TradeService {
 		return tradeMapper.countMyPosts(memberNo);
 	}
 	
-	//거래 승낙용
+	//거래희망(클릭시 AVAILABLE to TRADING)
+	@Transactional
+	public boolean updateStatusToTrading(int tradePostNo, int memberNo) {
+		int updated = tradeMapper.updateTradeRequest(tradePostNo, memberNo);
+		return updated > 0;
+	}
+	
+	//거래 승낙용(TRADING to DONE)
 	public void updateTradeStatusToDone(int tradePostNo) {
 		tradeMapper.updateTradeStatusToDone(tradePostNo);
+	}
+	
+	
+	
+	//거래희망한 글 호출용
+	public List<TradeVO> getRequestedTrades(int memberNo) {
+		return tradeMapper.selectRequestedTradeByMember(memberNo);
 	}
 	
 }

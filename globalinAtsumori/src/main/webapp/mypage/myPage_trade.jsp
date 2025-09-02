@@ -172,7 +172,14 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 						
 						<!-- 거래희망한 글 -->
 						<div id="myTradeContents" style="display: none;">
-						test2
+						<c:if test="${empty requestedTrades}">
+        <p>まだ取引希望の投稿はありません。</p>
+    </c:if>
+    <c:forEach var="post" items="${requestedTrades}">
+        <p>
+            NO: ${post.tradePostNo} | 제목: ${post.tradeTitle} | 상태: ${post.status}
+        </p>
+    </c:forEach>
 						</div>
 					</div>
 				</div>

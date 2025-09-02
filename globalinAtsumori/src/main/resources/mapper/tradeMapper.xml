@@ -160,11 +160,13 @@
     	WHERE tp.tradePostNo = #{tradePostNo}
     </select>
     
-    <!-- 거래희망 버튼용 (AVAILABLE to TRADING) -->
-    <update id="updateStatus">
+    <!-- 거래희망 버튼용 (AVAILABLE to TRADING & customer 저장) -->
+    <update id="updateTradeRequest" parameterType="map">
     	UPDATE tradePost 
-    	SET status = #{status} 
+    	SET status = 'TRADING',
+    		customer = #{memberNo}
     	WHERE tradePostNo = #{tradePostNo}
+    		AND status = 'AVAILABLE'
     </update>
     
     <!-- 마이페이지에 중고거래 글 가져오기 -->
@@ -175,6 +177,7 @@
     				tp.tradeTitle, 
     				tp.createdate, 
     				tp.status,
+    				tp.customer,
 					ROW_NUMBER() OVER (ORDER BY tp.createdate DESC) AS desc_rn,
     				ROW_NUMBER() OVER (ORDER BY tp.createdate ASC) AS rn
     		FROM tradePost tp
@@ -198,5 +201,20 @@
 		SET status = 'DONE'
 		WHERE tradePostNo = #{tradePostNo}
 	</update>
+	
+	
+	<!-- 내가 거래희망 한 글 -->
+	<select id="selectRequestedTradeByMember" resultType="domain.TradeVO" parameterType="int">
+		SELECT tp.tradePostNo,
+				tp.tradeTitle,
+				tp.status,
+				tp.memberNo AS sellerNo,
+				m.memberName AS sellerName,
+				tp.createdate
+		FROM tradePost tp
+		JOIN member m ON tp.memberNo = m.memberNo
+		WHERE tp.customer = #{memberNo}
+		ORDER BY tp.createdate DESC
+	</select>
 
 </mapper>

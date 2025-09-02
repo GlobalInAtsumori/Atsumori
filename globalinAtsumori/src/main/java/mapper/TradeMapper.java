@@ -25,7 +25,7 @@ public interface TradeMapper {
     //상세페이지
     TradeVO getTradeDetail(int tradePostNo);
     
-    // 페이징된 게시글 목록 조회
+    //페이징된 게시글 목록 조회
     List<TradeVO> selectPagedPosts(@Param("startRow") int startRow, @Param("endRow") int endRow);
     
     //페이징용 글 (총)개수
@@ -42,9 +42,6 @@ public interface TradeMapper {
     	@Param("type") String type
     );
     
-    //거래희망 버튼 update(AVILABLE to TRADING)용
-    public void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
-    
     //마이페이지
     //로그인한 회원의 '내'글 가져오기
     List<TradeVO> selectPostsByMember(Map<String, Object> paramMap);
@@ -55,4 +52,10 @@ public interface TradeMapper {
     //거래 승낙 후 status 변화
     void updateTradeStatusToDone(int tradePostNo);
     
+    //거래희망 버튼 update(AVILABLE to TRADING)용
+    //public void updateStatus(@Param("tradePostNo") int tradePostNo, @Param("status") String status);
+    int updateTradeRequest(@Param("tradePostNo") int tradePostNo, @Param("memberNo") int memberNo);
+    
+    // 내가 거래희망한 글 목록 조회 (페이징 없이)
+    List<TradeVO> selectRequestedTradeByMember(@Param("memberNo") int memberNo);
 }

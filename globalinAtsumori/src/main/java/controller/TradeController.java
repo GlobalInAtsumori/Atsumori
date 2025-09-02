@@ -197,9 +197,19 @@ public class TradeController {
 	//거래희망 누를 경우
 	@PostMapping("/updateStatus")
 	public String updateStatus(@RequestParam int tradePostNo, 
-								@RequestParam String status,
+								HttpSession session,
 								RedirectAttributes redirectAttributes) {
-		tradeService.updateStatusToTrading(tradePostNo, status);
+		Integer memberNo = (Integer) session.getAttribute("memberNo");
+	    if (memberNo == null) {
+	        redirectAttributes.addFlashAttribute("errorMsg", "ログインしてください。");
+	        return "redirect:/login";
+	    }
+		
+		boolean success = tradeService.updateStatusToTrading(tradePostNo, memberNo);
+		if(!success) {
+			redirectAttributes.addFlashAttribute("errorMsg", "取引中又は販売完了の掲示物です。");
+		}
+	    
 		//상세페이지로 리다이렉트
 		redirectAttributes.addAttribute("tradePostNo", tradePostNo);
 		return "redirect:/tradeDetail";
