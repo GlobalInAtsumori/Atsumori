@@ -172,11 +172,12 @@
     	SELECT * 
     	FROM (
     		SELECT tradePostNo, tradeTitle, createdate, status,
-    				ROW_NUMBER() OVER (ORDER BY createdate DESC) AS rn
+					ROW_NUMBER() OVER (ORDER BY createdate DESC) AS desc_rn,
+    				ROW_NUMBER() OVER (ORDER BY createdate ASC) AS rn
     		FROM tradePost
     		WHERE memberNo = #{memberNo}
     	)
-    	WHERE rn BETWEEN #{startRow} AND #{endRow} 
+    	WHERE desc_rn BETWEEN #{startRow} AND #{endRow}
     	ORDER BY createdate DESC
     </select>
 	

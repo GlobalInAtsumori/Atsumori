@@ -77,13 +77,27 @@ public class MypageController {
     	
     	//페이징용
     	int pageSize = 6;
+    	int blockSize = 3;
+    	//전체 게시글 수
     	int totalCount = tradeService.countMyPosts(loginMemberNo);
-    	//페이징 계산
+    	//전체 페이지 수
     	int totalPages =(int)Math.ceil((double)totalCount / pageSize);
+    	
+    	//페이지 범위 보정
+    	if(totalPages == 0) totalPages = 1;
+    	if(page < 1) page = 1;
+    	if (page > totalPages) page = totalPages;
+    	
+    	//페이지 범위
     	int startRow = (page - 1) * pageSize + 1;
     	int endRow = page * pageSize;
     	
-    	// Map으로 묶어서 넘기면 Mapper와 호환
+    	//블록 계산
+    	int currentBlock = (int)Math.ceil((double) page / blockSize);
+    	int startPage = (currentBlock - 1) * blockSize + 1;
+    	int endPage = Math.min(startPage + blockSize - 1, totalPages);
+    	
+    	// Map으로 묶어서 Mapper와 호환
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("memberNo", loginMemberNo);
         paramMap.put("startRow", startRow);
@@ -95,6 +109,9 @@ public class MypageController {
     	model.addAttribute("myPostList", myPostList);
     	model.addAttribute("currentPage", page);
     	model.addAttribute("totalPages", totalPages);
+    	model.addAttribute("startPage", startPage);
+    	model.addAttribute("endPage", endPage);
+    	model.addAttribute("blockSize", blockSize);
     	
         return "mypage/myPage_trade";
     }

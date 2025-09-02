@@ -9,6 +9,7 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 	<meta charset="UTF-8">
 	<title>아쯔모리</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypageTrade.css">
 	
 	
 	<style>
@@ -117,47 +118,45 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 						
 						<!-- 내가 쓴 글 -->
 						<div id="myPostContents">
-							<table>
-								<thead>
-									<tr>
-										<th>no</th>
-										<th>제목</th>
-										<th>작성일자</th>
-										<th>상태</th>
-										<th>수락</th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:if test="${empty myPostList}">
-    <p>게시글이 없습니다.</p>
-</c:if>
-								<c:forEach var="post" items="${myPostList}">
-									<tr>
-										<td>${post.rn}</td>
-										<td>${post.tradeTitle}</td>
-										<td>${post.dateFormat}</td>
-										<td>${post.status}</td>
-										<td>test</td>
-									</tr>
-								</c:forEach>
-								</tbody>
-							</table>
+							<div class="top first">
+								<ul class="basic">
+									<li class="no">NO</li>
+									<li class="title">タイトル</li>
+									<li class="date">投稿日</li>
+									<li class="status">進行状況</li>
+									<li class="check">承諾</li>
+								</ul>
+								<div class="top second">
+									<c:if test="${empty myPostList}">
+										<p>まだ投稿がありません。</p>
+									</c:if>
+									<c:forEach var="post" items="${myPostList}">
+										<ul class="posts">
+											<li class="no">${post.rn}</li>
+											<li class="title">${post.tradeTitle}</li>
+											<li class="date">${post.dateFormat}</li>
+											<li class="status ${post.tradeBtnClass}"><div>${post.statusLabel}</div></li>
+											<li class="check">test</li>
+										</ul>
+									</c:forEach>
+								</div>
+							</div>
 							<div class="pagination first">
-								<c:if test="${currentPage > 1}">
-									<a href="myPage_trade?page=${currentPage-1}">이전</a>
+								<c:if test="${startPage > 1}">
+									<a href="?page=${startPage-1}">이전</a>
 								</c:if>
-								<c:forEach begin="1" end="${totalPages}" var="p">
+								<c:forEach begin="${startPage}" end="${endPage}" var="p">
 									<c:choose>
 										<c:when test="${p == currentPage}">
-											<span class="current">${p}</span>
+											<span class="current" style="color: red;">${p}</span>
 										</c:when>
 										<c:otherwise>
-											<a href="myPage_trade?page=${p}">${p}</a>
+											<a href="?page=${p}">${p}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<c:if test="${currentPage < totalPages}">
-									<a href="myPage_trade?page=${currentPage+1}">다음</a>
+								<c:if test="${endPage < totalPages}">
+									<a href="?page=${endPage+1}">다음</a>
 								</c:if>
 							</div>
 						</div>
