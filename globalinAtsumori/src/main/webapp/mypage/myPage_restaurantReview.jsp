@@ -60,7 +60,7 @@ request.setAttribute("bannerMessage", "MyPage");
 			display: flex;
 			align-items: flex-start;
 			width: 100%; /* 부모(myPageContent)에 맞춤 */
-   			max-width: none;
+   			max-width: none;s
 			background: #eaeaea;
 			padding: 10px 20px;
 			margin: 0 0 15px 0;
