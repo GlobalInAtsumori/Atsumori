@@ -187,5 +187,12 @@
 		FROM tradePost
 		WHERE memberNo= #{memberNo}
 	</select>    
+	
+	<!-- 거래 승낙 시 status 변화 -->
+	<update id="updateTradeStatusToDone" parameterType="int">
+		UPDATE tradePost
+		SET status = 'DONE'
+		WHERE tradePostNo = #{tradePostNo}
+	</update>
 
 </mapper>

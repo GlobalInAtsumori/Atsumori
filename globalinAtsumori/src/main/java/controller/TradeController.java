@@ -197,5 +197,4 @@ public class TradeController {
 		return "redirect:/tradeDetail";
 	}
 	
-	
 }

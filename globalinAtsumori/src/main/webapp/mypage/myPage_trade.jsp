@@ -138,8 +138,9 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 											<li class="status ${post.tradeBtnClass}"><div>${post.statusLabel}</div></li>
 											<li class="check">
 												<c:if test="${post.status eq 'TRADING'}">
-													<form action="${pageContext.request.contextPath}">
-													
+													<form action="/mypage/updateTradeStatus" method="post">
+														<input type="hidden" name="tradePostNo" value="${post.tradePostNo}">
+														<button type="submit">承諾!</button>
 													</form>
 												</c:if>
 											</li>
@@ -147,22 +148,23 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 									</c:forEach>
 								</div>
 							</div>
-							<div class="pagination first">
+							<!-- 페이징 -->
+							<div class="pagination">
 								<c:if test="${startPage > 1}">
-									<a href="?page=${startPage-1}">이전</a>
+									<a href="?page=${startPage-1}" class="prev">‹ 前へ</a>
 								</c:if>
 								<c:forEach begin="${startPage}" end="${endPage}" var="p">
 									<c:choose>
 										<c:when test="${p == currentPage}">
-											<span class="current" style="color: red;">${p}</span>
+											<span class="num current">${p}</span>
 										</c:when>
 										<c:otherwise>
-											<a href="?page=${p}">${p}</a>
+											<a href="?page=${p}" class="num">${p}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${endPage < totalPages}">
-									<a href="?page=${endPage+1}">다음</a>
+									<a href="?page=${endPage+1}" class="next">次へ ›</a>
 								</c:if>
 							</div>
 						</div>

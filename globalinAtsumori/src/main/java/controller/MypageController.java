@@ -157,6 +157,12 @@ public class MypageController {
     	
         return "mypage/myPage_trade";
     }
+    //거래 승낙용
+    @PostMapping("/updateTradeStatus")
+    public String updateTradeStatus(@RequestParam("tradePostNo") int tradePostNo) {
+    	tradeService.updateTradeStatusToDone(tradePostNo);
+    	return "redirect:/mypage/myPage_trade";
+    }
     
     @GetMapping("/myPage_followList")
     public String myPageFollowList() {

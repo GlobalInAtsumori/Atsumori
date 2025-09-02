@@ -145,14 +145,21 @@ public class TradeService {
 		tradeMapper.updateStatus(tradePostNo, status);
 	}
 	
-	//마이페이지용 '내' 글 가져오기
+	
+	//마이페이지용
+	//'내'글 가져오기
 	public List<TradeVO> getMyPosts(Map<String, Object> paramMap) {
 		return tradeMapper.selectPostsByMember(paramMap);
 	}
 	
-	//마이페이지용 전체글
+	//전체글 개수
 	public int countMyPosts(int memberNo) {
 		return tradeMapper.countMyPosts(memberNo);
+	}
+	
+	//거래 승낙용
+	public void updateTradeStatusToDone(int tradePostNo) {
+		tradeMapper.updateTradeStatusToDone(tradePostNo);
 	}
 	
 }
