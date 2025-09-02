@@ -38,4 +38,32 @@
 	    FROM review 
 	    WHERE restNo = #{restNo}
 	</select>    
+	
+	<select id="myReviewPaging" resultType="dto.ReviewDTO">
+	    SELECT * FROM (
+	        SELECT 
+	            rv.reviewNo,
+	            rv.reviewTitle,
+	            rv.reviewContent,
+	            rv.createDate,
+	            rv.memberNo,
+	            m.memberName,
+	            m.memberId,
+	            m.country,
+	            rv.restNo,
+	            ri.reviewImgUrl,
+	            ROW_NUMBER() OVER (ORDER BY rv.reviewNo DESC) AS rn
+	        FROM review rv
+	        JOIN member m ON rv.memberNo = m.memberNo
+	        LEFT JOIN reviewImage ri ON rv.reviewNo = ri.reviewNo
+	        WHERE rv.memberNo = #{memberNo}
+	    )
+	    WHERE rn BETWEEN (#{offset} + 1) AND (#{offset} + #{limit})
+	</select>
+	
+	<select id="countReviewsByMemberNo" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM review r
+	    WHERE r.memberNo = #{memberNo}
+	</select>
 </mapper>

@@ -10,53 +10,7 @@ request.setAttribute("bannerMessage", "アツモリにようこそ！");
 <head>
 <meta charset="UTF-8">
 <title>맛집 상세</title>
-<style>
-.container {
-	width: 800px;
-	margin: 0 auto;
-}
-
-.restaurant-info {
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 0 100px;
-}
-
-.review {
-	display: flex;
-	align-items: flex-start;
-	width: 600px;
-	background: #eaeaea;
-	padding: 10px 20px;
-	margin: 0 auto 15px;
-	border-radius: 8px;
-}
-
-.review img {
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
-	margin-right: 15px;
-	border-radius: 8px;
-}
-
-.review-content {
-	flex: 1;
-}
-
-.review-header {
-	display: flex;
-	justify-content: space-between;
-	color: gray;
-	margin-bottom: 5px;
-}
-
-.review-title {
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/review.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>

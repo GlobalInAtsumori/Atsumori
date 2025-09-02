@@ -9,7 +9,7 @@ CREATE TABLE member (
     permission VARCHAR2(20) DEFAULT 'user' NOT NULL
 );
 
-
+insert into member values(4, '김철수', '김철수', '1234', 'test@gmail.com', 'korea', 'user');
 select * from member;
 
 -- 1. member 테이블에 정지기간 컬럼 추가 (이미 permission 컬럼은 존재)
@@ -145,9 +145,12 @@ CREATE TABLE boardComment (
     memberNo NUMBER NOT NULL,
     CONSTRAINT PK_BOARDCOMMENT PRIMARY KEY (commentNo),
     CONSTRAINT FK_BOARDCOMM_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo),
-    CONSTRAINT FK_BOARDCOMM_BOARD FOREIGN KEY (boardNo) REFERENCES board2(boardNo)
+    CONSTRAINT FK_BOARDCOMM_BOARD FOREIGN KEY (boardNo) REFERENCES board2(boardNo) ON DELETE CASCADE
 );
 
+
+select * from boardComment;
+drop table boardComment;
 
 
 -- member 테이블용 시퀀스

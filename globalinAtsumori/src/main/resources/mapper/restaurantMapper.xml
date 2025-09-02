@@ -6,19 +6,19 @@
 <mapper namespace="mapper.RestaurantMapper">
 	<select id="findInBounds" resultType="dto.RestListDTO">
 		SELECT *
-FROM restaurant rt
-LEFT JOIN (
-    SELECT restNo, reviewTitle, reviewContent
-	    FROM (
-	        SELECT r1.restNo, r1.reviewTitle, r1.reviewContent,
-	               ROW_NUMBER() OVER (PARTITION BY r1.restNo ORDER BY r1.reviewNo DESC) AS rn
-	        FROM review r1
-	    ) t
-	    WHERE t.rn = 1
-	) rv
-	ON rt.restNo = rv.restNo
-	WHERE rt.latitude BETWEEN #{swLat} AND #{neLat}
-	  AND rt.longitude BETWEEN #{swLng} AND #{neLng}
+		FROM restaurant rt
+		LEFT JOIN (
+		    SELECT restNo, reviewTitle, reviewContent
+			    FROM (
+			        SELECT r1.restNo, r1.reviewTitle, r1.reviewContent,
+			               ROW_NUMBER() OVER (PARTITION BY r1.restNo ORDER BY r1.reviewNo DESC) AS rn
+			        FROM review r1
+			    ) t
+			    WHERE t.rn = 1
+			) rv
+			ON rt.restNo = rv.restNo
+			WHERE rt.latitude BETWEEN #{swLat} AND #{neLat}
+			  AND rt.longitude BETWEEN #{swLng} AND #{neLng}
 	</select>
 	
 	<insert id="insertRestuarant" parameterType="restaurantVO">
