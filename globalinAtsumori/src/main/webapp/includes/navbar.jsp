@@ -14,7 +14,10 @@
 		 <%
             if (loginID != null) {
         %>
+        
             <span><%= loginID %>님</span>
+            
+             <a href="<%= request.getContextPath() %>/mypage/myPage.jsp">마이페이지</a>
             <a href="<%= request.getContextPath() %>/memberone/logout.jsp">로그아웃</a>
 
         <%
