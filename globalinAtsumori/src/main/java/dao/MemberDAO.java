@@ -170,8 +170,9 @@ public class MemberDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs;
-
+		
 		try {
+			conn = DBConnect.getConnection();
 			String sql = "SELECT * FROM member WHERE memberId=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -182,6 +183,7 @@ public class MemberDAO {
 				vo.setPassword(rs.getString("password"));
 				vo.setMemberName(rs.getString("memberName"));
 				vo.setEmail(rs.getString("email"));
+				vo.setMemberNo(rs.getInt("memberNo"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

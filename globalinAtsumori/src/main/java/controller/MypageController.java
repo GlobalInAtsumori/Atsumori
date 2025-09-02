@@ -70,26 +70,17 @@ public class MypageController {
 							@RequestParam(defaultValue = "1") int page,
 							@RequestParam(defaultValue = "5") int size,
 							Model model) {
-		
-    	Object loginIdObj = session.getAttribute("loginID");
-    	System.out.println("loginIdObj : "+loginIdObj);
-        String memberId = null;
-
-        if (loginIdObj != null) {
-            try {
-                memberId = loginIdObj.toString(); // String이든 Integer이든 안전하게 변환
-            } catch (NumberFormatException e) {
-                memberId = null; // 변환 실패 시 null 처리
-            }
-        }
-        
-    	System.out.println("내 회원 아이디 : "+memberId);
     	
-    	if(memberId == null) {
+    	Integer memberNo = null;
+		memberNo = (Integer) session.getAttribute("memberNo");
+        
+    	System.out.println("내 회원 번호 : "+memberNo);
+    	
+    	if(memberNo == null) {
             return "redirect:/login";
         }
     	
-		MyReviewDTO myReviewDTO = reviewService.getMyReviewList(memberId, page, size);
+		MyReviewDTO myReviewDTO = reviewService.getMyReviewList(memberNo, page, size);
 		
 		model.addAttribute("myReviewDTO", myReviewDTO);
 		

@@ -22,10 +22,10 @@ public interface ReviewMapper {
 	int countReviewsByRestNo(int restNo);
 	
 	List<ReviewDTO> myReviewPaging(
-			@Param("memberId") String memberId,
+			@Param("memberNo") Integer memberNo,
 		    @Param("limit") int limit,
 		    @Param("offset") int offset
 		);
 	
-	int countReviewsByMemberNo(String memberId);
+	int countReviewsByMemberNo(Integer memberNo);
 }

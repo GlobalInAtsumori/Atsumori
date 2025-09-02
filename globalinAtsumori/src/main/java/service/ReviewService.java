@@ -69,10 +69,10 @@ public class ReviewService {
         }
     }
 	
-	public MyReviewDTO getMyReviewList(String memberId, int page, int size){
+	public MyReviewDTO getMyReviewList(Integer memberNo, int page, int size){
 		int offset = (page - 1) * size;
-        List<ReviewDTO> reviewList = reviewMapper.myReviewPaging(memberId, size, offset);
-        int totalReviews = reviewMapper.countReviewsByMemberNo(memberId);
+        List<ReviewDTO> reviewList = reviewMapper.myReviewPaging(memberNo, size, offset);
+        int totalReviews = reviewMapper.countReviewsByMemberNo(memberNo);
         int totalPages = (int) Math.ceil((double) totalReviews / size);
         
         MyReviewDTO dto = new MyReviewDTO();
