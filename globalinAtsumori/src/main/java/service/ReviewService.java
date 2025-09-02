@@ -2,13 +2,16 @@ package service;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import domain.RestaurantVO;
 import domain.ReviewImageVO;
 import domain.ReviewVO;
+import dto.MyReviewDTO;
 import dto.ReviewCreateDTO;
+import dto.ReviewDTO;
 import lombok.RequiredArgsConstructor;
 import mapper.RestaurantMapper;
 import mapper.ReviewImgMapper;
@@ -65,5 +68,20 @@ public class ReviewService {
             reviewImgMapper.insertReviewImg(riVO); //리뷰 이미지 추가
         }
     }
+	
+	public MyReviewDTO getMyReviewList(String memberId, int page, int size){
+		int offset = (page - 1) * size;
+        List<ReviewDTO> reviewList = reviewMapper.myReviewPaging(memberId, size, offset);
+        int totalReviews = reviewMapper.countReviewsByMemberNo(memberId);
+        int totalPages = (int) Math.ceil((double) totalReviews / size);
+        
+        MyReviewDTO dto = new MyReviewDTO();
+        dto.setReviewList(reviewList);
+        dto.setTotalReviews(totalReviews);
+        dto.setTotalPages(totalPages);
+        dto.setCurrentPage(page);
+        
+        return dto;
+	}
 	
 }

@@ -1,5 +1,17 @@
 package controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
 import dto.BoardCommentDTO;
 import dto.BoardDTO;
 import service.MypageService; // MypageService를 import 합니다.
@@ -10,14 +22,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import domain.TradeVO;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
+import dto.MyReviewDTO;
+import service.BoardCommentService;
+import service.MypageService; // MypageService를 import 합니다.
+import service.ReviewService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -26,9 +39,12 @@ public class MypageController {
     @Autowired
     private MypageService mypageService; // MypageService를 주입합니다.
     @Autowired
-    private BoardCommentService boardCommentService; // 이 서비스도 계속 필요할 수 있으니 남겨둡니다.    
-    @Autowired
     private TradeService tradeService;
+    @Autowired
+    private BoardCommentService boardCommentService; // 이 서비스도 계속 필요할 수 있으니 남겨둡니다.
+    @Autowired
+    private ReviewService reviewService;
+
     
     @GetMapping("/myPage_board")
     public String myPageBoard(HttpSession session, Model model) {
@@ -66,9 +82,35 @@ public class MypageController {
     }
     
     @GetMapping("/myPage_restaurantReview")
-    public String myPageRestaurantReview() {
-        return "mypage/myPage_restaurantReview";
-    }
+	public String myReview(HttpSession session,
+							@RequestParam(defaultValue = "1") int page,
+							@RequestParam(defaultValue = "5") int size,
+							Model model) {
+		
+    	Object loginIdObj = session.getAttribute("loginID");
+    	System.out.println("loginIdObj : "+loginIdObj);
+        String memberId = null;
+
+        if (loginIdObj != null) {
+            try {
+                memberId = loginIdObj.toString(); // String이든 Integer이든 안전하게 변환
+            } catch (NumberFormatException e) {
+                memberId = null; // 변환 실패 시 null 처리
+            }
+        }
+        
+    	System.out.println("내 회원 아이디 : "+memberId);
+    	
+    	if(memberId == null) {
+            return "redirect:/login";
+        }
+    	
+		MyReviewDTO myReviewDTO = reviewService.getMyReviewList(memberId, page, size);
+		
+		model.addAttribute("myReviewDTO", myReviewDTO);
+		
+		return "mypage/myPage_restaurantReview";
+	}
     
     @GetMapping("/myPage_trade")
     public String myPageTrade(Model model,@RequestParam(defaultValue = "1") int page) {
