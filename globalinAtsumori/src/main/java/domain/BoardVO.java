@@ -9,6 +9,24 @@ public class BoardVO {
     private String content;
     private Timestamp createdate;
     private int memberno;
+    private String memberId; // 추가
+    private String memberName; // 추가
+    
+    // Getter와 Setter 추가
+    public String getMemberId() {
+        return memberId;
+    }
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+    public String getMemberName() {
+        return memberName;
+    }
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+    
+    
 
     // Getter와 Setter 메소드들
     public int getBoardno() {

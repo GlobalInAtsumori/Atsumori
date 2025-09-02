@@ -9,7 +9,23 @@ public class BoardDTO {
     private String content;
     private int memberno;
     private Timestamp createdate;
+    private String memberId; // 추가
+    private String memberName; // 추가
 
+    // Getter와 Setter 추가
+    public String getMemberId() {
+        return memberId;
+    }
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+    public String getMemberName() {
+        return memberName;
+    }
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+    
     public int getBoardno() {
         return boardno;
     }
