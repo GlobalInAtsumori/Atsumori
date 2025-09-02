@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="dao.*"%>
+<%@ page import="dao.*, domain.MemberVO"%>
 <jsp:useBean id="dao" class="dao.MemberDAO" />
 <%
 request.setCharacterEncoding("UTF-8");
@@ -8,6 +8,8 @@ String memberId = request.getParameter("memberId");
 String password = request.getParameter("password");
 
 int check = dao.loginCheck(memberId, password);
+MemberVO vo = dao.getMember(memberId);
+int memberNo = vo.getMemberNo();
 %>
 <!DOCTYPE html>
 <html>
@@ -19,6 +21,7 @@ int check = dao.loginCheck(memberId, password);
 	<%
 	if (check == 1) {
 		session.setAttribute("loginID", memberId);
+		session.setAttribute("memberNo", memberNo);
 		response.sendRedirect("../mainPage.jsp");
 
 	} else if (check == 0) {

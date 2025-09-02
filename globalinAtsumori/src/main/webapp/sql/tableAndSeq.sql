@@ -9,7 +9,7 @@ CREATE TABLE member (
     permission VARCHAR2(20) DEFAULT 'user' NOT NULL
 );
 
-
+insert into member values(4, '김철수', '김철수', '1234', 'test@gmail.com', 'korea', 'user');
 select * from member;
 
 -- tradePost 테이블
