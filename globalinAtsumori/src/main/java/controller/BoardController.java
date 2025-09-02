@@ -76,11 +76,15 @@ public class BoardController {
 
     @PostMapping("/writeProc")
     public String writeArticle(@ModelAttribute BoardDTO article, HttpSession session) {
-        // 실제 로그인 기능이 있다면 세션에서 memberNo를 가져와야 합니다.
-        // 현재는 memberNo 1번으로 고정하여 테스트합니다.
-        // 이 부분은 실제 로그인 구현 시 수정이 필요합니다.
-        article.setMemberno(1);
-        boardService.insertArticle(article);
+    	Integer memberNo = null;
+		memberNo = (Integer) session.getAttribute("memberNo");
+    	
+		if(memberNo == null) {
+            return "redirect:/login";
+    	}else {
+	        article.setMemberno(memberNo);
+	        boardService.insertArticle(article);
+    	}
         return "redirect:/board/list";
     }
 
