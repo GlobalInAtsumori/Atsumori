@@ -97,9 +97,9 @@ request.setAttribute("bannerMessage", "회원 정보 수정");
 
 				<tr>
 					<td colspan="2" align="center"><input type="button"
-						value="수정 확인" onclick="updateCheck()"class="reg-btn"> &nbsp;&nbsp; <input
-						type="button" value="취소" onclick="javascript:history.back()"class="reg-btn">
-					</td>
+						value="수정 확인" onclick="updateCheck()" class="reg-btn">
+						&nbsp;&nbsp; <input type="button" value="취소"
+						onclick="javascript:history.back()" class="reg-btn"></td>
 				</tr>
 			</table>
 		</form>

@@ -1,44 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="dao.*, domain.MemberVO"%>
-<jsp:useBean id="dao" class="dao.MemberDAO" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.MemberDAO, domain.MemberVO" %>
 <%
-request.setCharacterEncoding("UTF-8");
-String memberId = request.getParameter("memberId");
-String password = request.getParameter("password");
+    request.setCharacterEncoding("UTF-8");
 
-int check = dao.loginCheck(memberId, password);
-MemberVO vo = dao.getMember(memberId);
-int memberNo = vo.getMemberNo();
+    String memberId = request.getParameter("memberId");
+    String password = request.getParameter("password");
+
+    if(memberId == null || memberId.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+        out.println("<script>alert('아이디와 비밀번호를 입력해주세요.'); history.back();</script>");
+        return;
+    }
+
+    MemberDAO dao = new MemberDAO();
+    int check = dao.loginCheck(memberId, password);
+
+    if(check == 0) {
+        out.println("<script>alert('아이디 또는 비밀번호가 잘못되었습니다.'); history.back();</script>");
+        return;
+    }
+
+    MemberVO vo = dao.getMember(memberId);
+    if(vo == null) {
+        out.println("<script>alert('회원 정보를 불러올 수 없습니다.'); history.back();</script>");
+        return;
+    }
+
+    // 로그인 성공 시 세션에 정보 저장
+    session.setAttribute("loginID", vo.getMemberId());
+    session.setAttribute("memberNo", vo.getMemberNo());
+    session.setAttribute("memberName", vo.getMemberName());
+    session.setAttribute("permission", vo.getPermission());
+
+    // 메인 페이지로 이동
+    response.sendRedirect(request.getContextPath() + "/mainPage.jsp");
+
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인 처리</title>
-</head>
-<body>
-	<%
-	if (check == 1) {
-		session.setAttribute("loginID", memberId);
-		session.setAttribute("memberNo", memberNo);
-		response.sendRedirect("../mainPage.jsp");
-
-	} else if (check == 0) {
-	%>
-	<script>
-		alert("비밀번호가 맞지 않습니다.");
-		history.go(-1);
-	</script>
-	<%
-	} else {
-	%>
-	<script>
-		alert("아이디가 존재하지 않습니다.");
-		history.go(-1);
-	</script>
-	<%
-	}
-	%>
-</body>
-</html>

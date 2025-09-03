@@ -104,9 +104,10 @@ public class MemberDAO {
 
             pstmtCheck.setString(1, memberId);
             ResultSet rs = pstmtCheck.executeQuery();
+
             if (rs.next()) {
-                String dbPass = rs.getString("password");
-                if (dbPass.equals(password)) {
+                String dbPass = rs.getString("password").trim(); // 공백 제거
+                if (dbPass.equals(password)) { // 필요 시 equalsIgnoreCase 사용 가능
                     rs.close();
                     try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
                         pstmtDelete.setString(1, memberId);
@@ -114,11 +115,14 @@ public class MemberDAO {
                     }
                 }
             }
+            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return result > 0;
     }
+
 
     // 7️⃣ 회원 정보 가져오기
     public MemberVO getMember(String memberId) {
