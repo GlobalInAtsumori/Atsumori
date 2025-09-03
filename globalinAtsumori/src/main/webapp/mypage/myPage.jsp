@@ -113,7 +113,7 @@ request.setAttribute("bannerMessage", "MyPage");
 					
 					
 					<a href=
-						"${pageContext.request.contextPath}/memberone/modifyForm"
+						"${pageContext.request.contextPath}/memberone/modifyForm.jsp"
 						class="reg-btn">회원 정보 수정</a><br><br><br>
 					
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>	

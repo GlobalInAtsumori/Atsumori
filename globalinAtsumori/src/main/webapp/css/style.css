@@ -117,13 +117,13 @@ body {
 }
 
 /* 왼쪽 라벨만 적용 */
-.reg-table td.label {
-  text-align: center;      /* 수평 정렬 */
-  vertical-align: middle; /* 수직 가운데 정렬 */
-  padding: 12px 15px;
-   border:  none;
-  
+td.label {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 15px;
+    border: none;
 }
+
 
 
 .reg-table tr:last-child td {
