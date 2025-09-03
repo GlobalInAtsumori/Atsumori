@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <%
     String loginID = (String) session.getAttribute("loginID");
-    if (loginID == null) {
+    /* if (loginID == null) {
         // 로그인 안 되어 있으면 login.jsp로 이동
         response.sendRedirect("memberone/login.jsp");
-        return;
-    }
+        return; 
+    }*/
 %> 
 <%
 request.setAttribute("bannerMessage", "アツモリにようこそ！");

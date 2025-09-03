@@ -37,12 +37,12 @@
 					<td><input type="password" name="password" class="reg-input"></td>
 				</tr>
 				<tr>
-					<td class="label">PW 확인</td>
+					<td class="label">PW<br>확인</td>
 					<td><input type="password" name="repass" class="reg-input"></td>
 				</tr>
 				<!-- 국가 먼저 -->
 				<tr>
-					<td class="label">국</td>
+					<td class="label">국가</td>
 					<td><select name="country" class="reg-input">
 							<option value="대한민국">대한민국</option>
 							<option value="日本">日本</option>

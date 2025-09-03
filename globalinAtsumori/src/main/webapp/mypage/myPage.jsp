@@ -8,6 +8,7 @@ request.setAttribute("bannerMessage", "MyPage");
 	<meta charset="UTF-8">
 	<title>아쯔모리</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+	<!-- <link rel="stylesheet" href="../css/style.css"> -->
 	
 	
 	<style>
@@ -74,11 +75,7 @@ request.setAttribute("bannerMessage", "MyPage");
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">회원 정보 확인</a><br><br><br>
-						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_memberUpdate"
-						style="font-weight:bold; color:black; text-decoration:none;"
-						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">회원 정보 수정</a><br><br><br>
+						
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage_board"
 						style="font-weight:bold; color:black; text-decoration:none;"
@@ -112,6 +109,13 @@ request.setAttribute("bannerMessage", "MyPage");
 				
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
 					<b style="font-size:15px;">테스트 입력1</b>
+					
+					
+					
+					<a href=
+						"${pageContext.request.contextPath}/memberone/modifyForm"
+						class="reg-btn">회원 정보 수정</a><br><br><br>
+					
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 끝 --%>	
 					
 					
