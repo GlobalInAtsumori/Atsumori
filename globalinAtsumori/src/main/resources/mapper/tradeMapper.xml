@@ -210,7 +210,8 @@
 				tp.status,
 				tp.memberNo AS sellerNo,
 				m.memberName AS sellerName,
-				tp.createdate
+				tp.createdate,
+				ROW_NUMBER() OVER (ORDER BY tp.createdate ASC) AS rn
 		FROM tradePost tp
 		JOIN member m ON tp.memberNo = m.memberNo
 		WHERE tp.customer = #{memberNo}

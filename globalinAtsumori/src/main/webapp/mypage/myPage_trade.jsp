@@ -108,8 +108,8 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 		
 			<div class="myPageWrapper2">		<%-- myPageWrapper2의 시작 --%>
 				<div class="myPageTitle tab-buttons">
-					<button id="myPost">내가 쓴 글</button>
-					<button id="myTrade">거래희망한 글</button>
+					<button type="button" id="myPost" class="active">自分の投稿</button>
+					<button type="button" id="myTrade">取引希望した投稿</button>
 				</div>
 				
 				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
@@ -133,14 +133,18 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 									<c:forEach var="post" items="${myPostList}">
 										<ul class="posts">
 											<li class="no">${post.rn}</li>
-											<li class="title">${post.tradeTitle}</li>
+											<li class="title">
+												<a href="/tradeDetail?tradePostNo=${post.tradePostNo}">
+												${post.tradeTitle}
+												</a>
+											</li>
 											<li class="date">${post.dateFormat}</li>
 											<li class="status ${post.tradeBtnClass}"><div>${post.statusLabel}</div></li>
 											<li class="check">
 												<c:if test="${post.status eq 'TRADING'}">
 													<form action="/mypage/updateTradeStatus" method="post">
 														<input type="hidden" name="tradePostNo" value="${post.tradePostNo}">
-														<button type="submit">承諾!</button>
+														<button type="submit" class="check">承諾!</button>
 													</form>
 												</c:if>
 											</li>
@@ -172,14 +176,27 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 						
 						<!-- 거래희망한 글 -->
 						<div id="myTradeContents" style="display: none;">
-						<c:if test="${empty requestedTrades}">
-        <p>まだ取引希望の投稿はありません。</p>
-    </c:if>
-    <c:forEach var="post" items="${requestedTrades}">
-        <p>
-            NO: ${post.tradePostNo} | 제목: ${post.tradeTitle} | 상태: ${post.status}
-        </p>
-    </c:forEach>
+							<ul class="basic2">
+								<li class="no">NO</li>
+								<li class="title">タイトル</li>
+								<li class="date">投稿日</li>
+								<li class="status">進行状況</li>
+							</ul>
+							<c:if test="${empty requestedTrades}">
+								<p>まだ取引希望の投稿はありません。</p>
+							</c:if>
+							<c:forEach var="post" items="${requestedTrades}">
+								<ul class="lists">
+									<li class="no">${post.rn}</li>
+									<li class="title">
+										<a href="/tradeDetail?tradePostNo=${post.tradePostNo}">
+										${post.tradeTitle}
+										</a>
+									</li>
+									<li class="date">${post.dateFormat}</li>
+									<li class="status ${post.tradeBtnClass}"><div>${post.statusLabel}</div></li>
+								</ul>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -199,6 +216,18 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 		const myPostContents = document.getElementById('myPostContents');
 		const myTradeContents = document.getElementById('myTradeContents');
 		
+		const buttons = document.querySelectorAll('.tab-buttons button');
+		
+		buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				//모든 버튼의 active를 제거함
+				buttons.forEach(b => b.classList.remove('active'));
+				//클릭한 버튼만 active 추가
+				button.classList.add('active');
+			});
+		});
+		
+		// 게시글 토글
 		myPost.addEventListener('click', () => {
 			myPostContents.style.display = 'block';
 			myTradeContents.style.display = 'none';

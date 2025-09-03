@@ -2,20 +2,42 @@
 * {
 	padding: 0;
 	margin: 0;
+	text-decoration: none;
+	outline: none;
+	border: none;
+	box-sizing: border-box;
 }
 
 
+/* 버튼 */
+div.myPageTitle.tab-buttons {
+	display: flex;
+	gap: 20px;
+}
+div.myPageTitle.tab-buttons button {
+	width: 35%;
+	height: 25px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}
+div.myPageTitle.tab-buttons button:hover {
+	background: #000000;
+	color: #ffffff;
+}
+div.myPageTitle.tab-buttons button.active {
+	background: #000000;
+	color: #ffffff;
+}
+
+/* 게시글 출력 시작 */
 .myPageContent {
 	height: 100%;
 }
 
-div.top.first {
-	border: 1px solid red;
-}
-
-ul.basic {
+ul.basic,
+ul.basic2 {
 	list-style: none;
-	height: 35px;
+	height: 40px;
 	display: flex;
 	align-items: center;
 	font-weight: 600;
@@ -23,8 +45,15 @@ ul.basic {
 	background: #f0f0f0;
 }
 
-div.top.second {
-	border: 1px solid blue;
+ul.posts,
+ul.lists {
+	height: 45px;
+}
+
+ul.posts li,
+ul.lists li {
+	align-content: center;
+	border-bottom: 1px solid #f0f0f0;
 }
 
 div.top.second ul.posts {
@@ -32,38 +61,55 @@ div.top.second ul.posts {
 	display: flex;	
 }
 
-ul.posts li {
-	border: 1px solid pink;
-	
+ul.posts li.check button.check {
+	border: 1px solid #bbbbbb;
+	width: 80%;
+	height: 25px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+ul.posts li.check button.check:hover {
+	background: #000000;
+	color: #ffffff;
 }
 
 /*리스트 크기 조정용*/
+li.no, li.check, li.date, li.status, li.title {
+	text-align: center;	
+}
 li.no, li.check {
 	width: 10%;
-	text-align: center;
 }
 li.date, li.status {
+	font-size: 14px;
 	width: 15%;
-	text-align: center;
-}
-ul.basic li.title {	
-	text-align: center;
 }
 li.title {
 	width: 50%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+li.title a {
+	color: #000000;
+}
+
 /*status 관련*/
-li.status.green div,
-li.status.black div,
-li.status.gray div {
-    width: 80%;
-    height: 95%;
+ul.posts li.status div,
+ul.lists li.status div {
+    height: 55%;
     margin: 0 auto;
     text-align: center;
     font-size: 14px;
     font-weight: 500;
 	color: #ffffff;
     border-radius: 5px;
+}
+ul.posts li.status div {	
+    width: 85%;
+}
+ul.lists li.status div {
+    width: 65%;	
 }
 li.status.green div {
 	background: green;
@@ -74,4 +120,66 @@ li.status.gray div {
 li.status.black div {
 	background: #000000;
 	font-size: 13px;
+}
+
+
+/* 거래희망한 글 */
+#myTradeContents {
+	max-height: 400px;
+	overflow-y: auto;
+}
+#myTradeContents .basic2 {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+ul.lists {
+	list-style: none;
+	display: flex;
+}
+ul.lists li.no {
+	width: 10%;
+}
+ul.lists li.title {
+	width: 50%;
+}
+ul.basic2 li.date,
+ul.basic2 li.status,
+ul.lists li.date,
+ul.lists li.status {
+	width: 20%;
+}
+
+
+/* div.pagination */
+div.pagination {
+	width: fit-content;
+	margin: 0 auto;
+	padding-top: 30px;
+}
+
+div.pagination a {	
+	color: #000000;
+}
+
+div.pagination a.fl,
+div.pagination a.prev,
+div.pagination a.next,
+div.pagination a.num,
+div.pagination span.num {
+	border: 1px solid #d7d7d7;
+	padding: 3px 10px;
+}
+
+div.pagination a.fl:hover,
+div.pagination a.prev:hover,
+div.pagination a.next:hover,
+div.pagination a.num:hover {
+	background: #dedede;	
+}
+
+div.pagination span.current {
+	background: #dedede;	
+	font-weight: 600;
 }
