@@ -3,10 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
-
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import domain.MemberVO;
 
 public class MemberDAO {
@@ -20,10 +17,10 @@ public class MemberDAO {
                 "tiger");
     }
 
-    // 2️⃣ 회원가입 (member_seq 시퀀스 사용)
+    // 2️⃣ 회원가입
     public void insertMember(MemberVO vo) {
-        String sql = "INSERT INTO member (memberNo, memberName, memberId, password, country, email) "
-                   + "VALUES (member_seq.NEXTVAL, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO member (memberNo, memberName, memberId, password, country, email, permission) "
+                   + "VALUES (member_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -32,6 +29,11 @@ public class MemberDAO {
             pstmt.setString(3, vo.getPassword());
             pstmt.setString(4, vo.getCountry());
             pstmt.setString(5, vo.getEmail());
+            
+            // 🔑 permission null이면 기본값 'user'
+            String perm = vo.getPermission();
+            if(perm == null || perm.isEmpty()) perm = "user";
+            pstmt.setString(6, perm);
 
             pstmt.executeUpdate();
         } catch (Exception e) {
@@ -47,9 +49,8 @@ public class MemberDAO {
 
             pstmt.setString(1, memberId);
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
+            if (rs.next()) return rs.getInt(1) > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,23 +70,50 @@ public class MemberDAO {
                 String dbPassword = rs.getString("password");
                 result = dbPassword.equals(password) ? 1 : 0;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    // 5️⃣ 회원정보 수정
+    // 5️⃣ 회원 정보 가져오기
+    public MemberVO getMember(String memberId) {
+        MemberVO vo = null;
+        String sql = "SELECT * FROM member WHERE memberId=?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, memberId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                vo = new MemberVO();
+                vo.setMemberNo(rs.getInt("memberNo"));
+                vo.setMemberName(rs.getString("memberName"));
+                vo.setMemberId(rs.getString("memberId"));
+                vo.setPassword(rs.getString("password"));
+                vo.setCountry(rs.getString("country"));
+                vo.setEmail(rs.getString("email"));
+                vo.setPermission(rs.getString("permission"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vo;
+    }
+
+    // 6️⃣ 회원정보 수정
     public int updateMember(MemberVO vo) {
         int result = 0;
-        String sql = "UPDATE member SET memberName=?, password=?, email=?, country=? WHERE memberId=?";
+        String sql = "UPDATE member SET memberName=?, password=?, country=?, email=? WHERE memberId=?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, vo.getMemberName());
             pstmt.setString(2, vo.getPassword());
-            pstmt.setString(3, vo.getEmail());
-            pstmt.setString(4, vo.getCountry());
+            pstmt.setString(3, vo.getCountry());
+            pstmt.setString(4, vo.getEmail());
             pstmt.setString(5, vo.getMemberId());
 
             result = pstmt.executeUpdate();
@@ -95,7 +123,7 @@ public class MemberDAO {
         return result;
     }
 
-    // 6️⃣ 회원 삭제
+    // 7️⃣ 회원 삭제
     public boolean deleteMember(String memberId, String password) {
         int result = 0;
         String sqlCheck = "SELECT password FROM member WHERE memberId=?";
@@ -108,8 +136,8 @@ public class MemberDAO {
             ResultSet rs = pstmtCheck.executeQuery();
 
             if (rs.next()) {
-                String dbPass = rs.getString("password").trim(); // 공백 제거
-                if (dbPass.equals(password)) { // 필요 시 equalsIgnoreCase 사용 가능
+                String dbPass = rs.getString("password").trim();
+                if (dbPass.equals(password)) {
                     rs.close();
                     try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
                         pstmtDelete.setString(1, memberId);
@@ -125,35 +153,7 @@ public class MemberDAO {
         return result > 0;
     }
 
-
-    // 7️⃣ 회원 정보 가져오기
-    public MemberVO getMember(String memberId) {
-        MemberVO vo = null;
-        String sql = "SELECT * FROM member WHERE memberId=?";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, memberId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                vo = new MemberVO();
-                vo.setMemberNo(rs.getInt("memberNo"));
-                vo.setMemberId(rs.getString("memberId"));
-                vo.setPassword(rs.getString("password"));
-                vo.setMemberName(rs.getString("memberName"));
-                vo.setEmail(rs.getString("email"));
-                vo.setCountry(rs.getString("country"));
-                vo.setPermission(rs.getString("permission")); // 🔑 권한 필드 추가
-                System.out.println(rs.getString("permission"));
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return vo;
-    }
-    
-    
+    // 8️⃣ 회원 전체 목록 가져오기
     @Autowired
     public List<MemberVO> getAllMembers() {
         List<MemberVO> list = new ArrayList<>();
@@ -165,27 +165,25 @@ public class MemberDAO {
             while(rs.next()) {
                 MemberVO vo = new MemberVO();
                 vo.setMemberNo(rs.getInt("memberNo"));
-                vo.setMemberId(rs.getString("memberId"));
                 vo.setMemberName(rs.getString("memberName"));
+                vo.setMemberId(rs.getString("memberId"));
                 vo.setPassword(rs.getString("password"));
-                vo.setEmail(rs.getString("email"));
                 vo.setCountry(rs.getString("country"));
+                vo.setEmail(rs.getString("email"));
                 vo.setPermission(rs.getString("permission"));
                 list.add(vo);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("회원 수: " + list.size());
         return list;
     }
 
-
-    // 3️⃣ 권한 변경
+    // 9️⃣ 권한 변경
     public int updatePermission(int memberNo, String permission) {
         int result = 0;
         String sql = "UPDATE member SET permission=? WHERE memberNo=?";
-
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -198,6 +196,5 @@ public class MemberDAO {
         }
         return result;
     }
-
 
 }

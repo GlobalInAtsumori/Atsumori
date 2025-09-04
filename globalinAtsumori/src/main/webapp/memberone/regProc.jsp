@@ -18,12 +18,12 @@
         emailDomain = request.getParameter("emailDomainCustom").trim();
     }
 
-    // 3️⃣ 이메일 처리: 이미 @가 포함되어 있으면 그대로, 아니면 @domain 붙임
+    // 3️⃣ 이메일 처리
     String email;
     if(emailId.contains("@")) {
-        email = emailId; // 사용자가 abc1234@naver.com 입력했으면 그대로 사용
+        email = emailId;
     } else {
-        email = emailId + "@" + emailDomain; // 일반 처리
+        email = emailId + "@" + emailDomain;
     }
 
     // 4️⃣ VO 생성
@@ -34,19 +34,25 @@
     vo.setCountry(country);
     vo.setEmail(email);
 
+    // 🔹 permission 기본값 안전하게 설정
+    String permission = request.getParameter("permission"); // 폼에서 가져올 수도 있음
+    if(permission == null || permission.isEmpty()) {
+        permission = "user"; // 기본값
+    }
+    vo.setPermission(permission);
+
     // 5️⃣ ID 중복 체크
     if(dao.idCheck(memberId)){
         out.println("<script>alert('이미 존재하는 ID입니다.'); history.back();</script>");
-        return; // 중복이면 뒤로 돌아감
+        return;
     }
 
- // 6️⃣ 회원가입
+    // 6️⃣ 회원가입
     dao.insertMember(vo);
 
-    // 회원가입 성공 후 바로 로그인 처리
-    session.setAttribute("loginID", memberId); // 로그인 상태 유지
-    session.setAttribute("memberName", name);  // 필요하면 이름도 저장
+    // 7️⃣ 회원가입 성공 후 바로 로그인 처리
+    session.setAttribute("loginID", memberId);
+    session.setAttribute("memberName", name);
 
     out.println("<script>alert('회원가입 성공'); location.href='" + request.getContextPath() + "/mainPage.jsp';</script>");
-
 %>
