@@ -120,7 +120,7 @@
 </head>
 <body>
     <div id="memberListContainer" class="chat-container">
-        <h3>현재 접속 멤버</h3>
+        <h3>接続メンバー</h3>
         <div id="memberList"></div>
     </div>
 </body>

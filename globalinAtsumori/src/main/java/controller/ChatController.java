@@ -39,7 +39,7 @@ public class ChatController {
             String nick = message.split("\\|")[1];
             if (nick != null && !nick.trim().isEmpty()) {
                 users.put(session, nick);
-                System.out.println("사용자 입장: " + nick);
+                System.out.println("メンバー入場: " + nick);
                 // 멤버 리스트를 모든 클라이언트에 브로드캐스트
                 broadcastMemberList();
                 
@@ -65,7 +65,7 @@ public class ChatController {
             String nick = message.split("\\|")[1];
             if (nick != null && users.containsValue(nick)) {
                 users.remove(session);
-                System.out.println("사용자 퇴장: " + nick);
+                System.out.println("メンバー退場: " + nick);
                 broadcastMemberList();
                 String leaveMsg = "/leave|" + nick;
                 broadcast(leaveMsg, session);
