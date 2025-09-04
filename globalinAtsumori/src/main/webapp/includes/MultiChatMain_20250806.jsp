@@ -59,7 +59,7 @@
 			isMemberVisible = false;
 			document.getElementById("memberFrame").style.display = "none";
 			document.getElementById("chatFrame").style.width = "100%";
-            document.getElementById("toggleMemberBtn").textContent = "멤버 보기";
+            document.getElementById("toggleMemberBtn").textContent = "メンバーリスト";
 
 			chatFrame.onload = function() {
 				console.log("chatFrame 로드 완료");
@@ -122,14 +122,14 @@
 			const chatFrame = document.getElementById("chatFrame");
 			if (isMemberVisible) {
 				memberFrame.style.display = "none";
-				toggleMemberBtn.textContent = "멤버 보기";
+				toggleMemberBtn.textContent = "メンバーリスト";
 				chatContainer.style.width = "370px"; // 숨길 때 370px로 복귀
 				currentWidth = 370; // 폭 상태 업데이트
 				chatFrame.style.width = "100%";
 				isMemberVisible = false;
 			} else {
 				memberFrame.style.display = "block";
-				toggleMemberBtn.textContent = "멤버 숨기기";
+				toggleMemberBtn.textContent = "メンバーリスト";
 				chatContainer.style.width = "600px"; // 열릴 때 600px로 증가
 				currentWidth = 600; // 폭 상태 업데이트
 				chatFrame.style.width = "65%";
@@ -162,24 +162,24 @@
 
 
 	<div class="chat-container">
-		<button id="toggleBtn" onclick="toggleChat()">💬 채팅</button>
+		<button id="toggleBtn" onclick="toggleChat()">💬 チャット</button>
 		<div id="chatContainer" style="display: none;">
 			<div id="introSection">
 				<div id="introHeader">
 					<button id="minimizeIntroBtn" onclick="minimizeChat()">⏷</button>
 				</div>
-				<h2>실시간 채팅</h2>
+				<h2>リアルタイムチャット</h2>
 				<div class="group">
-					&nbsp;&nbsp;&nbsp;<label>닉네임</label> <input type="text" name="name"
+					&nbsp;&nbsp;&nbsp;<label>ニックネーム</label> <input type="text" name="name"
 						id="chatId" class="short" onkeypress="checkEnter(event)">
 					<button type="button" class="in" id="closeBtn"
-						onclick="chatWinOpen();">들어가기</button>
+						onclick="chatWinOpen();">入場</button>
 				</div>
 			</div>
 			<div id="chatHeader" style="display: none;">
 				<button id="minimizeBtn" onclick="minimizeChat()">⏷</button>
-				<button id="toggleMemberBtn" onclick="toggleMemberList()">멤버
-					보기</button>
+				<button id="toggleMemberBtn" onclick="toggleMemberList()">メンバーリスト
+					</button>
 			</div>
 			<div id="chatFrameContainer" style="display: none;">
 				<iframe id="chatFrame" src="" frameborder="0"></iframe>
