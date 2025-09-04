@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.AdminBoardMapper">
+
+    <select id="getBoardList" parameterType="map" resultType="domain.BoardVO">
+        SELECT * FROM (
+            SELECT ROWNUM rnum, a.* FROM (
+                SELECT b.*, m.memberId, m.memberName
+                FROM board2 b
+                JOIN member m ON b.memberno = m.memberNo
+                WHERE 1=1
+                <if test="searchType != null and searchValue != null and searchValue != ''">
+                    AND 
+                    <choose>
+                        <when test="searchType == 'title'">b.title LIKE '%'||#{searchValue}||'%'</when>
+                        <when test="searchType == 'memberId'">m.memberId LIKE '%'||#{searchValue}||'%'</when>
+                        <when test="searchType == 'memberName'">m.memberName LIKE '%'||#{searchValue}||'%'</when>
+                    </choose>
+                </if>
+                ORDER BY b.boardno DESC
+            ) a
+        ) 
+        WHERE rnum BETWEEN #{start} AND #{end}
+    </select>
+
+    <update id="updateBoardStatus" parameterType="map">
+        UPDATE board2
+        SET status = #{status}
+        WHERE boardno = #{boardno}
+    </update>
+
+    <select id="getBoardCount" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM board2 b
+        JOIN member m ON b.memberno = m.memberNo
+        WHERE 1=1
+        <if test="searchType != null and searchValue != null and searchValue != ''">
+            AND 
+            <choose>
+                <when test="searchType == 'title'">b.title LIKE '%'||#{searchValue}||'%'</when>
+                <when test="searchType == 'memberId'">m.memberId LIKE '%'||#{searchValue}||'%'</when>
+                <when test="searchType == 'memberName'">m.memberName LIKE '%'||#{searchValue}||'%'</when>
+            </choose>
+        </if>
+    </select>
+
+</mapper>

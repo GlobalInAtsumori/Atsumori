@@ -4,13 +4,17 @@ CREATE TABLE member (
     memberName VARCHAR2(20) NOT NULL,
     memberId VARCHAR2(20) NOT NULL,
     password VARCHAR2(30) NOT NULL,
+     country VARCHAR2(20) NOT NULL,
     email VARCHAR2(30) NOT NULL,
-    country VARCHAR2(20) NOT NULL,
+   
     permission VARCHAR2(20) DEFAULT 'user' NOT NULL
 );
 
 insert into member values(4, '김철수', '김철수', '1234', 'test@gmail.com', 'korea', 'user');
 select * from member;
+
+
+
 
 -- 1. member 테이블에 정지기간 컬럼 추가 (이미 permission 컬럼은 존재)
 ALTER TABLE member ADD (

@@ -25,13 +25,18 @@
         return;
     }
 
-    // 로그인 성공 시 세션에 정보 저장
+    // 로그인 성공 시 세션에 정보 저장 (null-safe, 대소문자 상관없이 admin 체크)
     session.setAttribute("loginID", vo.getMemberId());
     session.setAttribute("memberNo", vo.getMemberNo());
     session.setAttribute("memberName", vo.getMemberName());
-    session.setAttribute("permission", vo.getPermission());
+
+    // permission이 null이면 기본 'user'로 설정
+    String permission = vo.getPermission();
+    if(permission == null || permission.trim().isEmpty()) {
+        permission = "user";
+    }
+    session.setAttribute("loginPermission", permission); // navbar에서 admin 버튼 확인용
 
     // 메인 페이지로 이동
-    response.sendRedirect(request.getContextPath() + "/mainPage.jsp");
-
+    response.sendRedirect(request.getContextPath() + "../mainPage.jsp");
 %>

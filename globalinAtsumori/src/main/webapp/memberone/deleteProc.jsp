@@ -18,7 +18,7 @@
         session.invalidate();
 %>
 <script>
-    alert("입력하신 내용대로 회원정보가 삭제 되었습니다. 안녕히 가십시오.");
+    alert("회원탈퇴가 완료 되었습니다.");
     location.href='<%=request.getContextPath()%>/mainPage.jsp';
 </script>
 

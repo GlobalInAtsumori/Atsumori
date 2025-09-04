@@ -1,10 +1,12 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
+
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import domain.MemberVO;
 
 public class MemberDAO {
@@ -135,15 +137,67 @@ public class MemberDAO {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 vo = new MemberVO();
+                vo.setMemberNo(rs.getInt("memberNo"));
                 vo.setMemberId(rs.getString("memberId"));
                 vo.setPassword(rs.getString("password"));
                 vo.setMemberName(rs.getString("memberName"));
                 vo.setEmail(rs.getString("email"));
                 vo.setCountry(rs.getString("country"));
+                vo.setPermission(rs.getString("permission")); // 🔑 권한 필드 추가
+                System.out.println(rs.getString("permission"));
             }
+            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return vo;
     }
+    
+    
+    @Autowired
+    public List<MemberVO> getAllMembers() {
+        List<MemberVO> list = new ArrayList<>();
+        String sql = "SELECT * FROM member ORDER BY memberNo ASC";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while(rs.next()) {
+                MemberVO vo = new MemberVO();
+                vo.setMemberNo(rs.getInt("memberNo"));
+                vo.setMemberId(rs.getString("memberId"));
+                vo.setMemberName(rs.getString("memberName"));
+                vo.setPassword(rs.getString("password"));
+                vo.setEmail(rs.getString("email"));
+                vo.setCountry(rs.getString("country"));
+                vo.setPermission(rs.getString("permission"));
+                list.add(vo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("회원 수: " + list.size());
+        return list;
+    }
+
+
+    // 3️⃣ 권한 변경
+    public int updatePermission(int memberNo, String permission) {
+        int result = 0;
+        String sql = "UPDATE member SET permission=? WHERE memberNo=?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, permission);
+            pstmt.setInt(2, memberNo);
+            result = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }

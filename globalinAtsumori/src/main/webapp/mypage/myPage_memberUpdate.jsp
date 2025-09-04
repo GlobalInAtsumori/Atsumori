@@ -74,11 +74,7 @@ request.setAttribute("bannerMessage", "MyPage");
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
 						onmouseout="this.style.textDecoration='none';">회원 정보 확인</a><br><br><br>
-						<a href=
-						"${pageContext.request.contextPath}/mypage/myPage_memberUpdate"
-						style="font-weight:bold; color:black; text-decoration:none;"
-						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">회원 정보 수정</a><br><br><br>
+						
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage_board"
 						style="font-weight:bold; color:black; text-decoration:none;"
