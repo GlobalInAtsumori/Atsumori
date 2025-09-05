@@ -33,7 +33,7 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 			display: flex;
 			flex-direction: column; /* 자식 요소들을 세로로 정렬 */
 			flex-grow: 1;
-			gap: 20px;
+			/* 	gap: 20px; */
 			width: 530px; /* 가로 크기 고정 */
 		}
 		
@@ -49,7 +49,7 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 		.myPageContent {
 			margin-top: 10px;
 			border: 2px solid black;
-			padding: 20px;
+			padding: 15px;
 			background-color: #fff;
 			/* min-height: 200px; */
 			/* flex-grow: 1; /* 남은 공간을 채우도록 함 */
@@ -124,7 +124,7 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 								</ul>
 								<div class="top second">
 									<c:if test="${empty myPostList}">
-										<p>まだ投稿がありません。</p>
+										<p class="empty">まだ投稿がありません。</p>
 									</c:if>
 									<c:forEach var="post" items="${myPostList}">
 										<ul class="posts">
@@ -138,7 +138,7 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 											<li class="status ${post.tradeBtnClass}"><div>${post.statusLabel}</div></li>
 											<li class="check">
 												<c:if test="${post.status eq 'TRADING'}">
-													<form action="/mypage/updateTradeStatus" method="post">
+													<form action="/mypage/updateTradeStatus" method="post" onsubmit="return confirmSubmit();">
 														<input type="hidden" name="tradePostNo" value="${post.tradePostNo}">
 														<button type="submit" class="check">承諾!</button>
 													</form>
@@ -179,7 +179,7 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 								<li class="status">進行状況</li>
 							</ul>
 							<c:if test="${empty requestedTrades}">
-								<p>まだ取引希望の投稿はありません。</p>
+								<p class="empty">まだ取引希望した投稿がありません。</p>
 							</c:if>
 							<c:forEach var="post" items="${requestedTrades}">
 								<ul class="lists">
@@ -232,5 +232,10 @@ request.setAttribute("bannerMessage", "MyPage : 中古品売買");
 			myPostContents.style.display = 'none';
 			myTradeContents.style.display = 'block';
 		});
+		
+		//승낙 전 확인 알림
+		function confirmSubmit() {
+			return confirm("本当に承諾しますか？");
+		}
 	</script>
 </html>
