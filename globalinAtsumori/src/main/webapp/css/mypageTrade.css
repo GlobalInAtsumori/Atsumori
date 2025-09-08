@@ -34,6 +34,12 @@ div.myPageTitle.tab-buttons button.active {
 	height: 100%;
 }
 
+/* 투고한 글 / 거래희망한 글 없는 경우 */
+p.empty {
+	text-align: center;
+	padding: 30px 0;
+}
+
 ul.basic,
 ul.basic2 {
 	list-style: none;

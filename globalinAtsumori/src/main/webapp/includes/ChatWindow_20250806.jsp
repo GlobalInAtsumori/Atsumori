@@ -76,9 +76,9 @@ request.setAttribute("serverIp", serverIp);
                 //
                 
                 if (sender === "/join") {
-                    chatWindow.innerHTML += "<div style='text-align: center; color: green;'>" + content + "님이 입장했습니다.</div>";
+                    chatWindow.innerHTML += "<div style='text-align: center; color: green;'>" + content + "さんが入場しました。</div>";
                 } else if (sender === "/leave") {
-                    chatWindow.innerHTML += "<div style='text-align: center; color: red;'>" + content + "님이 퇴장했습니다.</div>";
+                    chatWindow.innerHTML += "<div style='text-align: center; color: red;'>" + content + "さんが退場しました。</div>";
                 } else if (content.match("/")) {
                     if (content.match("/" + chatId)) {
                         var temp = content.replace("/" + chatId, "[귓속말] : ");
@@ -190,14 +190,14 @@ request.setAttribute("serverIp", serverIp);
 	<div class="chat-container">
 		<div id="chatContainer2">
 			<div class="group">
-				<label>참가 대화명</label> <input type="text" id="chatIdDisplay" readonly>
+				<label>ニックネーム</label> <input type="text" id="chatIdDisplay" readonly>
 			</div>
 			<div id="chatWindow"></div>
 			<div class="inputContainer">
 				<div>
 					<input type="text" id="chatMessage" onkeyup="enterKey();">
-					<button id="sendBtn" onclick="sendMessage();">전송</button>
-					<button id="closeBtn" onclick="disconnect();">채팅 종료</button><br>
+					<button id="sendBtn" onclick="sendMessage();">送信</button>
+					<button id="closeBtn" onclick="disconnect();">退場</button><br>
 					<!--  이미지 송신 작업 보류
 					<input type="file" id="imageInput" accept="image/*" style="display: none;">
 					<button onclick="document.getElementById('imageInput').click();">📷</button>

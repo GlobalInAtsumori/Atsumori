@@ -11,7 +11,7 @@ if (loginID != null) {
 }
 
 // 배너 메시지 설정
-request.setAttribute("bannerMessage", "로그인");
+request.setAttribute("bannerMessage", "ログイン");
 %>
 
 <!DOCTYPE html>

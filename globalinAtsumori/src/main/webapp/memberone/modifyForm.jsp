@@ -20,14 +20,14 @@ if (vo == null) {
 	return;
 }
 
-request.setAttribute("bannerMessage", "회원 정보 수정");
+request.setAttribute("bannerMessage", "会員情報修正");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아쯔모리 - 회원 정보 수정</title>
+<title>아쯔모리</title>
 <link rel="stylesheet" href="/css/style.css">
 <script>
 	function updateCheck() {
@@ -53,42 +53,42 @@ request.setAttribute("bannerMessage", "회원 정보 수정");
 
 			<table class="reg-table">
 				<tr>
-					<td colspan="2" align="center">회원 정보 수정</td>
+					<td colspan="2" align="center">会員情報修正</td>
 				</tr>
 
 				<tr>
-					<td class="label">이름</td>
+					<td class="label">名前</td>
 					<td><input type="text" name="memberName"
 						value="<%=vo.getMemberName()%>" class="reg-input"></td>
 				</tr>
 				<tr>
-					<td class="label">아이디</td>
+					<td class="label">ID</td>
 					<td><%=vo.getMemberId()%> <input type="hidden" name="memberId"
 						value="<%=vo.getMemberId()%>"></td>
 				</tr>
 
 				<tr>
-					<td class="label">비밀번호</td>
+					<td class="label">パスワード</td>
 					<td><input type="password" name="password" class="reg-input">&nbsp;</td>
 				</tr>
 
 				<tr>
-					<td class="label">비밀번호 확인</td>
+					<td class="label">パスワート確認</td>
 					<td><input type="password" name="repass" class="reg-input">&nbsp;</td>
 				</tr>
 
 
 				<tr>
-					<td class="label">이메일</td>
+					<td class="label">EMAIL</td>
 					<td><input type="text" name="email" value="<%=vo.getEmail()%>"
 						class="reg-input"></td>
 				</tr>
 
 				<tr>
-					<td class="label">국가</td>
+					<td class="label">国</td>
 					<td><select name="country" class="reg-input">
-							<option value="대한민국"
-								<%="대한민국".equals(vo.getCountry()) ? "selected" : ""%>>대한민국</option>
+							<option value="大韓民国"
+								<%="大韓民国".equals(vo.getCountry()) ? "selected" : ""%>>大韓民国</option>
 							<option value="日本"
 								<%="日本".equals(vo.getCountry()) ? "selected" : ""%>>日本</option>
 					</select></td>
@@ -97,8 +97,8 @@ request.setAttribute("bannerMessage", "회원 정보 수정");
 
 				<tr>
 					<td colspan="2" align="center"><input type="button"
-						value="수정 확인" onclick="updateCheck()" class="reg-btn">
-						&nbsp;&nbsp; <input type="button" value="취소"
+						value="修正確認" onclick="updateCheck()" class="reg-btn">
+						&nbsp;&nbsp; <input type="button" value="キャンセル"
 						onclick="javascript:history.back()" class="reg-btn"></td>
 				</tr>
 			</table>
