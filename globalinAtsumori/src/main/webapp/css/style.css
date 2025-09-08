@@ -308,13 +308,13 @@ td.label {
 
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>페이징 꾸미기<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-.pagination {
+.pagination.admin {
     text-align: center;        /* 가운데 정렬 */
     margin: 20px 0;            /* 위아래 여백 */
     font-family: Arial, sans-serif;
 }
 
-.pagination a, .pagination span {
+.pagination.admin a, .pagination.admin span {
     display: inline-block;
     margin: 0 4px;
     padding: 6px 12px;
@@ -325,12 +325,12 @@ td.label {
     transition: all 0.2s;
 }
 
-.pagination a:hover {
+.pagination.admin a:hover {
     background-color: #f0f0f0;
     border-color: #999;
 }
 
-.pagination span {
+.pagination.admin span {
     font-weight: bold;
     background-color: #ddd;
     border-color: #999;

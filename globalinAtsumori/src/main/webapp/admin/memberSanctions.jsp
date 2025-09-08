@@ -116,7 +116,7 @@ request.setAttribute("totalPage", totalPage);
 		</table>
 
 		<!-- 페이징 링크 -->
-		<div class="pagination" style="text-align: center; margin-top: 20px;">
+		<div class="pagination admin" style="text-align: center; margin-top: 20px;">
 			<c:if test="${currentPage > 1}">
 				<a href="?page=${currentPage-1}">前</a>
 			</c:if>
