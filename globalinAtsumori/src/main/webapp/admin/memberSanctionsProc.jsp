@@ -11,11 +11,11 @@ String sanctionStatus = request.getParameter("sanction_status");
 
 MemberDAO dao = new MemberDAO();
 
-if ("없음".equals(sanctionStatus)) {
-	dao.updateSanction(memberNo, "없음");
-} else if ("정지".equals(sanctionStatus)) {
-	dao.updateSanction(memberNo, "정지");
-} else if ("탈퇴".equals(sanctionStatus)) {
+if ("無し".equals(sanctionStatus)) {
+	dao.updateSanction(memberNo, "無し");
+} else if ("停止".equals(sanctionStatus)) {
+	dao.updateSanction(memberNo, "停止");
+} else if ("脱退".equals(sanctionStatus)) {
 	dao.deleteMemberCompletely(memberNo); // 실제 삭제
 }
 

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-request.setAttribute("bannerMessage", "회원탈퇴");
+request.setAttribute("bannerMessage", "会員脱退");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,10 +19,10 @@ request.setAttribute("bannerMessage", "회원탈퇴");
 		<form action="deleteProc.jsp" method="post" name="myform">
 			<table class="reg-table">
 				<tr>
-					<td colspan="2" align="center"><b>회원탈퇴</b></td>
+					<td colspan="2" align="center"><b>会員脱退</b></td>
 				</tr>
 				<tr>
-					<td width="150" align="center"><b>비밀번호</b></td>
+					<td width="150" align="center"><b>パスワード</b></td>
 					<td width="110"><input type="password" name="password"
 						size="15"></td>
 				</tr>

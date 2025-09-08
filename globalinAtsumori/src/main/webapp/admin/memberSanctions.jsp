@@ -3,7 +3,7 @@
 <%@ page import="java.util.*, dao.MemberDAO, domain.MemberVO"%>
 
 <%
-request.setAttribute("bannerMessage", "회원 제재 관리");
+request.setAttribute("bannerMessage", "会員製材管理");
 MemberDAO dao = new MemberDAO();
 
 int pageSize = 10; // 한 페이지당 10줄
@@ -80,10 +80,10 @@ request.setAttribute("totalPage", totalPage);
 		<table class="listhead" style="table-layout: fixed; width: 80%;">
 			<thead>
 				<tr>
-					<th style="width: 20%;">회원번호</th>
-					<th style="width: 30%;">아이디</th>
-					<th style="width: 30%;">이름</th>
-					<th style="width: 20%;">제재</th>
+					<th style="width: 20%;">会員番号</th>
+					<th style="width: 30%;">ID</th>
+					<th style="width: 30%;">名前</th>
+					<th style="width: 20%;">製材</th>
 				</tr>
 			</thead>
 		</table>
@@ -102,11 +102,11 @@ request.setAttribute("totalPage", totalPage);
 
 								<input type="hidden" name="memberNo" value="${m.memberNo}">
 								<select name="sanction_status">
-									<option value="없음" ${m.sanctionStatus=='없음'?'selected':''}>없음</option>
-									<option value="정지" ${m.sanctionStatus=='정지'?'selected':''}>정지</option>
-									<option value="탈퇴" ${m.sanctionStatus=='탈퇴'?'selected':''}>탈퇴</option>
+									<option value="無し" ${m.sanctionStatus=='無し'?'selected':''}>無し</option>
+									<option value="停止" ${m.sanctionStatus=='停止'?'selected':''}>停止</option>
+									<option value="脱退" ${m.sanctionStatus=='脱退'?'selected':''}>脱退</option>
 								</select>
-								<button type="submit">변경</button>
+								<button type="submit">変更</button>
 							</form>
 						</td>
 
@@ -118,7 +118,7 @@ request.setAttribute("totalPage", totalPage);
 		<!-- 페이징 링크 -->
 		<div class="pagination" style="text-align: center; margin-top: 20px;">
 			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage-1}">이전</a>
+				<a href="?page=${currentPage-1}">前</a>
 			</c:if>
 
 			<c:forEach var="i" begin="1" end="${totalPage}">
@@ -133,7 +133,7 @@ request.setAttribute("totalPage", totalPage);
 			</c:forEach>
 
 			<c:if test="${currentPage < totalPage}">
-				<a href="?page=${currentPage+1}">다음</a>
+				<a href="?page=${currentPage+1}">次</a>
 			</c:if>
 		</div>
 
@@ -141,13 +141,13 @@ request.setAttribute("totalPage", totalPage);
 		<div class="search-box">
 			<form method="get">
 				<select name="searchType">
-					<option value="name" ${searchType=='name'?'selected':''}>이름</option>
-					<option value="id" ${searchType=='id'?'selected':''}>아이디</option>
+					<option value="name" ${searchType=='name'?'selected':''}>名前</option>
+					<option value="id" ${searchType=='id'?'selected':''}>ID</option>
 					<option value="permission"
-						${searchType=='permission'?'selected':''}>권한</option>
+						${searchType=='permission'?'selected':''}>権限</option>
 				</select> <input type="text" name="keyword" value="${keyword}"
 					class="adm-input" />
-				<button type="submit" class="reg-btn">검색</button>
+				<button type="submit" class="reg-btn">検索</button>
 			</form>
 		</div>
 

@@ -7,7 +7,7 @@
     String password = request.getParameter("password");
 
     if(memberId == null || memberId.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-        out.println("<script>alert('아이디와 비밀번호를 입력해주세요.'); history.back();</script>");
+        out.println("<script>alert('IDとパスワードを入力してください。'); history.back();</script>");
         return;
     }
 
@@ -15,22 +15,22 @@
     int check = dao.loginCheck(memberId, password);
 
     if(check == 0) {
-        out.println("<script>alert('아이디 또는 비밀번호가 잘못되었습니다.'); history.back();</script>");
+        out.println("<script>alert('IDまたはパスワードが正しくありません。'); history.back();</script>");
         return;
     }
 
     MemberVO vo = dao.getMember(memberId);
     if(vo == null) {
-        out.println("<script>alert('회원 정보를 불러올 수 없습니다.'); history.back();</script>");
+        out.println("<script>alert('会員情報を読み込めません。'); history.back();</script>");
         return;
     }
 
     // 🚨 여기서 제재 상태 확인
     if ("정지".equals(vo.getSanctionStatus())) {
-        out.println("<script>alert('계정이 정지되었습니다. 관리자에게 문의하세요.'); history.back();</script>");
+        out.println("<script>alert('アカウントが停止されました。 管理者にお問い合わせください。'); history.back();</script>");
         return;
     } else if ("탈퇴".equals(vo.getSanctionStatus())) {
-        out.println("<script>alert('탈퇴된 계정입니다.'); history.back();</script>");
+        out.println("<script>alert('退会されたアカウントです。'); history.back();</script>");
         return;
     }
 

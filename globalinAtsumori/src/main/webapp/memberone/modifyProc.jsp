@@ -5,7 +5,7 @@
 <%
     String loginID = (String) session.getAttribute("loginID");
     if (loginID == null) {
-        out.println("<script>alert('로그인이 필요합니다.'); location.href='login.jsp';</script>");
+        out.println("<script>alert('ログインしてください。'); location.href='login.jsp';</script>");
         return;
     }
 
@@ -15,7 +15,7 @@
     String email = request.getParameter("email");
     
     if (password != null && !password.equals(repass)) {
-        out.println("<script>alert('비밀번호가 일치하지 않습니다.'); history.back();</script>");
+        out.println("<script>alert('パスワードが一致しません。'); history.back();</script>");
         return;
     }
 
@@ -23,7 +23,7 @@
     MemberVO dbVo = dao.getMember(loginID);
 
     if (dbVo == null) {
-        out.println("<script>alert('회원 정보를 불러올 수 없습니다.'); location.href='login.jsp';</script>");
+        out.println("<script>alert('会員情報を読み込めません。'); location.href='login.jsp';</script>");
         return;
     }
 
@@ -39,8 +39,8 @@
     int result = dao.updateMember(vo);
 
     if (result > 0) {
-        out.println("<script>alert('회원 정보가 수정되었습니다.'); location.href='" + request.getContextPath() + "/mypage/myPage.jsp';</script>");
+        out.println("<script>alert('会員情報が修正されました。'); location.href='" + request.getContextPath() + "/mypage/myPage.jsp';</script>");
     } else {
-        out.println("<script>alert('회원 정보 수정에 실패했습니다.'); history.back();</script>");
+        out.println("<script>alert('会員情報の修正に失敗しました。'); history.back();</script>");
     }
 %>

@@ -43,7 +43,7 @@
 
     // 5️⃣ ID 중복 체크
     if(dao.idCheck(memberId)){
-        out.println("<script>alert('이미 존재하는 ID입니다.'); history.back();</script>");
+        out.println("<script>alert('すでに存在するIDです。'); history.back();</script>");
         return;
     }
 
@@ -52,5 +52,5 @@
 
 
     // 회원가입 성공 후 로그인 화면으로 이동
-    out.println("<script>alert('회원가입 성공! 로그인 해주세요.'); location.href='" + request.getContextPath() + "/memberone/login.jsp';</script>");
+    out.println("<script>alert('会員登録成功！ログインしてください。'); location.href='" + request.getContextPath() + "/memberone/login.jsp';</script>");
 %>

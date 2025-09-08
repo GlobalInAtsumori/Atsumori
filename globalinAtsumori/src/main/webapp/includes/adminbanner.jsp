@@ -9,11 +9,11 @@
 	%>
 
 	<div class="adminbanner">
-		<span class="label">회원관리</span> 
+		<span class="label">会員管理</span> 
 		<a href="memberAdmin.jsp"
-			class="<%=currentPage.contains("memberAdmin.jsp") ? "active" : ""%>">권한</a>
+			class="<%=currentPage.contains("memberAdmin.jsp") ? "active" : ""%>">権限</a>
 		<a href="memberSanctions.jsp"
-			class="<%=currentPage.contains("memberSanctions.jsp") ? "active" : ""%>">제재</a>
+			class="<%=currentPage.contains("memberSanctions.jsp") ? "active" : ""%>">制裁</a>
 	</div>
 
 

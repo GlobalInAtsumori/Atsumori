@@ -19,26 +19,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ID 중복 체크</title>
+<title>ID重複チェック</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <br>
 <div align="center">
     <% if(memberId == null || memberId.trim().equals("")) { %>
-        <b>ID를 입력해주세요!</b>
+        <b>IDを入力してください！</b>
     <% } else { %>
         <b><%= memberId %></b>
         <%
             if(exists){
-                out.println("는 이미 존재하는 ID입니다.<br>");
+                out.println("は既に存在するIDです。<br>");
             } else {
-                out.println("는 사용 가능한 ID입니다.<br>");
+                out.println("は使用可能なIDです。<br>");
             }
         %>
     <% } %>
     <br><br>
-    <a href="#" onclick="self.close()">닫기</a>
+    <a href="#" onclick="self.close()">閉じる</a>
 </div>
 </body>
 </html>
