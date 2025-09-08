@@ -48,9 +48,11 @@ public class MypageController {
     
     @GetMapping("/myPage_board")
     public String myPageBoard(HttpSession session, Model model) {
-        // 실제 로그인 기능이 있다면 세션에서 현재 로그인된 사용자의 memberNo를 가져와야 합니다.
-        // 현재는 memberNo를 1로 가정합니다.
-        int memberNo = 1; 
+    	Integer memberNo = null;
+		memberNo = (Integer) session.getAttribute("memberNo");
+    	if(memberNo == null) {
+            return "redirect:/login";
+        }
 
         // MypageService를 통해 해당 사용자가 쓴 게시글 목록을 조회합니다.
         List<BoardDTO> myBoardList = mypageService.getArticlesByMemberNo(memberNo);
@@ -69,7 +71,12 @@ public class MypageController {
     
     @GetMapping("/myPage_boardComment")
     public String myPageBoardComment(HttpSession session, Model model) {
-        int memberNo = 1; 
+    	Integer memberNo = null;
+		memberNo = (Integer) session.getAttribute("memberNo");
+    	if(memberNo == null) {
+            return "redirect:/login";
+        }
+    	
         // MypageService를 호출하도록 수정
         List<BoardCommentDTO> myCommentList = mypageService.getCommentsByMemberNo(memberNo);
         model.addAttribute("myCommentList", myCommentList);
