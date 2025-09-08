@@ -1,6 +1,26 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="dao.MemberDAO"%>
+<%@ page import="domain.MemberVO"%>
+
 <%
+// 로그인 체크
+String loginID = (String) session.getAttribute("loginID");
+if (loginID == null) {
+	out.println("<script>alert('로그인이 필요합니다.'); location.href='login.jsp';</script>");
+	return;
+}
+
+// DAO에서 회원 정보 조회
+MemberDAO dao = new MemberDAO();
+MemberVO vo = dao.getMember(loginID);
+
+if (vo == null) {
+	out.println("<script>alert('회원 정보를 불러올 수 없습니다.'); location.href='login.jsp';</script>");
+	return;
+}
 request.setAttribute("bannerMessage", "MyPage");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -107,14 +127,37 @@ request.setAttribute("bannerMessage", "MyPage");
 				
 				
 				
-				<%-- DB에 저장된 해당 데이터를 전부 불러오는 코드 시작 --%>
-					<b style="font-size:15px;">테스트 입력1</b>
+				<table class="reg-table" style="width: 500px; height: 600px; table-layout: fixed;">
+		<tr>
+			<td colspan="2" align="center"  style="font-size: 25px;">회원 정보</td>
+		</tr>
+
+		<tr>
+			<td class="label"  style="font-size: 20px;">이름</td>
+			<td style="font-size: 20px;"><%= vo.getMemberName() %></td>
+		</tr>
+
+		<tr>
+			<td class="label" style="font-size: 20px;">아이디</td>
+			<td style="font-size: 20px;"><%= vo.getMemberId() %></td>
+		</tr>
+
+		<tr>
+			<td class="label" style="font-size: 20px;">이메일</td>
+			<td style="font-size: 20px;"><%= vo.getEmail() %></td>
+		</tr>
+
+		<tr>
+			<td class="label" style="font-size: 20px;">국가</td>
+			<td style="font-size: 20px;"><%= vo.getCountry() %></td>
+		</tr>
+	</table>
 					
 					
 					
 					<a href=
 						"${pageContext.request.contextPath}/memberone/modifyForm.jsp"
-						class="reg-btn">회원 정보 수정</a>
+						class="reg-btn" >회원 정보 수정</a>
 						
 						<a href=
 						"${pageContext.request.contextPath}/memberone/deleteForm.jsp"

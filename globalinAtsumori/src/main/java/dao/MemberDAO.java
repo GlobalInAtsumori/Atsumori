@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,7 @@ public class MemberDAO {
                 vo.setCountry(rs.getString("country"));
                 vo.setEmail(rs.getString("email"));
                 vo.setPermission(rs.getString("permission"));
+                vo.setSanctionStatus(rs.getString("sanction_status")); 
             }
 
         } catch (Exception e) {
@@ -153,8 +155,8 @@ public class MemberDAO {
         return result > 0;
     }
 
-    // 8️⃣ 회원 전체 목록 가져오기
-    @Autowired
+    
+    // 회원 전체 조회
     public List<MemberVO> getAllMembers() {
         List<MemberVO> list = new ArrayList<>();
         String sql = "SELECT * FROM member ORDER BY memberNo ASC";
@@ -162,39 +164,311 @@ public class MemberDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
-            while(rs.next()) {
-                MemberVO vo = new MemberVO();
-                vo.setMemberNo(rs.getInt("memberNo"));
-                vo.setMemberName(rs.getString("memberName"));
-                vo.setMemberId(rs.getString("memberId"));
-                vo.setPassword(rs.getString("password"));
-                vo.setCountry(rs.getString("country"));
-                vo.setEmail(rs.getString("email"));
-                vo.setPermission(rs.getString("permission"));
-                list.add(vo);
-            }
-
+        	while(rs.next()) {
+        	    MemberVO vo = new MemberVO();
+        	    vo.setMemberNo(rs.getInt("MEMBERNO"));       // memberNo -> MEMBERNO
+        	    vo.setMemberName(rs.getString("MEMBERNAME")); // memberName -> MEMBERNAME
+        	    vo.setMemberId(rs.getString("MEMBERID"));    // memberId -> MEMBERID
+        	    vo.setPassword(rs.getString("PASSWORD"));    // password -> PASSWORD
+        	    vo.setCountry(rs.getString("COUNTRY"));      // country -> COUNTRY
+        	    vo.setEmail(rs.getString("EMAIL"));          // email -> EMAIL
+        	    vo.setPermission(rs.getString("PERMISSION")); // permission -> PERMISSION
+        	    list.add(vo);
+        	}
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
 
-    // 9️⃣ 권한 변경
-    public int updatePermission(int memberNo, String permission) {
-        int result = 0;
-        String sql = "UPDATE member SET permission=? WHERE memberNo=?";
+    
+    
+ // MemberDAO.java 안에 추가
+    public List<MemberVO> getMembersByPage(int page, int pageSize) {
+        List<MemberVO> list = new ArrayList<>();
+        
+        // 시작 번호와 끝 번호 계산
+        int start = (page - 1) * pageSize + 1;
+        int end = page * pageSize;
+        
+        // Oracle ROWNUM 활용한 페이징 쿼리
+        String sql = "SELECT * FROM (" +
+                     "    SELECT a.*, ROWNUM rnum FROM (" +
+                     "        SELECT * FROM member ORDER BY memberNo ASC" +
+                     "    ) a WHERE ROWNUM <= ?" +
+                     ") WHERE rnum >= ?";
+        
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while(rs.next()) {
+                    MemberVO vo = new MemberVO();
+                    vo.setMemberNo(rs.getInt("MEMBERNO"));
+                    vo.setMemberName(rs.getString("MEMBERNAME"));
+                    vo.setMemberId(rs.getString("MEMBERID"));
+                    vo.setPassword(rs.getString("PASSWORD"));
+                    vo.setCountry(rs.getString("COUNTRY"));
+                    vo.setEmail(rs.getString("EMAIL"));
+                    vo.setPermission(rs.getString("PERMISSION"));
+                    list.add(vo);
+                }
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return list;
+    }
+    
+ // MemberDAO.java
+    public int getTotalCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM member";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if(rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+
+    
+    
+    // 권한 변경
+    public void updatePermission(int memberNo, String permission) {
+        if(permission == null || permission.trim().isEmpty()) {
+            permission = "user"; // 기본값 설정
+        }
+        String sql = "UPDATE member SET permission=? WHERE memberNo=?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, permission);
             pstmt.setInt(2, memberNo);
-            result = pstmt.executeUpdate();
+            pstmt.executeUpdate();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    
+    
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>검색기능<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+ // 이름으로 검색
+    public List<MemberVO> getMembersByName(String name) {
+        List<MemberVO> list = new ArrayList<>();
+        String sql = "SELECT * FROM member WHERE memberName LIKE ? ORDER BY memberNo ASC";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + name + "%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while(rs.next()) {
+                    MemberVO vo = new MemberVO();
+                    vo.setMemberNo(rs.getInt("MEMBERNO"));
+                    vo.setMemberName(rs.getString("MEMBERNAME"));
+                    vo.setMemberId(rs.getString("MEMBERID"));
+                    vo.setPassword(rs.getString("PASSWORD"));
+                    vo.setCountry(rs.getString("COUNTRY"));
+                    vo.setEmail(rs.getString("EMAIL"));
+                    vo.setPermission(rs.getString("PERMISSION"));
+                    list.add(vo);
+                }
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
 
+    // ID로 검색
+    public List<MemberVO> getMembersById(String id) {
+        List<MemberVO> list = new ArrayList<>();
+        String sql = "SELECT * FROM member WHERE memberId LIKE ? ORDER BY memberNo ASC";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + id + "%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while(rs.next()) {
+                    MemberVO vo = new MemberVO();
+                    vo.setMemberNo(rs.getInt("MEMBERNO"));
+                    vo.setMemberName(rs.getString("MEMBERNAME"));
+                    vo.setMemberId(rs.getString("MEMBERID"));
+                    vo.setPassword(rs.getString("PASSWORD"));
+                    vo.setCountry(rs.getString("COUNTRY"));
+                    vo.setEmail(rs.getString("EMAIL"));
+                    vo.setPermission(rs.getString("PERMISSION"));
+                    list.add(vo);
+                }
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+
+    // 권한으로 검색
+    public List<MemberVO> getMembersByPermission(String permission) {
+        List<MemberVO> list = new ArrayList<>();
+        String sql = "SELECT * FROM member WHERE permission = ? ORDER BY memberNo ASC";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, permission);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while(rs.next()) {
+                    MemberVO vo = new MemberVO();
+                    vo.setMemberNo(rs.getInt("MEMBERNO"));
+                    vo.setMemberName(rs.getString("MEMBERNAME"));
+                    vo.setMemberId(rs.getString("MEMBERID"));
+                    vo.setPassword(rs.getString("PASSWORD"));
+                    vo.setCountry(rs.getString("COUNTRY"));
+                    vo.setEmail(rs.getString("EMAIL"));
+                    vo.setPermission(rs.getString("PERMISSION"));
+                    list.add(vo);
+                }
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+    
+ // 회원번호로 회원 삭제
+    public int deleteMemberByNo(int memberNo) {
+        int result = 0;
+        Connection conn = null;
+
+        try {
+            conn = getConnection();
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            // 연관 테이블 먼저 삭제
+            try (PreparedStatement pstmt1 = conn.prepareStatement(
+                    "DELETE FROM comment WHERE memberNo = ?")) {
+                pstmt1.setInt(1, memberNo);
+                pstmt1.executeUpdate();
+            }
+
+            try (PreparedStatement pstmt2 = conn.prepareStatement(
+                    "DELETE FROM board WHERE memberNo = ?")) {
+                pstmt2.setInt(1, memberNo);
+                pstmt2.executeUpdate();
+            }
+
+            // 마지막으로 member 삭제
+            try (PreparedStatement pstmt3 = conn.prepareStatement(
+                    "DELETE FROM member WHERE memberNo = ?")) {
+                pstmt3.setInt(1, memberNo);
+                pstmt3.executeUpdate();
+            }
+
+            conn.commit(); // 트랜잭션 커밋
+            result = 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                if (conn != null) conn.rollback(); // 롤백
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                if (conn != null) conn.close(); // 연결 종료
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
+
+
+
+    
+
+
+
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>검색기능<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
+    public int updateSanction(int memberNo, String status) {
+        int result = 0;
+        String sql = "UPDATE member SET sanctionStatus = ? WHERE memberNo = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, status);
+            pstmt.setInt(2, memberNo);
+            result = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
 
+    public int deleteMemberCompletely(int memberNo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int result = 0; // 삭제된 회원 수
+
+        try {
+            conn = getConnection();
+
+            // (삭제 순서는 그대로)
+            pstmt = conn.prepareStatement("DELETE FROM boardComment WHERE memberNo = ?");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            pstmt = conn.prepareStatement("DELETE FROM board2 WHERE memberNo = ?");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            pstmt = conn.prepareStatement("DELETE FROM reviewImage WHERE reviewNo IN (SELECT reviewNo FROM review WHERE memberNo = ?)");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            pstmt = conn.prepareStatement("DELETE FROM review WHERE memberNo = ?");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            pstmt = conn.prepareStatement("DELETE FROM tradeImage WHERE tradePostNo IN (SELECT tradePostNo FROM tradePost WHERE memberNo = ?)");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            pstmt = conn.prepareStatement("DELETE FROM chatMessage WHERE memberNo = ?");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            pstmt = conn.prepareStatement("DELETE FROM tradePost WHERE memberNo = ?");
+            pstmt.setInt(1, memberNo);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            // 최종 member 삭제
+            pstmt = conn.prepareStatement("DELETE FROM member WHERE memberNo = ?");
+            pstmt.setInt(1, memberNo);
+            result = pstmt.executeUpdate(); // 삭제된 회원 수 반환
+            pstmt.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try { if (pstmt != null) pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+
+        return result;
+    }
+
+
+    
 }

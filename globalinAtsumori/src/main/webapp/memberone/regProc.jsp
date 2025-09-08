@@ -50,14 +50,6 @@
     // 6️⃣ 회원가입
     dao.insertMember(vo);
 
-    /* // 7️⃣ 회원가입 성공 후 바로 로그인 처리
-    session.setAttribute("loginID", memberId);
-    session.setAttribute("memberName", name);
-
-    out.println("<script>alert('회원가입 성공'); location.href='" + request.getContextPath() + "/mainPage.jsp';</script>"); */
-    
- // 6️⃣ 회원가입
-    dao.insertMember(vo);
 
     // 회원가입 성공 후 로그인 화면으로 이동
     out.println("<script>alert('회원가입 성공! 로그인 해주세요.'); location.href='" + request.getContextPath() + "/memberone/login.jsp';</script>");

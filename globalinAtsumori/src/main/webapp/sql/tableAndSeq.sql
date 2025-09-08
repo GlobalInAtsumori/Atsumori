@@ -12,47 +12,14 @@ CREATE TABLE member (
 
 insert into member values(4, '김철수', '김철수', '1234', 'test@gmail.com', 'korea', 'user');
 select * from member;
+--ALTER TABLE member ADD (
+--  sanction_status VARCHAR2(20) DEFAULT '없음' NOT NULL,  -- 없음, 정지, 탈퇴
+--  suspend_until DATE,                                  -- 정지 해제일 (NULL이면 무기한)
+--  suspend_reason VARCHAR2(4000)
+--);
 
 
 
-
--- 1. member 테이블에 정지기간 컬럼 추가 (이미 permission 컬럼은 존재)
-ALTER TABLE member ADD (
-  suspend_until DATE,     -- 정지 해제일 (NULL이면 정지 아님)
-  suspend_reason VARCHAR2(4000)
-);
-
--- 2. 회원 신고 테이블 (member 신고)
-CREATE TABLE member_report (
-  report_no NUMBER PRIMARY KEY,
-  reported_member_no NUMBER NOT NULL,  -- 신고 대상 회원 memberNo
-  reporter_member_no NUMBER,            -- 신고자 (NULL 허용)
-  report_content VARCHAR2(2000),
-  report_date DATE DEFAULT SYSDATE,
-  handled CHAR(1) DEFAULT 'N'          -- 처리 여부: Y/N
-);
-
-
-
--- 3. 게시글 신고 테이블 (board2 신고)
-CREATE TABLE board_report (
-  board_report_no NUMBER PRIMARY KEY,
-  board_no NUMBER NOT NULL,
-  reporter_member_no NUMBER,
-  report_content VARCHAR2(2000),
-  report_date DATE DEFAULT SYSDATE,
-  handled CHAR(1) DEFAULT 'N'
-);
-
--- 4. 댓글 신고 테이블
-CREATE TABLE comment_report (
-  comment_report_no NUMBER PRIMARY KEY,
-  comment_no NUMBER NOT NULL,
-  reporter_member_no NUMBER,
-  report_content VARCHAR2(2000),
-  report_date DATE DEFAULT SYSDATE,
-  handled CHAR(1) DEFAULT 'N'
-);
 
 
 -- tradePost 테이블

@@ -1,52 +1,63 @@
 package service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import domain.BoardVO;
-import mapper.AdminBoardMapper;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import utils.MyBatisUtil;
+import dto.BoardDTO;
+import dto.PostAdminDTO;
 
+import domain.TradeVO;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+
+import java.util.Comparator;
+import java.util.List;
+
+@Service
 public class AdminBoardService {
 
-    private SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
+    private final BoardService boardService;
+    private final TradeService tradeService;
 
-    public List<BoardVO> getBoardList(int page, int pageSize, String searchType, String searchValue) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            AdminBoardMapper mapper = session.getMapper(AdminBoardMapper.class);
-            int start = (page - 1) * pageSize + 1;
-            int end = page * pageSize;
-
-            Map<String, Object> params = new HashMap<>();
-            params.put("start", start);
-            params.put("end", end);
-            params.put("searchType", searchType);
-            params.put("searchValue", searchValue);
-
-            return mapper.getBoardList(params);
-        }
+    public AdminBoardService(BoardService boardService, TradeService tradeService) {
+        this.boardService = boardService;
+        this.tradeService = tradeService;
     }
 
-    public int getBoardCount(String searchType, String searchValue) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            AdminBoardMapper mapper = session.getMapper(AdminBoardMapper.class);
-            Map<String, Object> params = new HashMap<>();
-            params.put("searchType", searchType);
-            params.put("searchValue", searchValue);
-            return mapper.getBoardCount(params);
+    public List<PostAdminDTO> getAllPosts(int page, int pageSize) {
+        int startRow = (page - 1) * pageSize;
+
+        // 자유게시판 글 가져오기
+        List<BoardDTO> boardList = boardService.getArticles(startRow, pageSize);
+
+        // 중고거래 글 가져오기
+        List<TradeVO> tradeList = tradeService.getPagedPosts(page, pageSize);
+
+        List<PostAdminDTO> allPosts = new ArrayList<>();
+
+        for (BoardDTO b : boardList) {
+            PostAdminDTO dto = new PostAdminDTO();
+            dto.setPostNo(b.getBoardno());
+            dto.setTitle(b.getTitle());
+            dto.setWriter(b.getMemberName());
+            dto.setCreatedDate(b.getCreatedate());
+            dto.setBoardType("자유게시판");
+            dto.setStatus("게시됨");
+            allPosts.add(dto);
         }
+
+        for (TradeVO t : tradeList) {
+            PostAdminDTO dto = new PostAdminDTO();
+            dto.setPostNo(t.getTradePostNo());
+            dto.setTitle(t.getTradeTitle());
+            dto.setWriter(t.getMemberName());
+            dto.setCreatedDate(t.getCreateDate());
+            dto.setBoardType("중고거래");
+            dto.setStatus(t.getStatus());
+            allPosts.add(dto);
+        }
+
+        allPosts.sort(Comparator.comparing(PostAdminDTO::getCreatedDate).reversed());
+        return allPosts;
     }
 
-    public void updateBoardStatus(int boardno, String status) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            AdminBoardMapper mapper = session.getMapper(AdminBoardMapper.class);
-            Map<String, Object> params = new HashMap<>();
-            params.put("boardno", boardno);
-            params.put("status", status);
-            mapper.updateBoardStatus(params);
-            session.commit();
-        }
-    }
+
 }

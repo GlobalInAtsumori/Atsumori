@@ -1,53 +1,31 @@
 package controller;
 
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import domain.BoardVO;
+import dto.PostAdminDTO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import service.AdminBoardService;
 
-@WebServlet("/admin/board")
-public class AdminBoardController extends HttpServlet {
+import java.util.List;
 
-    private AdminBoardService service = new AdminBoardService();
+@Controller
+public class AdminBoardController {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private final AdminBoardService adminBoardService;
 
-        int page = 1;
-        int pageSize = 10;
-
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-
-        String searchType = request.getParameter("searchType");
-        String searchValue = request.getParameter("searchValue");
-
-        List<BoardVO> boardList = service.getBoardList(page, pageSize, searchType, searchValue);
-        int totalCount = service.getBoardCount(searchType, searchValue);
-
-        request.setAttribute("boardList", boardList);
-        request.setAttribute("totalCount", totalCount);
-        request.setAttribute("page", page);
-        request.setAttribute("pageSize", pageSize);
-
-        request.getRequestDispatcher("/admin/adminBoardList.jsp").forward(request, response);
+    public AdminBoardController(AdminBoardService adminBoardService) {
+        this.adminBoardService = adminBoardService;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // 상태 변경 요청 처리 (숨김/삭제)
-        int boardno = Integer.parseInt(request.getParameter("boardno"));
-        String status = request.getParameter("status");
-
-        service.updateBoardStatus(boardno, status);
-        response.sendRedirect(request.getContextPath() + "/admin/board");
+    @GetMapping("/admin/posts")
+    public String getAllPosts(@RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "10") int pageSize,
+                              Model model) {
+        List<PostAdminDTO> allPosts = adminBoardService.getAllPosts(page, pageSize);
+        model.addAttribute("allPosts", allPosts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", pageSize);
+        return "adminBoard"; // adminBoard.jsp
     }
 }

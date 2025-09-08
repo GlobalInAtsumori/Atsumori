@@ -26,7 +26,9 @@
                 // null-safe + 대소문자 상관없이 admin 체크
                 if (loginPermission != null && loginPermission.equalsIgnoreCase("admin")) {
             %>
-                <a href="<%=request.getContextPath()%>/admin/dashboard.jsp">管理者</a>
+
+                <a href="<%=request.getContextPath()%>/admin/memberAdmin.jsp">管理者</a>
+
             <%
                 }
             %>

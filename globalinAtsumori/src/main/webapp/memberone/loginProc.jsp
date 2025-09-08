@@ -25,7 +25,16 @@
         return;
     }
 
-    // 로그인 성공 시 세션에 정보 저장 (null-safe, 대소문자 상관없이 admin 체크)
+    // 🚨 여기서 제재 상태 확인
+    if ("정지".equals(vo.getSanctionStatus())) {
+        out.println("<script>alert('계정이 정지되었습니다. 관리자에게 문의하세요.'); history.back();</script>");
+        return;
+    } else if ("탈퇴".equals(vo.getSanctionStatus())) {
+        out.println("<script>alert('탈퇴된 계정입니다.'); history.back();</script>");
+        return;
+    }
+
+    // 로그인 성공 시 세션에 정보 저장
     session.setAttribute("loginID", vo.getMemberId());
     session.setAttribute("memberNo", vo.getMemberNo());
     session.setAttribute("memberName", vo.getMemberName());
@@ -39,4 +48,5 @@
 
     // 메인 페이지로 이동
     response.sendRedirect(request.getContextPath() + "../mainPage.jsp");
+
 %>
