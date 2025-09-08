@@ -16,7 +16,7 @@ String pageNum = (String) request.getAttribute("pageNum");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>雑談掲示板</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="script.js"></script>
 </head>
@@ -28,13 +28,13 @@ String pageNum = (String) request.getAttribute("pageNum");
 	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 <div align="center">
-<br><b>글삭제</b><br><br>
+<br><b>削除</b><br><br>
 <form action="deleteProc?pageNum=${pageNum}" name="delForm" method="post">
 <table width="360" border="2" align="center" cellpadding="0" cellspacing="0">
 
 <tr height="30">
 	<td align="center" bgcolor="${value_c}">
-	   <b>이 글을 삭제하시겠습니까?</b>
+	   <b>この内容を削除しますか？</b>
 	</td>
 </tr>
 	
@@ -46,8 +46,8 @@ String pageNum = (String) request.getAttribute("pageNum");
 
 <tr height="30">
     <td align="center" bgcolor="${value_c}">
-        <input type="submit" value="글삭제">
-        <input type="button" value="글목록" onclick="document.location.href='list?pageNum=${pageNum}'">
+        <input type="submit" value="削除">
+        <input type="button" value="投稿一覧" onclick="document.location.href='list?pageNum=${pageNum}'">
     </td>
 </tr>
 </table>

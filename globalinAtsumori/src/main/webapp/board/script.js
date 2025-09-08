@@ -1,12 +1,12 @@
 function writeSave(){
 	if(document.writeForm.title.value==""){
-		alert("제목을 입력해 주세요...♡");
+		alert("제목을 입력해 주세요...");
 		document.writeForm.title.focus();
 		return false;
 	}
 	
 	if(document.writeForm.content.value==""){
-		alert("내용을 입력해 주세요...♡");
+		alert("내용을 입력해 주세요...");
 		document.writeForm.content.focus();
 		return false;
 	}

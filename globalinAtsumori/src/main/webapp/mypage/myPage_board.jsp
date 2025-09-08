@@ -9,7 +9,7 @@ request.setAttribute("bannerMessage", "MyPage");
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>아쯔모리</title>
+	<title>マイページ</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	
 	
@@ -77,39 +77,39 @@ request.setAttribute("bannerMessage", "MyPage");
 		
 			<div class="myPageMenu">
 			<!-- 왼쪽 마이페이지 카테고리 테이블 -->
-					<b style="font-size:20px;">《마이 페이지》</b><br><br><br><br>
+					<b style="font-size:20px;">《マイページ》</b><br><br><br><br>
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">회원 정보 확인</a><br><br><br>
+						onmouseout="this.style.textDecoration='none';">会員情報確認</a><br><br><br>
 						
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage_board"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">내가 쓴 게시글 보기</a><br><br><br>
+						onmouseout="this.style.textDecoration='none';">自分の投稿</a><br><br><br>
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage_boardComment"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">내가 쓴 댓글 보기</a><br><br><br>
+						onmouseout="this.style.textDecoration='none';">自分のコメント</a><br><br><br>
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage_restaurantReview"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">내가 쓴 맛집리뷰글 보기</a><br><br><br>
+						onmouseout="this.style.textDecoration='none';">自分のグルメレビュー</a><br><br><br>
 						<a href=
 						"${pageContext.request.contextPath}/mypage/myPage_trade"
 						style="font-weight:bold; color:black; text-decoration:none;"
 						onmouseover="this.style.textDecoration='underline';"
-						onmouseout="this.style.textDecoration='none';">내가 쓴 중고거래글 보기</a><br><br><br>
+						onmouseout="this.style.textDecoration='none';">中古品売買</a><br><br><br>
 			</div>
 		
 		
 			<div class="myPageWrapper2">		<%-- myPageWrapper2의 시작 --%>
 				<div class="myPageTitle">
-					<b style="font-size:20px;">내가 쓴 게시글 보기</b>
+					<b style="font-size:20px;">自分の投稿</b>
 				</div>
 				<div class="myPageContent">
 				
@@ -117,9 +117,9 @@ request.setAttribute("bannerMessage", "MyPage");
         		<table class="myBoardTable">
    					<thead>
         				<tr>
-            				<th style="width:20%;">게시번호</th>
-            				<th style="width:60%;">게시제목</th>
-            				<th style="width:20%;">작성일자</th>
+            				<th style="width:20%;">番号</th>
+            				<th style="width:60%;">タイトル</th>
+            				<th style="width:20%;">投稿日</th>
         				</tr>
     				</thead>
     				<tbody>
@@ -144,7 +144,7 @@ request.setAttribute("bannerMessage", "MyPage");
             				</c:when>
             				<c:otherwise>
                 				<tr>
-                    				<td colspan="3" style="text-align: center;">작성된 게시글이 없습니다.</td>
+                    				<td colspan="3" style="text-align: center;">投稿がありません。</td>
                 				</tr>
             				</c:otherwise>
         				</c:choose>

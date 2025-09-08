@@ -64,7 +64,8 @@ CREATE TABLE board2 (
     CONSTRAINT PK_BOARD PRIMARY KEY (boardNo),
     CONSTRAINT FK_BOARD_MEMBER FOREIGN KEY (memberNo) REFERENCES member(memberNo)
 );
-
+drop table board2;
+select * from board2;
 -- restaurant 테이블
 CREATE TABLE restaurant (
     restNo NUMBER NOT NULL,

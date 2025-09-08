@@ -18,7 +18,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>雑談掲示板</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body bgcolor="${bodyback_c}">
@@ -29,21 +29,21 @@
 	<jsp:include page="/includes/MultiChatMain_20250806.jsp" />
 
 <div align="center">
-<br><b>글 상세 보기</b><br><br>
+<br><b>詳細</b><br><br>
 
 <table width="500" border="2" cellpadding="0" cellspacing="0"
 align="center" bgcolor="${bodyback_c}">
 
 <tr height="30">
-	<td align="center" width="15%" bgcolor="${value_c}">글번호</td>
+	<td align="center" width="15%" bgcolor="${value_c}">番号</td>
 	<td align="center" width="35%">${article.getBoardno() }</td>
-	<td align="center" width="15%" bgcolor="${value_c}">작성일</td>
+	<td align="center" width="15%" bgcolor="${value_c}">作成日</td>
 	<td align="center" width="35%">
 		<fmt:formatDate value="${article.createdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 	</td>
 </tr>
 <tr height="30">
-	<td align="center" width="15%" bgcolor="${value_c}">작성자</td>
+	<td align="center" width="15%" bgcolor="${value_c}">作成者</td>
 	<td align="center" width="35%">${article.getMemberName() }</td>
 	<td align="center" width="375" colspan="2"></td>
 </tr>
@@ -70,13 +70,13 @@ align="center" bgcolor="${bodyback_c}">
 align="center" bgcolor="${bodyback_c}">
 
 <tr height="30">
-	<td align="center" width="15%" bgcolor="${value_c}">글제목</td>
+	<td align="center" width="15%" bgcolor="${value_c}">タイトル</td>
 	<td align="left" width="375" colspan="3">
 	${article.title}</td>
 </tr>
 
 <tr height="30">
-	<td align="center" width="15%" bgcolor="${value_c}">글내용</td>
+	<td align="center" width="15%" bgcolor="${value_c}">内容</td>
 	<td align="left" width="375" colspan="3">
 		<p style="white-space: pre-wrap;">${article.content}</p>
 	</td>
@@ -92,24 +92,24 @@ align="center" bgcolor="${bodyback_c}">
 	<td colspan="4" bgcolor="${value_c}" align="center">
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginID}">
-				<input type="button" value="글수정"
+				<input type="button" value="編集"
 					onclick="document.location.href='updateForm?boardno=${article.boardno}&pageNum=${pageNum}'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="글삭제"
+				<input type="button" value="削除"
 					onclick="document.location.href='deleteForm?boardno=${article.boardno}&pageNum=${pageNum}'">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="글수정"
+				<input type="button" value="編集"
 					onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='${pageContext.request.contextPath}/memberone/login.jsp';">
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="글삭제"
+				<input type="button" value="削除"
 					onclick="alert('로그인이 되지 않았습니다. 로그인 해 주세요.'); location.href='${pageContext.request.contextPath}/memberone/login.jsp';">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:otherwise>
 		</c:choose>
 		
-		<input type="button" value="글목록"
+		<input type="button" value="投稿一覧"
 			onclick="document.location.href='list?pageNum=${pageNum}'">
 	</td>
 </tr>
@@ -117,10 +117,10 @@ align="center" bgcolor="${bodyback_c}">
 
 <br>
 <div style="width: 500px; margin: 0 auto; text-align: left;">
-    <h4 style="border-bottom: 2px solid #ccc; padding-bottom: 5px; margin-bottom: 0;">댓글</h4>
+    <h4 style="border-bottom: 2px solid #ccc; padding-bottom: 5px; margin-bottom: 0;">コメント</h4>
 
     <c:forEach var="comment" items="${commentList}">
-    <%-- padding과 margin-top 값을 줄여서 공간을 줄였습니다. --%>
+    <%-- padding과 margin-top 값을 줄여서 공간을 줄였음. --%>
     <div style="border: 2px solid #ccc; padding: 5px; margin-top: 5px; border-radius: 5px;">
         <p><strong>${comment.memberName}</strong> 
             <small>(<fmt:formatDate value="${comment.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>)</small>
@@ -133,7 +133,7 @@ align="center" bgcolor="${bodyback_c}">
                     <input type="hidden" name="commentNo" value="${comment.commentNo}">
                     <input type="hidden" name="boardNo" value="${comment.boardNo}">
                     <input type="hidden" name="pageNum" value="${pageNum}">
-                    <input type="submit" value="삭제" onclick="return confirm('정말로 삭제하시겠습니까?');">
+                    <input type="submit" value="削除" onclick="return confirm('本当に削除してよろしいですか？');">
                 </form>
             </div>
         <%-- </c:if> --%>
@@ -141,7 +141,7 @@ align="center" bgcolor="${bodyback_c}">
 	</c:forEach>
 
     <c:if test="${empty commentList}">
-        <p>작성된 댓글이 없습니다.</p>
+        <p>この投稿にはコメントがありません。</p>
     </c:if>
 
 
@@ -150,14 +150,14 @@ align="center" bgcolor="${bodyback_c}">
         <form action="addComment" method="post" style="display: flex; flex-direction: column; align-items: flex-end;">
           	<input type="hidden" name="boardNo" value="${article.boardno}">
   		  	<input type="hidden" name="pageNum" value="${pageNum}">
-    		<textarea name="content" rows="3" cols="68" placeholder="댓글을 입력하세요." required></textarea>
+    		<textarea name="content" rows="3" cols="68" placeholder="コメントを入力してください。" required></textarea>
     		
-    		<input type="submit" value="댓글 작성">
+    		<input type="submit" value="コメント作成">
 			<br><br>
 		</form>
     </c:if>
     <c:if test="${empty sessionScope.loginID}">
-        <p>댓글을 작성하려면 <a href="${pageContext.request.contextPath}/member/login.jsp">로그인</a>해주세요.</p>
+        <p>コメントするには <a href="${pageContext.request.contextPath}/memberone/login.jsp">ログイン</a>が必要です。</p>
     </c:if>
 
 
