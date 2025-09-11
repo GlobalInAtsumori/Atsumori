@@ -1,78 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.BoardMapper">
+
+    <resultMap id="boardResultMap" type="dto.BoardDTO">
+        <id property="boardno" column="boardNo"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="createdate" column="createDate"/>
+        <result property="memberno" column="memberNo"/>
+        <result property="memberName" column="memberName"/>
+    </resultMap>
 
     <select id="getArticleCount" resultType="int">
         SELECT count(*) FROM board2
     </select>
+
+    <select id="getArticles" resultMap="boardResultMap">
+        SELECT *
+        FROM (
+            SELECT ROWNUM AS rn, b.*, m.memberName
+            FROM board2 b
+            INNER JOIN member m ON b.memberNo = m.memberNo
+            ORDER BY b.boardNo DESC
+        )
+        WHERE rn BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
+    </select>
     
     <select id="getArticleCountBySearch" resultType="int">
-        <choose>
-            <when test="searchWhat == 'subject'">
-                SELECT count(*) FROM board2 WHERE title LIKE '%' || #{searchText} || '%'
-            </when>
-            <when test="searchWhat == 'writer'">
-                SELECT count(*) FROM board2 WHERE memberNo LIKE '%' || #{searchText} || '%'
-            </when>
-            <when test="searchWhat == 'content'">
-                SELECT count(*) FROM board2 WHERE content LIKE '%' || #{searchText} || '%'
-            </when>
-            <otherwise>
-                SELECT count(*) FROM board2
-            </otherwise>
-        </choose>
-    </select>
-    
-    <select id="getArticles" resultType="dto.BoardDTO">
-        SELECT * FROM (SELECT ROWNUM rnum, b.*, m.memberId, m.memberName
-                        FROM (SELECT * FROM board2 ORDER BY boardno DESC) b
-                        JOIN member m ON b.memberno = m.memberNo)
-        WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
-    </select>
-    
-    <select id="getArticlesBySearch" resultType="dto.BoardDTO">
-        SELECT * FROM (SELECT ROWNUM rnum, b.*, m.memberId, m.memberName
-                        FROM (
-                            SELECT * FROM board2
-                            <where>
-                                <if test="searchWhat == 'subject'">
-                                    title LIKE '%' || #{searchText} || '%'
-                                </if>
-                                <if test="searchWhat == 'writer'">
-                                    memberNo LIKE '%' || #{searchText} || '%'
-                                </if>
-                                <if test="searchWhat == 'content'">
-                                    content LIKE '%' || #{searchText} || '%'
-                                </if>
-                            </where>
-                            ORDER BY boardno DESC
-                        ) b
-                        JOIN member m ON b.memberno = m.memberNo
-                    )
-        WHERE rnum BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
-    </select>
-    
-    <select id="getArticle" resultType="dto.BoardDTO">
-        SELECT b.*, m.memberId, m.memberName
+        SELECT count(*)
         FROM board2 b
-        JOIN member m ON b.memberno = m.memberNo
-        WHERE b.boardno = #{boardno}
+        INNER JOIN member m ON b.memberNo = m.memberNo
+        <where>
+            <if test="searchWhat == 'writer' and searchText != null and searchText != ''">
+                m.memberName LIKE '%' || #{searchText} || '%'
+            </if>
+            <if test="searchWhat == 'subject' and searchText != null and searchText != ''">
+                b.title LIKE '%' || #{searchText} || '%'
+            </if>
+            <if test="searchWhat == 'content' and searchText != null and searchText != ''">
+                b.content LIKE '%' || #{searchText} || '%'
+            </if>
+        </where>
     </select>
-    
-    <insert id="insertArticle">
-        INSERT INTO board2(boardno, title, content, createdate, memberno)
-        VALUES(board_seq2.nextval, #{title}, #{content}, SYSDATE, #{memberno})
+
+    <select id="getArticlesBySearch" resultMap="boardResultMap">
+        SELECT *
+        FROM (
+            SELECT ROWNUM AS rn, b.*, m.memberName
+            FROM board2 b
+            INNER JOIN member m ON b.memberNo = m.memberNo
+            <where>
+                <if test="searchWhat == 'writer' and searchText != null and searchText != ''">
+                    m.memberName LIKE '%' || #{searchText} || '%'
+                </if>
+                <if test="searchWhat == 'subject' and searchText != null and searchText != ''">
+                    b.title LIKE '%' || #{searchText} || '%'
+                </if>
+                <if test="searchWhat == 'content' and searchText != null and searchText != ''">
+                    b.content LIKE '%' || #{searchText} || '%'
+                </if>
+            </where>
+            ORDER BY b.boardNo DESC
+        )
+        WHERE rn BETWEEN #{startRow} AND #{startRow} + #{pageSize} - 1
+    </select>
+
+    <select id="getArticle" resultMap="boardResultMap">
+        SELECT b.*, m.memberName
+        FROM board2 b
+        INNER JOIN member m ON b.memberNo = m.memberNo
+        WHERE b.boardNo = #{boardno}
+    </select>
+
+    <insert id="insertArticle" parameterType="domain.BoardVO">
+        INSERT INTO board2 (boardNo, title, content, createDate, memberNo)
+        VALUES (board_seq2.NEXTVAL, #{title}, #{content}, CURRENT_TIMESTAMP, #{memberno})
     </insert>
-    
-    <update id="updateArticle">
+
+    <update id="updateArticle" parameterType="domain.BoardVO">
         UPDATE board2
         SET title = #{title}, content = #{content}
-        WHERE boardno = #{boardno}
+        WHERE boardNo = #{boardno}
     </update>
-    
+
     <delete id="deleteArticle">
-        DELETE FROM board2 WHERE boardno = #{boardno}
+        DELETE FROM board2 WHERE boardNo = #{boardno}
     </delete>
+
 </mapper>
